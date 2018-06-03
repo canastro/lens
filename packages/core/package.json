@@ -2,13 +2,15 @@
   "name": "image-filter-core",
   "version": "2.0.2",
   "description": "Core module for image-filter",
-  "main": "src/index.js",
+  "main": "dist/image-filter-core.cjs.js",
+  "module": "dist/image-filter-core.esm.js",
+  "browser": "dist/image-filter-core.umd.js",
   "scripts": {
-    "eslint": "eslint src/**/*.js",
-    "test": "karma start",
-    "build": "npm run eslint && browserify sandbox/sandbox.js > sandbox/bundle.js",
+    "build": "NODE_ENV=production rollup -c",
     "codecov": "cat coverage/*/lcov.info | codecov",
-    "serve": "http-server sandbox"
+    "dev": "NODE_ENV=production rollup -c -w",
+    "sandbox": "rollup -c rollup.dev.config.js -w",
+    "test": "NODE_ENV=test jest --coverage"
   },
   "author": "Ricardo Canastro",
   "license": "ISC",
@@ -30,23 +32,19 @@
     "pixel"
   ],
   "devDependencies": {
-    "browserify": "^13.0.0",
-    "browserify-istanbul": "^1.0.0",
-    "chai": "^3.5.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-jest": "^23.0.1",
     "codecov.io": "^0.1.6",
-    "eslint": "^3.13.0",
-    "http-server": "^0.9.0",
-    "karma": "^0.13.22",
-    "karma-browserify": "^5.0.2",
-    "karma-coverage": "^0.5.5",
-    "karma-mocha": "^0.2.2",
-    "karma-mocha-reporter": "^2.0.0",
-    "karma-phantomjs-launcher": "^1.0.0",
-    "mocha": "^2.4.5",
-    "phantomjs-prebuilt": "^2.1.5",
-    "sinon": "^1.17.3"
+    "eslint": "^4.19.1",
+    "jest": "^23.1.0",
+    "rollup": "^0.59.4",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-serve": "^0.4.2"
   },
   "dependencies": {
-    "es6-promise": "^4.0.5"
+    "workerize": "^0.1.7"
   }
 }

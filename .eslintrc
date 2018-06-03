@@ -1,5 +1,6 @@
 {
     "extends": "eslint:recommended",
+    "parser": "babel-eslint",
     "env": {
         "browser": true,
         "node": true
@@ -9,16 +10,15 @@
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
-
         "no-cond-assign": ["error", "always"],
-
         "no-console": "off"
     },
     "globals": {
         "describe": true,
-        "context": true,
+        "expect": true,
         "it": true,
         "beforeEach": true,
-        "afterEach": true
+        "afterEach": true,
+        "jest": true
     }
 }

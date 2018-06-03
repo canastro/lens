@@ -1,5 +1,23 @@
 {
+	"scripts": {
+		"bootstrap": "lerna bootstrap",
+		"format": "prettier es5 --single-quote --write --tab-width 4 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
+		"lint": "eslint .",
+		"precommit": "lint-staged",
+		"publish": "lerna publish"
+	},
+	"lint-staged": {
+		"*.js": [
+			"prettier es5 --single-quote --write --tab-width 4",
+			"git add"
+		]
+	},
 	"devDependencies": {
-		"lerna": "^2.11.0"
+		"babel-eslint": "^8.2.3",
+		"eslint": "^4.19.1",
+		"husky": "^0.14.3",
+		"lerna": "^2.11.0",
+		"lint-staged": "^7.0.0",
+		"prettier": "^1.11.1"
 	}
 }

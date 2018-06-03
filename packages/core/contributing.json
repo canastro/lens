@@ -1,4 +1,3 @@
-// https://gitmagic.io/rules
 {
   "commit": {
     "subject_cannot_be_empty": true,

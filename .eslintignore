@@ -1,3 +1,5 @@
-grunt
-gulp
 node_modules
+*.spec.js
+dist
+coverage
+sandbox

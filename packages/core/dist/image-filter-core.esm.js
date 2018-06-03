@@ -6,7 +6,7 @@ import workerize from 'workerize';
  * @param {Number} h - height
  * @returns {Object}
  */
-export function getCanvas(w, h) {
+function getCanvas(w, h) {
     const canvas = document.createElement('canvas');
     canvas.width = w;
     canvas.height = h;
@@ -19,7 +19,7 @@ export function getCanvas(w, h) {
  * @param {ImageData} imageData
  * @returns {String}
  */
-export const convertImageDataToCanvasURL = imageData => {
+function convertImageDataToCanvasURL(imageData) {
     const canvas = window.document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = imageData.width;
@@ -27,19 +27,17 @@ export const convertImageDataToCanvasURL = imageData => {
     ctx.putImageData(imageData, 0, 0);
 
     return canvas.toDataURL();
-};
+}
 
 /**
  * Given a worker file with the transformation the work is split
  * between the configured number of workers and the transformation is applied
  * returning a Promise
- * @param {Object} data - image data
- * @param {Function} transform - transformation function
- * @param {Object} options - object to be passed to the transform function
- * @param {Number} nWorkers - number of workers to transform the image
+ * @param {Function} worker
+ * @param {Number} options
  * @returns {Promise}
  */
-export const applyFilter = async (data, transform, options, nWorkers) => {
+async function apply(data, transform, options, nWorkers) {
     const worker = workerize(`
         var transform = ${transform};
 
@@ -49,19 +47,23 @@ export const applyFilter = async (data, transform, options, nWorkers) => {
         }
     `);
 
-    // Drawing the source image into the target canvas
     const canvas = getCanvas(data.width, data.height);
     const context = canvas.getContext('2d');
+    let finished = 0;
+    let blockSize;
+
+    // Drawing the source image into the target canvas
     context.putImageData(data, 0, 0);
 
-    // Minimium 1 worker
-    nWorkers = nWorkers || 1;
+    // Minimum number of workers = 1
+    if (!nWorkers) {
+        nWorkers = 1;
+    }
 
     // Height of the picture chunck for every worker
-    const blockSize = Math.floor(canvas.height / nWorkers);
+    blockSize = Math.floor(canvas.height / nWorkers);
 
     return new Promise(async resolve => {
-        let finished = 0;
         let height;
 
         for (let index = 0; index < nWorkers; index++) {
@@ -105,4 +107,7 @@ export const applyFilter = async (data, transform, options, nWorkers) => {
             }
         }
     });
-};
+}
+
+export { getCanvas, convertImageDataToCanvasURL, apply };
+//# sourceMappingURL=image-filter-core.esm.js.map
