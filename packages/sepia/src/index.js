@@ -1,16 +1,31 @@
-var imageFilterCore = require('image-filter-core');
-var transform = require('./transform');
+import { applyFilter } from 'image-filter-core';
 
 /**
- * @name sepia
+ * Iterate over the array applying the sepia transformation
+ * @param {Object} data
+ * @param {Number} length
+ */
+export const transform = (data, length) => {
+    for (let i = 0; i < length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+
+        data[i] = r * 0.393 + g * 0.769 + b * 0.189;
+        data[i + 1] = r * 0.349 + g * 0.686 + b * 0.168;
+        data[i + 2] = r * 0.272 + g * 0.534 + b * 0.131;
+    }
+};
+
+/**
  * @param {ImageData} data - data of a image extracted from a canvas
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */
-module.exports =  function sepia(data, nWorkers) {
+export default function sepia(data, options, nWorkers) {
     if (!data) {
         throw new Error('image-filter-sepia:: invalid options provided');
     }
 
-    return imageFilterCore.apply(data, transform, null, nWorkers);
-};
+    return applyFilter(data, transform, null, nWorkers);
+}
