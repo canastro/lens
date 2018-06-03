@@ -1,9 +1,61 @@
-const expect = require('chai').expect;
-const ColorInterval = require('../src/color-interval');
-const transform = require('../src/transform');
+import core from 'image-filter-core';
+import ColorInterval from '../color-interval';
+import victim, { transform } from '../index';
 
-describe('transform', function () {
-    var originalData = [
+jest.mock('image-filter-core');
+
+describe('color', function() {
+    describe('when data is not defined', () => {
+        it('should throw error', () => {
+            expect(() => victim()).toThrowError(
+                'image-filter-color:: invalid options provided'
+            );
+        });
+    });
+
+    describe('when options is not defined', () => {
+        it('should throw error', () => {
+            expect(() => victim({})).toThrowError(
+                'image-filter-color:: invalid options provided'
+            );
+        });
+    });
+
+    describe('when colorsInterval is not a array', () => {
+        it('should throw error', () => {
+            expect(() => victim({}, { colorsInterval: {} })).toThrowError(
+                'image-filter-color:: invalid options provided'
+            );
+        });
+    });
+
+    describe('when has all paramters', () => {
+        let result;
+        const data = 'DATA';
+        const options = { colorsInterval: [1, 2] };
+
+        beforeAll(() => {
+            core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
+            result = victim(data, options, 4);
+        });
+
+        it('should call applyFilter', () => {
+            expect(core.applyFilter).toHaveBeenCalledWith(
+                data,
+                expect.anything(),
+                options,
+                4
+            );
+        });
+
+        it('should return the applyFilter result', () => {
+            expect(result).toEqual('MOCK-VALUE');
+        });
+    });
+});
+
+describe('#transform()', function() {
+    const originalData = [
         193,
         219,
         242,
@@ -20,16 +72,16 @@ describe('transform', function () {
         255
     ];
 
-    context('when all of the colors are full defined', function () {
-        it('should apply transformation and return as imageData', function () {
-            var colorInterval = new ColorInterval({
+    describe('when all of the colors are full defined', function() {
+        it('should apply transformation and return as imageData', function() {
+            const colorInterval = new ColorInterval({
                 from: { r: 190, g: 200, b: 240, a: 255 },
                 to: { r: 195, g: 220, b: 250, a: 255 },
                 match: { r: null, g: null, b: null, a: 0 },
                 noMatch: { r: null, g: null, b: null, a: 100 }
             });
 
-            var options = {
+            const options = {
                 colorsInterval: [colorInterval]
             };
 
@@ -53,21 +105,21 @@ describe('transform', function () {
             ];
 
             transform(data, 8, options);
-            expect(data).to.deep.equal(expectedData);
+            expect(data).toEqual(expectedData);
         });
     });
 
-    context('when match or no match color only define the transformation part of the color', function () {
-        context('when only alpha is defined', function () {
-            it('should apply transformation and return as imageData', function () {
-                var colorInterval = new ColorInterval({
+    describe('when match or no match color only define the transformation part of the color', function() {
+        describe('when only alpha is defined', function() {
+            it('should apply transformation and return as imageData', function() {
+                const colorInterval = new ColorInterval({
                     from: { r: 190, g: 200, b: 240, a: 255 },
                     to: { r: 195, g: 220, b: 250, a: 255 },
                     match: { a: 0 },
                     noMatch: { a: 100 }
                 });
 
-                var options = {
+                const options = {
                     colorsInterval: [colorInterval]
                 };
 
@@ -91,20 +143,20 @@ describe('transform', function () {
                 ];
 
                 transform(data, 8, options);
-                expect(data).to.deep.equal(expectedData);
+                expect(data).toEqual(expectedData);
             });
         });
 
-        context('when only red is defined', function () {
-            it('should apply transformation and return as imageData', function () {
-                var colorInterval = new ColorInterval({
+        describe('when only red is defined', function() {
+            it('should apply transformation and return as imageData', function() {
+                const colorInterval = new ColorInterval({
                     from: { r: 190, g: 200, b: 240, a: 255 },
                     to: { r: 195, g: 220, b: 250, a: 255 },
                     match: { r: 0 },
                     noMatch: { r: 100 }
                 });
 
-                var options = {
+                const options = {
                     colorsInterval: [colorInterval]
                 };
 
@@ -128,20 +180,20 @@ describe('transform', function () {
                 ];
 
                 transform(data, 8, options);
-                expect(data).to.deep.equal(expectedData);
+                expect(data).toEqual(expectedData);
             });
         });
 
-        context('when only green is defined', function () {
-            it('should apply transformation and return as imageData', function () {
-                var colorInterval = new ColorInterval({
+        describe('when only green is defined', function() {
+            it('should apply transformation and return as imageData', function() {
+                const colorInterval = new ColorInterval({
                     from: { r: 190, g: 200, b: 240, a: 255 },
                     to: { r: 195, g: 220, b: 250, a: 255 },
                     match: { g: 0 },
                     noMatch: { g: 100 }
                 });
 
-                var options = {
+                const options = {
                     colorsInterval: [colorInterval]
                 };
 
@@ -165,20 +217,20 @@ describe('transform', function () {
                 ];
 
                 transform(data, 8, options);
-                expect(data).to.deep.equal(expectedData);
+                expect(data).toEqual(expectedData);
             });
         });
 
-        context('when only blue is defined', function () {
-            it('should apply transformation and return as imageData', function () {
-                var colorInterval = new ColorInterval({
+        describe('when only blue is defined', function() {
+            it('should apply transformation and return as imageData', function() {
+                const colorInterval = new ColorInterval({
                     from: { r: 190, g: 200, b: 240, a: 255 },
                     to: { r: 195, g: 220, b: 250, a: 255 },
                     match: { b: 0 },
                     noMatch: { b: 100 }
                 });
 
-                var options = {
+                const options = {
                     colorsInterval: [colorInterval]
                 };
 
@@ -202,20 +254,20 @@ describe('transform', function () {
                 ];
 
                 transform(data, 8, options);
-                expect(data).to.deep.equal(expectedData);
+                expect(data).toEqual(expectedData);
             });
         });
     });
 
-    context('when noMatch is not defined', function () {
-        it('should apply transformation and return as imageData', function () {
-            var colorInterval = new ColorInterval({
+    describe('when noMatch is not defined', function() {
+        it('should apply transformation and return as imageData', function() {
+            const colorInterval = new ColorInterval({
                 from: { r: 190, g: 200, b: 240, a: 255 },
                 to: { r: 195, g: 220, b: 250, a: 255 },
                 match: { r: null, g: null, b: null, a: 0 }
             });
 
-            var options = {
+            const options = {
                 colorsInterval: [colorInterval]
             };
 
@@ -239,7 +291,7 @@ describe('transform', function () {
             ];
 
             transform(data, 8, options);
-            expect(data).to.deep.equal(expectedData);
+            expect(data).toEqual(expectedData);
         });
     });
 });

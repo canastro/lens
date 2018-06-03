@@ -1,9 +1,8 @@
-const expect = require('chai').expect;
-const ColorInterval = require('../src/color-interval');
+import ColorInterval from '../color-interval';
 
 describe('color-interval', function() {
-    context('when no match/noMatch is provided', function () {
-        it('should create a valid ColorInterval', function () {
+    describe('when no match/noMatch is provided', function() {
+        it('should create a valid ColorInterval', function() {
             function fn() {
                 new ColorInterval({
                     from: { r: 10, g: 10, b: 10 },
@@ -11,41 +10,47 @@ describe('color-interval', function() {
                 });
             }
 
-            expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => no match or noMatch provided/);
+            expect(fn).toThrowError(
+                'image-filter-color:: Invalid ColorInterval => no match or noMatch provided'
+            );
         });
     });
 
-    context('when no from is provided', function () {
-        it('should throw error by invalid ColorInterval', function () {
+    describe('when no from is provided', function() {
+        it('should throw error by invalid ColorInterval', function() {
             function fn() {
                 new ColorInterval({
                     to: 'DUMMY',
                     match: { r: null, g: null, b: null, a: 0 },
                     noMatch: { r: null, g: null, b: null, a: 255 }
                 });
-            };
+            }
 
-            expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval/);
+            expect(fn).toThrowError(
+                'image-filter-color:: Invalid ColorInterval'
+            );
         });
     });
 
-    context('when no to is provided', function () {
-        it('should throw error by invalid ColorInterval', function () {
+    describe('when no to is provided', function() {
+        it('should throw error by invalid ColorInterval', function() {
             function fn() {
                 new ColorInterval({
                     from: 'DUMMY',
                     match: { r: null, g: null, b: null, a: 0 },
                     noMatch: { r: null, g: null, b: null, a: 255 }
                 });
-            };
+            }
 
-            expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval/);
+            expect(fn).toThrowError(
+                'image-filter-color:: Invalid ColorInterval'
+            );
         });
     });
 
-    context('when red color is invalid', function () {
-        context('when from is undefined', function () {
-            it('should throw error by invalid Color red', function () {
+    describe('when red color is invalid', function() {
+        describe('when from is undefined', function() {
+            it('should throw error by invalid Color red', function() {
                 function fn() {
                     new ColorInterval({
                         from: {},
@@ -53,14 +58,16 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => red color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => red color'
+                );
             });
         });
 
-        context('when to is undefined', function () {
-            it('should throw error by invalid Color red', function () {
+        describe('when to is undefined', function() {
+            it('should throw error by invalid Color red', function() {
                 function fn() {
                     new ColorInterval({
                         from: { r: 255 },
@@ -68,14 +75,16 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => red color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => red color'
+                );
             });
         });
 
-        context('when from is bigger then to', function () {
-            it('should throw error by invalid Color red', function () {
+        describe('when from is bigger then to', function() {
+            it('should throw error by invalid Color red', function() {
                 function fn() {
                     new ColorInterval({
                         from: { r: 255 },
@@ -83,16 +92,18 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => red color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => red color'
+                );
             });
         });
     });
 
-    context('when green color is invalid', function () {
-        context('when from is undefined', function () {
-            it('should throw error by invalid Color green', function () {
+    describe('when green color is invalid', function() {
+        describe('when from is undefined', function() {
+            it('should throw error by invalid Color green', function() {
                 function fn() {
                     new ColorInterval({
                         from: { r: 10 },
@@ -100,14 +111,16 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => green color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => green color'
+                );
             });
         });
 
-        context('when to is undefined', function () {
-            it('should throw error by invalid Color green', function () {
+        describe('when to is undefined', function() {
+            it('should throw error by invalid Color green', function() {
                 function fn() {
                     new ColorInterval({
                         from: { r: 10, g: 255 },
@@ -115,14 +128,16 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => green color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => green color'
+                );
             });
         });
 
-        context('when from is bigger then to', function () {
-            it('should throw error by invalid Color green', function () {
+        describe('when from is bigger then to', function() {
+            it('should throw error by invalid Color green', function() {
                 function fn() {
                     new ColorInterval({
                         from: { r: 10, g: 255 },
@@ -130,16 +145,18 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => green color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => green color'
+                );
             });
         });
     });
 
-    context('when blue color is invalid', function () {
-        context('when from is undefined', function () {
-            it('should throw error by invalid Color blue', function () {
+    describe('when blue color is invalid', function() {
+        describe('when from is undefined', function() {
+            it('should throw error by invalid Color blue', function() {
                 function fn() {
                     new ColorInterval({
                         from: { r: 10, g: 10 },
@@ -147,14 +164,16 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => blue color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => blue color'
+                );
             });
         });
 
-        context('when to is undefined', function () {
-            it('should throw error by invalid Color blue', function () {
+        describe('when to is undefined', function() {
+            it('should throw error by invalid Color blue', function() {
                 function fn() {
                     new ColorInterval({
                         from: { r: 10, g: 10, b: 255 },
@@ -162,14 +181,16 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => blue color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => blue color'
+                );
             });
         });
 
-        context('when from is bigger then to', function () {
-            it('should throw error by invalid Color blue', function () {
+        describe('when from is bigger then to', function() {
+            it('should throw error by invalid Color blue', function() {
                 function fn() {
                     new ColorInterval({
                         from: { r: 10, g: 10, b: 255 },
@@ -177,15 +198,17 @@ describe('color-interval', function() {
                         match: { r: null, g: null, b: null, a: 0 },
                         noMatch: { r: null, g: null, b: null, a: 255 }
                     });
-                };
+                }
 
-                expect(fn).to.throw(/image-filter-color:: Invalid ColorInterval => blue color/);
+                expect(fn).toThrowError(
+                    'image-filter-color:: Invalid ColorInterval => blue color'
+                );
             });
         });
     });
 
-    context('when is valid', function () {
-        it('should create a valid ColorInterval', function () {
+    describe('when is valid', function() {
+        it('should create a valid ColorInterval', function() {
             var colorInterval = new ColorInterval({
                 from: { r: 10, g: 10, b: 10 },
                 to: { r: 255, g: 255, b: 255 },
@@ -193,7 +216,7 @@ describe('color-interval', function() {
                 noMatch: { r: null, g: null, b: null, a: 255 }
             });
 
-            expect(colorInterval instanceof ColorInterval).to.equal(true);
+            expect(colorInterval instanceof ColorInterval).toEqual(true);
         });
     });
 });
