@@ -14,9 +14,13 @@ export default [
             sourcemap: true
         },
         plugins: [
-            resolve(), // so Rollup can find `ms`
-            commonjs(), // so Rollup can convert `ms` to an ES module
-            babel({ exclude: ['node_modules/**'] }),
+            resolve({ jsnext: true, main: true, browser: true }),
+            commonjs(),
+            babel({
+                externalHelpers: false,
+                runtimeHelpers: true,
+                exclude: 'node_modules/**'
+            }),
             serve('sandbox')
         ]
     }

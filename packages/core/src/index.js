@@ -6,7 +6,7 @@ import workerize from 'workerize';
  * @param {Number} h - height
  * @returns {Object}
  */
-export function getCanvas(w, h) {
+function getCanvas(w, h) {
     const canvas = document.createElement('canvas');
     canvas.width = w;
     canvas.height = h;
@@ -19,7 +19,7 @@ export function getCanvas(w, h) {
  * @param {ImageData} imageData
  * @returns {String}
  */
-export const convertImageDataToCanvasURL = imageData => {
+function convertImageDataToCanvasURL(imageData) {
     const canvas = window.document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = imageData.width;
@@ -27,7 +27,7 @@ export const convertImageDataToCanvasURL = imageData => {
     ctx.putImageData(imageData, 0, 0);
 
     return canvas.toDataURL();
-};
+}
 
 /**
  * Given a worker file with the transformation the work is split
@@ -39,7 +39,7 @@ export const convertImageDataToCanvasURL = imageData => {
  * @param {Number} nWorkers - number of workers to transform the image
  * @returns {Promise}
  */
-export const applyFilter = async (data, transform, options, nWorkers) => {
+function applyFilter(data, transform, options, nWorkers) {
     const worker = workerize(`
         var transform = ${transform};
 
@@ -60,7 +60,7 @@ export const applyFilter = async (data, transform, options, nWorkers) => {
     // Height of the picture chunck for every worker
     const blockSize = Math.floor(canvas.height / nWorkers);
 
-    return new Promise(async resolve => {
+    return new Promise(resolve => {
         let finished = 0;
         let height;
 
@@ -80,29 +80,34 @@ export const applyFilter = async (data, transform, options, nWorkers) => {
                 height
             );
             const length = height * canvas.width * 4;
-            const response = await worker.execute(
-                canvasData,
-                index,
-                length,
-                options
-            );
 
-            // Copying back canvas data to canvas
-            // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-            // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-            context.putImageData(
-                response.result,
-                0,
-                blockSize * response.index
-            );
+            worker
+                .execute(canvasData, index, length, options)
+                .then(response => {
+                    // Copying back canvas data to canvas
+                    // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
+                    // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
+                    context.putImageData(
+                        response.result,
+                        0,
+                        blockSize * response.index
+                    );
 
-            finished++;
+                    finished++;
 
-            if (finished === nWorkers) {
-                resolve(
-                    context.getImageData(0, 0, canvas.width, canvas.height)
-                );
-            }
+                    if (finished === nWorkers) {
+                        resolve(
+                            context.getImageData(
+                                0,
+                                0,
+                                canvas.width,
+                                canvas.height
+                            )
+                        );
+                    }
+                });
         }
     });
-};
+}
+
+module.exports = { applyFilter, convertImageDataToCanvasURL, getCanvas };

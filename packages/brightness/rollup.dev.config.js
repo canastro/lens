@@ -1,13 +1,13 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
-import pkg from './package.json';
+import serve from 'rollup-plugin-serve';
 
 export default {
-    input: 'src/index.js',
+    input: 'sandbox/sandbox.js',
     output: {
-        name: 'ImageFilterCore',
-        file: pkg.main,
+        name: 'sandbox',
+        file: 'sandbox/bundle.js',
         format: 'umd',
         sourcemap: true
     },
@@ -18,6 +18,7 @@ export default {
             externalHelpers: false,
             runtimeHelpers: true,
             exclude: 'node_modules/**'
-        })
+        }),
+        serve('sandbox')
     ]
 };

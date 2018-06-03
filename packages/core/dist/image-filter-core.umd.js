@@ -1,10 +1,10 @@
 (function(global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined'
-        ? factory(exports)
+        ? factory()
         : typeof define === 'function' && define.amd
-            ? define(['exports'], factory)
-            : factory((global.ImageFilterCore = {}));
-})(this, function(exports) {
+            ? define(factory)
+            : factory();
+})(this, function() {
     'use strict';
 
     function e(e, t, n) {
@@ -122,7 +122,7 @@
      * @returns {Object}
      */
     function getCanvas(w, h) {
-        const canvas = document.createElement('canvas');
+        var canvas = document.createElement('canvas');
         canvas.width = w;
         canvas.height = h;
 
@@ -135,8 +135,8 @@
      * @returns {String}
      */
     function convertImageDataToCanvasURL(imageData) {
-        const canvas = window.document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        var canvas = window.document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
         canvas.width = imageData.width;
         canvas.height = imageData.height;
         ctx.putImageData(imageData, 0, 0);
@@ -148,40 +148,35 @@
      * Given a worker file with the transformation the work is split
      * between the configured number of workers and the transformation is applied
      * returning a Promise
-     * @param {Function} worker
-     * @param {Number} options
+     * @param {Object} data - image data
+     * @param {Function} transform - transformation function
+     * @param {Object} options - object to be passed to the transform function
+     * @param {Number} nWorkers - number of workers to transform the image
      * @returns {Promise}
      */
-    async function apply(data, transform, options, nWorkers) {
-        const worker = workerize(`
-        var transform = ${transform};
-
-        export function execute(canvas, index, length, options) {
-            transform(canvas.data, length, options);
-            return { result: canvas, index };
-        }
-    `);
-
-        const canvas = getCanvas(data.width, data.height);
-        const context = canvas.getContext('2d');
-        let finished = 0;
-        let blockSize;
+    function applyFilter(data, transform, options, nWorkers) {
+        var worker = workerize(
+            '\n        var transform = ' +
+                transform +
+                ';\n\n        export function execute(canvas, index, length, options) {\n            transform(canvas.data, length, options);\n            return { result: canvas, index };\n        }\n    '
+        );
 
         // Drawing the source image into the target canvas
+        var canvas = getCanvas(data.width, data.height);
+        var context = canvas.getContext('2d');
         context.putImageData(data, 0, 0);
 
-        // Minimum number of workers = 1
-        if (!nWorkers) {
-            nWorkers = 1;
-        }
+        // Minimium 1 worker
+        nWorkers = nWorkers || 1;
 
         // Height of the picture chunck for every worker
-        blockSize = Math.floor(canvas.height / nWorkers);
+        var blockSize = Math.floor(canvas.height / nWorkers);
 
-        return new Promise(async resolve => {
-            let height;
+        return new Promise(function(resolve) {
+            var finished = 0;
+            var height = void 0;
 
-            for (let index = 0; index < nWorkers; index++) {
+            for (var index = 0; index < nWorkers; index++) {
                 // In the last worker we have to make sure we process whatever is missing
                 height = blockSize;
 
@@ -190,44 +185,47 @@
                 }
 
                 // Getting the picture
-                const canvasData = context.getImageData(
+                var canvasData = context.getImageData(
                     0,
                     blockSize * index,
                     canvas.width,
                     height
                 );
-                const length = height * canvas.width * 4;
-                const response = await worker.execute(
-                    canvasData,
-                    index,
-                    length,
-                    options
-                );
+                var length = height * canvas.width * 4;
 
-                // Copying back canvas data to canvas
-                // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                context.putImageData(
-                    response.result,
-                    0,
-                    blockSize * response.index
-                );
+                worker
+                    .execute(canvasData, index, length, options)
+                    .then(function(response) {
+                        // Copying back canvas data to canvas
+                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
+                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
+                        context.putImageData(
+                            response.result,
+                            0,
+                            blockSize * response.index
+                        );
 
-                finished++;
+                        finished++;
 
-                if (finished === nWorkers) {
-                    resolve(
-                        context.getImageData(0, 0, canvas.width, canvas.height)
-                    );
-                }
+                        if (finished === nWorkers) {
+                            resolve(
+                                context.getImageData(
+                                    0,
+                                    0,
+                                    canvas.width,
+                                    canvas.height
+                                )
+                            );
+                        }
+                    });
             }
         });
     }
 
-    exports.getCanvas = getCanvas;
-    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-    exports.apply = apply;
-
-    Object.defineProperty(exports, '__esModule', { value: true });
+    module.exports = {
+        applyFilter: applyFilter,
+        convertImageDataToCanvasURL: convertImageDataToCanvasURL,
+        getCanvas: getCanvas
+    };
 });
 //# sourceMappingURL=image-filter-core.umd.js.map

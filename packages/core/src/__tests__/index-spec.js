@@ -45,10 +45,12 @@ describe('index', () => {
         let mockCtx;
 
         beforeAll(async () => {
-            mockExecute = jest.fn().mockImplementation((canvasData, index) => ({
-                result: 'TEST-IMAGE-DATA',
-                index
-            }));
+            mockExecute = jest.fn().mockImplementation((canvasData, index) =>
+                Promise.resolve({
+                    result: 'TEST-IMAGE-DATA',
+                    index
+                })
+            );
 
             workerize.mockImplementation(() => ({ execute: mockExecute }));
 

@@ -2,22 +2,22 @@
   "name": "image-filter-brightness",
   "version": "1.0.0",
   "description": "Small library to apply a brightness transformation to a image",
-  "main": "src/index.js",
+  "main": "dist/image-filter-brightness.umd.js",
   "scripts": {
-    "eslint": "eslint src/**/*.js",
-    "build": "npm run eslint && browserify sandbox/sandbox.js > sandbox/bundle.js",
-    "test": "./node_modules/.bin/karma start",
-    "codecov": "cat coverage/*/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js",
-    "serve": "http-server sandbox"
+    "build": "NODE_ENV=production rollup -c",
+    "codecov": "cat coverage/*/lcov.info | codecov",
+    "dev": "NODE_ENV=production rollup -c -w",
+    "sandbox": "NODE_ENV=production rollup -c rollup.dev.config.js -w",
+    "test": "NODE_ENV=test jest --coverage"
   },
   "author": "Ricardo Canastro",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/canastro/image-filter-brightness"
+    "url": "https://github.com/canastro/image-filters"
   },
   "bugs": {
-    "url": "https://github.com/canastro/image-filter-brightness/issues"
+    "url": "https://github.com/canastro/image-filters/issues"
   },
   "keywords": [
     "image",
@@ -31,25 +31,19 @@
     "pixel"
   ],
   "devDependencies": {
-    "browserify": "^13.1.1",
-    "browserify-istanbul": "^2.0.0",
-    "chai": "^3.5.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-jest": "^23.0.1",
     "codecov.io": "^0.1.6",
-    "eslint": "^3.13.0",
-    "http-server": "^0.9.0",
-    "istanbul": "^0.4.3",
-    "karma": "^0.13.22",
-    "karma-browserify": "^5.0.2",
-    "karma-coverage": "^0.5.5",
-    "karma-mocha": "^0.2.2",
-    "karma-mocha-reporter": "^2.0.0",
-    "karma-phantomjs-launcher": "^1.0.0",
-    "mocha": "^2.4.5",
-    "phantomjs-prebuilt": "^2.1.5",
-    "sinon": "^1.17.3",
-    "watchify": "^3.7.0"
+    "eslint": "^4.19.1",
+    "jest": "^23.1.0",
+    "rollup": "^0.59.4",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-serve": "^0.4.2"
   },
   "dependencies": {
-    "image-filter-core": "^2.0.0"
+    "image-filter-core": "../core"
   }
 }
