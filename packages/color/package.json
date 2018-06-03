@@ -14,10 +14,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/canastro/image-filter-color"
+    "url": "https://github.com/canastro/image-filters"
   },
   "bugs": {
-    "url": "https://github.com/canastro/image-filter-color/issues"
+    "url": "https://github.com/canastro/image-filters/issues"
   },
   "keywords": [
     "image",
