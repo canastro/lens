@@ -14,10 +14,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/canastro/lens-filter-threshold"
+    "url": "https://github.com/canastro/lens"
   },
   "bugs": {
-    "url": "https://github.com/canastro/lens-filter-threshold/issues"
+    "url": "https://github.com/canastro/lens/issues"
   },
   "keywords": [
     "image",

@@ -1,6 +1,6 @@
-![build status](https://travis-ci.org/canastro/lens-filter-colorize.svg?branch=master)
+![build status](https://travis-ci.org/canastro/lens.svg?branch=master)
 [![npm version](https://badge.fury.io/js/lens-filter-colorize.svg)](https://badge.fury.io/js/lens-filter-colorize)
-[![codecov](https://codecov.io/gh/canastro/lens-filter-colorize/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens-filter-colorize)
+[![codecov](https://codecov.io/gh/canastro/lens/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens)
 
 # lens-filter-colorize
 

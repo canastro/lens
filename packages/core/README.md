@@ -1,4 +1,4 @@
-![build status](https://travis-ci.org/canastro/lens-filter-threshold.svg?branch=master)
+![build status](https://travis-ci.org/canastro/lens.svg?branch=master)
 [![Dependency Status](https://dependencyci.com/github/canastro/lens-core/badge)](https://dependencyci.com/github/canastro/lens-core)
 [![npm version](https://badge.fury.io/js/lens-filter-threshold.svg)](https://badge.fury.io/js/lens-filter-threshold)
 [![codecov](https://codecov.io/gh/canastro/lens-core/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens-core)

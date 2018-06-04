@@ -1,6 +1,6 @@
-![build status](https://travis-ci.org/canastro/lens-filter-contrast.svg?branch=master)
+![build status](https://travis-ci.org/canastro/lens.svg?branch=master)
 [![npm version](https://badge.fury.io/js/lens-filter-contrast.svg)](https://badge.fury.io/js/lens-filter-contrast)
-[![codecov](https://codecov.io/gh/canastro/lens-filter-contrast/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens-filter-contrast)
+[![codecov](https://codecov.io/gh/canastro/lens/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens)
 
 # lens-filter-contrast
 
@@ -9,10 +9,10 @@ Small library to apply a contrast transformation to a image relying on `lens-cor
 If you run `npm run build && npm run serve` and open `http://localhost:8080`, you'll find out the code for the following example:
 
 ### Original:
-<img src="https://github.com/canastro/lens-filter-contrast/blob/master/sandbox/dummy.jpg?raw=true" width="300">
+<img src="https://github.com/canastro/lens/blob/master/sandbox/dummy.jpg?raw=true" width="300">
 
 ### Expected Result (contrast: 70):
-<img src="https://github.com/canastro/lens-filter-contrast/blob/master/sandbox/expected.png?raw=true" width="300">
+<img src="https://github.com/canastro/lens/blob/master/sandbox/expected.png?raw=true" width="300">
 
 ### Other related modules:
 * [lens-core](https://www.npmjs.com/package/lens-core)

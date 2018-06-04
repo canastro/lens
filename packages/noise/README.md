@@ -1,6 +1,6 @@
-![build status](https://travis-ci.org/canastro/lens-filter-noise.svg?branch=master)
+![build status](https://travis-ci.org/canastro/lens.svg?branch=master)
 [![npm version](https://badge.fury.io/js/lens-filter-noise.svg)](https://badge.fury.io/js/lens-filter-noise)
-[![codecov](https://codecov.io/gh/canastro/lens-filter-noise/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens-filter-noise)
+[![codecov](https://codecov.io/gh/canastro/lens/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens)
 
 # lens-filter-noise
 

@@ -1,6 +1,6 @@
-![build status](https://travis-ci.org/canastro/lens-filter-color.svg?branch=master)
+![build status](https://travis-ci.org/canastro/lens.svg?branch=master)
 [![npm version](https://badge.fury.io/js/lens-filter-color.svg)](https://badge.fury.io/js/lens-filter-color)
-[![codecov](https://codecov.io/gh/canastro/lens-filter-color/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens-filter-color)
+[![codecov](https://codecov.io/gh/canastro/lens/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens)
 
 # lens-filter-color
 
@@ -10,10 +10,10 @@ This transformation picks on a color interval and replaces it with a provided co
 If you run `npm run build && npm run serve` and open `http://localhost:8080`, you'll find out the code for the following example:
 
 ### Original:
-<img src="https://github.com/canastro/lens-filter-color/blob/master/sandbox/dummy.jpg?raw=true" width="300">
+<img src="https://github.com/canastro/lens/blob/master/sandbox/dummy.jpg?raw=true" width="300">
 
 ### Expected Result:
-<img src="https://github.com/canastro/lens-filter-color/blob/master/sandbox/expected.png?raw=true" width="300">
+<img src="https://github.com/canastro/lens/blob/master/sandbox/expected.png?raw=true" width="300">
 
 Other related modules:
 * [lens-core](https://www.npmjs.com/package/lens-core)
