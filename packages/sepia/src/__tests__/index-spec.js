@@ -1,13 +1,13 @@
-import core from 'image-filter-core';
+import core from 'lens-core';
 import victim, { transform } from '../index';
 
-jest.mock('image-filter-core');
+jest.mock('lens-core');
 
 describe('sepia', () => {
     describe('when data is not defined', () => {
         it('should throw error', () => {
             expect(() => victim()).toThrowError(
-                'image-filter-sepia:: invalid options provided'
+                'lens-filter-sepia:: invalid options provided'
             );
         });
     });

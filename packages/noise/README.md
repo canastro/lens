@@ -1,34 +1,34 @@
-![build status](https://travis-ci.org/canastro/image-filter-noise.svg?branch=master)
-[![npm version](https://badge.fury.io/js/image-filter-noise.svg)](https://badge.fury.io/js/image-filter-noise)
-[![codecov](https://codecov.io/gh/canastro/image-filter-noise/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/image-filter-noise)
+![build status](https://travis-ci.org/canastro/lens-filter-noise.svg?branch=master)
+[![npm version](https://badge.fury.io/js/lens-filter-noise.svg)](https://badge.fury.io/js/lens-filter-noise)
+[![codecov](https://codecov.io/gh/canastro/lens-filter-noise/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens-filter-noise)
 
-# image-filter-noise
+# lens-filter-noise
 
-Small library to apply noise transformation to a image relying on `image-filter-core` handle the transformation and distribute work with webworkers.
+Small library to apply noise transformation to a image relying on `lens-core` handle the transformation and distribute work with webworkers.
 
 Other related modules:
-* [image-filter-brightness](https://www.npmjs.com/package/image-filter-brightness)
-* [image-filter-color](https://www.npmjs.com/package/image-filter-color)
-* [image-filter-colorize](https://www.npmjs.com/package/image-filter-colorize)
-* [image-filter-contrast](https://www.npmjs.com/package/image-filter-contrast)
-* [image-filter-core](https://www.npmjs.com/package/image-filter-core)
-* [image-filter-gamma](https://www.npmjs.com/package/image-filter-gamma)
-* [image-filter-grayscale](https://www.npmjs.com/package/image-filter-grayscale)
-* [image-filter-invert](https://www.npmjs.com/package/image-filter-invert)
-* [image-filter-sepia](https://www.npmjs.com/package/image-filter-sepia)
-* [image-filter-threshold](https://www.npmjs.com/package/image-filter-threshold)
-* [image-filters](https://www.npmjs.com/package/image-filters)
+* [lens-filter-brightness](https://www.npmjs.com/package/lens-filter-brightness)
+* [lens-filter-color](https://www.npmjs.com/package/lens-filter-color)
+* [lens-filter-colorize](https://www.npmjs.com/package/lens-filter-colorize)
+* [lens-filter-contrast](https://www.npmjs.com/package/lens-filter-contrast)
+* [lens-core](https://www.npmjs.com/package/lens-core)
+* [lens-filter-gamma](https://www.npmjs.com/package/lens-filter-gamma)
+* [lens-filter-grayscale](https://www.npmjs.com/package/lens-filter-grayscale)
+* [lens-filter-invert](https://www.npmjs.com/package/lens-filter-invert)
+* [lens-filter-sepia](https://www.npmjs.com/package/lens-filter-sepia)
+* [lens-filter-threshold](https://www.npmjs.com/package/lens-filter-threshold)
+* [lens](https://www.npmjs.com/package/lens)
 
 ## Install
 
 ```
-npm install image-filter-noise --save
+npm install lens-filter-noise --save
 ```
 
 ## Usage
-It applies a noise transformation to a base64 image. If you want a more complete library, please check image-filters that wraps this and other libraries to provide a more complete suite of image filters.
+It applies a noise transformation to a base64 image. If you want a more complete library, please check lens that wraps this and other libraries to provide a more complete suite of image filters.
 
-This library consumes ImageData and outputs ImageData in a Promise. You can use `image-filter-core` to convert from ImageData to dataURL.
+This library consumes ImageData and outputs ImageData in a Promise. You can use `lens-core` to convert from ImageData to dataURL.
 
 JS file:
 ```js
@@ -60,14 +60,14 @@ element.setAttribute('src', options.url);
 ### How can I use the output of this?
 
 ```js
-var imageFilterCore = require('image-filter-core');
+var lensCore = require('lens-core');
 var nWorkers = 4;
 
 imageNoise(IMAGE_DATA, { adjust: 30 }, nWorkers)
     .then(function (result) {
         // result === ImageData object
         var image = document.createElement('img');
-        image.setAttribute('src', imageFilterCore.convertImageDataToCanvasURL(imageData));
+        image.setAttribute('src', lensCore.convertImageDataToCanvasURL(imageData));
         target.appendChild(image);
     });
 ```

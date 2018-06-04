@@ -1,4 +1,4 @@
-import { convertImageDataToCanvasURL } from 'image-filter-core';
+import { convertImageDataToCanvasURL } from 'lens-core';
 import brightness from '../src/index';
 
 function applyResults(selector, src) {

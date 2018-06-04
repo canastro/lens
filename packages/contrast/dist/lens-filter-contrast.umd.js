@@ -3,7 +3,7 @@
         ? factory(exports)
         : typeof define === 'function' && define.amd
             ? define(['exports'], factory)
-            : factory((global.ImageFilterNoise = {}));
+            : factory((global.lensFilterContrast = {}));
 })(this, function(exports) {
     'use strict';
 
@@ -24,7 +24,7 @@
         );
     }
 
-    var imageFilterCore_umd = createCommonjsModule(function(module, exports) {
+    var lensCore_umd = createCommonjsModule(function(module, exports) {
         (function(global, factory) {
             factory();
         })(commonjsGlobal, function() {
@@ -264,70 +264,52 @@
                 });
             }
 
-            module.exports = {
-                applyFilter: applyFilter,
-                convertImageDataToCanvasURL: convertImageDataToCanvasURL,
-                getCanvas: getCanvas
-            };
+            exports.getCanvas = getCanvas;
+            exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
+            exports.applyFilter = applyFilter;
         });
     });
-    var imageFilterCore_umd_1 = imageFilterCore_umd.applyFilter;
-    var imageFilterCore_umd_2 = imageFilterCore_umd.convertImageDataToCanvasURL;
-    var imageFilterCore_umd_3 = imageFilterCore_umd.getCanvas;
+    var lensCore_umd_1 = lensCore_umd.getCanvas;
+    var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
+    var lensCore_umd_3 = lensCore_umd.applyFilter;
 
     /**
-     * Iterate over the array applying the noise transformation
-     * @param {Array} data
+     * Iterate over the array applying the contrast transformation
+     * @name transform
+     * @param {Object} data
      * @param {Number} length
      * @param {Object} options
-     * @param {Number} [options.adjust]
+     * @param {Number} [options.contrast]
      */
     var transform = function transform(data, length, options) {
-        var adjust = Math.abs(options.adjust) * 2.55;
-
-        var add = function add(original, increment) {
-            var result = original + increment;
-
-            if (result > 255) {
-                return 255;
-            } else if (result < 0) {
-                return 0;
-            }
-
-            return result;
-        };
+        var factor =
+            (259 * (options.contrast + 255)) / (255 * (259 - options.contrast));
 
         for (var i = 0; i < length; i += 4) {
-            // Calculate if should be negative or positive
-            var multiplier = Math.random() < 0.5 ? -1 : 1;
-
-            // Calculate random noise
-            var rand = multiplier * (Math.random() + adjust);
-
-            data[i] = add(data[i], rand);
-            data[i + 1] = add(data[i + 1], rand);
-            data[i + 2] = add(data[i + 2], rand);
+            data[i] = factor * (data[i] - 128) + 128;
+            data[i + 1] = factor * (data[i + 1] - 128) + 128;
+            data[i + 2] = factor * (data[i + 2] - 128) + 128;
         }
     };
 
     /**
      * @param {ImageData} data - data of a image extracted from a canvas
      * @param {Object} options - options to pass to the transformation function
-     * @param {Number} [options.noise] - noise to apply in the transformation
+     * @param {Number} [options.contrast] - contrast value to apply in the transformation
      * @param {Number} nWorkers - number of workers
      * @returns {Promise}
      */
-    function noise(data, options, nWorkers) {
-        if (!data || !options || !options.adjust) {
-            throw new Error('image-filter-noise:: invalid options provided');
+    function contrast(data, options, nWorkers) {
+        if (!data || !options || !options.contrast) {
+            throw new Error('lens-filter-contrast:: invalid options provided');
         }
 
-        return imageFilterCore_umd_1(data, transform, options, nWorkers);
+        return lensCore_umd_3(data, transform, options, nWorkers);
     }
 
     exports.transform = transform;
-    exports.default = noise;
+    exports.default = contrast;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 });
-//# sourceMappingURL=image-filter-noise.umd.js.map
+//# sourceMappingURL=lens-filter-contrast.umd.js.map

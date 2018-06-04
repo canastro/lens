@@ -1,17 +1,17 @@
-var imageFilterCore = require('image-filter-core');
-var imageFilterColor = require('../src/index');
+var lensCore = require('lens-core');
+var lensFilterColor = require('../src/index');
 var ColorInterval = require('../src/color-interval');
 
 function applyResults(selector, canvas, context, src) {
     var target = document.querySelectorAll(selector)[0];
     var image = document.createElement('img');
-    image.setAttribute('src', imageFilterCore.convertImageDataToCanvasURL(src));
+    image.setAttribute('src', lensCore.convertImageDataToCanvasURL(src));
     target.appendChild(image);
 }
 
-window.onload = function () {
-    var img = new Image;
-    img.onload = function () {
+window.onload = function() {
+    var img = new Image();
+    img.onload = function() {
         var canvas = document.createElement('canvas');
         canvas.width = img.width;
         canvas.height = img.height;
@@ -37,10 +37,9 @@ window.onload = function () {
             colorsInterval: [colorIntervalBlue, colorIntervalPink]
         };
 
-        imageFilterColor(data, options, 4)
-            .then(function (results) {
-                applyResults('#target-1', canvas, context, results);
-            });
+        lensFilterColor(data, options, 4).then(function(results) {
+            applyResults('#target-1', canvas, context, results);
+        });
     };
 
     img.src = 'dummy.jpg';

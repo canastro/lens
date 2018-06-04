@@ -6,7 +6,7 @@ import pkg from './package.json';
 export default {
     input: 'src/index.js',
     output: {
-        name: 'ImageFilterGrayscale',
+        name: 'lensFilterGrayscale',
         file: pkg.main,
         format: 'umd',
         sourcemap: true

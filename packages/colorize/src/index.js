@@ -1,4 +1,4 @@
-import { applyFilter } from 'image-filter-core';
+import { applyFilter } from 'lens-core';
 
 /**
  * @param {Object} data
@@ -35,7 +35,7 @@ export const transform = (data, length, options) => {
  */
 export default function colorize(data, options, nWorkers) {
     if (!data || !options || !options.color || !options.level) {
-        throw new Error('image-filter-colorize:: invalid options provided');
+        throw new Error('lens-filter-colorize:: invalid options provided');
     }
 
     return applyFilter(data, transform, options, nWorkers);

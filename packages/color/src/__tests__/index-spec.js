@@ -1,14 +1,14 @@
-import core from 'image-filter-core';
+import core from 'lens-core';
 import ColorInterval from '../color-interval';
 import victim, { transform } from '../index';
 
-jest.mock('image-filter-core');
+jest.mock('lens-core');
 
 describe('color', function() {
     describe('when data is not defined', () => {
         it('should throw error', () => {
             expect(() => victim()).toThrowError(
-                'image-filter-color:: invalid options provided'
+                'lens-filter-color:: invalid options provided'
             );
         });
     });
@@ -16,7 +16,7 @@ describe('color', function() {
     describe('when options is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({})).toThrowError(
-                'image-filter-color:: invalid options provided'
+                'lens-filter-color:: invalid options provided'
             );
         });
     });
@@ -24,7 +24,7 @@ describe('color', function() {
     describe('when colorsInterval is not a array', () => {
         it('should throw error', () => {
             expect(() => victim({}, { colorsInterval: {} })).toThrowError(
-                'image-filter-color:: invalid options provided'
+                'lens-filter-color:: invalid options provided'
             );
         });
     });

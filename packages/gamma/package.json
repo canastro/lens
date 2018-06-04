@@ -1,8 +1,8 @@
 {
-  "name": "image-filter-gamma",
-  "version": "1.0.0",
+  "name": "lens-filter-gamma",
+  "version": "0.0.1",
   "description": "Small library to apply a gamma filter to a image",
-  "main": "dist/image-filter-gamma.umd.js",
+  "main": "dist/lens-filter-gamma.umd.js",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "codecov": "cat coverage/*/lcov.info | codecov",
@@ -14,10 +14,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/canastro/image-filter-gamma"
+    "url": "https://github.com/canastro/lens-filter-gamma"
   },
   "bugs": {
-    "url": "https://github.com/canastro/image-filter-gamma/issues"
+    "url": "https://github.com/canastro/lens-filter-gamma/issues"
   },
   "keywords": [
     "image",
@@ -44,6 +44,6 @@
     "rollup-plugin-serve": "^0.4.2"
   },
   "dependencies": {
-    "image-filter-core": "../core"
+    "lens-core": "../core"
   }
 }

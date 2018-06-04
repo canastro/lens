@@ -1,8 +1,8 @@
 {
-  "name": "image-filter-core",
-  "version": "2.0.2",
-  "description": "Core module for image-filter",
-  "main": "dist/image-filter-core.umd.js",
+  "name": "lens-core",
+  "version": "0.0.1",
+  "description": "Core module for lens-filter",
+  "main": "dist/lens-core.umd.js",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "codecov": "cat coverage/*/lcov.info | codecov",
@@ -14,10 +14,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/canastro/image-filters"
+    "url": "https://github.com/canastro/lens"
   },
   "bugs": {
-    "url": "https://github.com/canastro/image-filters/issues"
+    "url": "https://github.com/canastro/lens/issues"
   },
   "keywords": [
     "image",

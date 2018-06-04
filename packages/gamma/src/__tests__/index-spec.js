@@ -1,13 +1,13 @@
-import core from 'image-filter-core';
+import core from 'lens-core';
 import victim, { transform } from '../index';
 
-jest.mock('image-filter-core');
+jest.mock('lens-core');
 
 describe('gamma', () => {
     describe('when data is not defined', () => {
         it('should throw error', () => {
             expect(() => victim()).toThrowError(
-                'image-filter-gamma:: invalid options provided'
+                'lens-filter-gamma:: invalid options provided'
             );
         });
     });
@@ -15,7 +15,7 @@ describe('gamma', () => {
     describe('when options is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({})).toThrowError(
-                'image-filter-gamma:: invalid options provided'
+                'lens-filter-gamma:: invalid options provided'
             );
         });
     });
@@ -23,7 +23,7 @@ describe('gamma', () => {
     describe('when adjustment is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({}, {})).toThrowError(
-                'image-filter-gamma:: invalid options provided'
+                'lens-filter-gamma:: invalid options provided'
             );
         });
     });

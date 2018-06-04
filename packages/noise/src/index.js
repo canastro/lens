@@ -1,4 +1,4 @@
-import { applyFilter } from 'image-filter-core';
+import { applyFilter } from 'lens-core';
 
 /**
  * Iterate over the array applying the noise transformation
@@ -44,7 +44,7 @@ export const transform = (data, length, options) => {
  */
 export default function noise(data, options, nWorkers) {
     if (!data || !options || !options.adjust) {
-        throw new Error('image-filter-noise:: invalid options provided');
+        throw new Error('lens-filter-noise:: invalid options provided');
     }
 
     return applyFilter(data, transform, options, nWorkers);

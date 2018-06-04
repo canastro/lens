@@ -6,7 +6,7 @@ import pkg from './package.json';
 export default {
     input: 'src/index.js',
     output: {
-        name: 'ImageFilterBrightness',
+        name: 'lensFilterBrightness',
         file: pkg.main,
         format: 'umd',
         sourcemap: true

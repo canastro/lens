@@ -24,12 +24,12 @@ const isIntervalValid = (from, to) =>
  */
 module.exports = function ColorInterval(options) {
     if (!options.from || !options.to) {
-        throw new Error('image-filter-color:: Invalid ColorInterval');
+        throw new Error('lens-filter-color:: Invalid ColorInterval');
     }
 
     if (!options.match && !options.noMatch) {
         throw new Error(
-            'image-filter-color:: Invalid ColorInterval => no match or noMatch provided'
+            'lens-filter-color:: Invalid ColorInterval => no match or noMatch provided'
         );
     }
 
@@ -38,19 +38,19 @@ module.exports = function ColorInterval(options) {
 
     if (!isIntervalValid(this.from.r, this.to.r)) {
         throw new Error(
-            'image-filter-color:: Invalid ColorInterval => red color'
+            'lens-filter-color:: Invalid ColorInterval => red color'
         );
     }
 
     if (!isIntervalValid(this.from.g, this.to.g)) {
         throw new Error(
-            'image-filter-color:: Invalid ColorInterval => green color'
+            'lens-filter-color:: Invalid ColorInterval => green color'
         );
     }
 
     if (!isIntervalValid(this.from.b, this.to.b)) {
         throw new Error(
-            'image-filter-color:: Invalid ColorInterval => blue color'
+            'lens-filter-color:: Invalid ColorInterval => blue color'
         );
     }
 

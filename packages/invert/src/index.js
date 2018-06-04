@@ -1,4 +1,4 @@
-import { applyFilter } from 'image-filter-core';
+import { applyFilter } from 'lens-core';
 
 /**
  * Iterate over the array applying the invert transformation
@@ -22,7 +22,7 @@ export const transform = (data, length) => {
  */
 export default function invert(data, options, nWorkers) {
     if (!data) {
-        throw new Error('image-filter-invert:: invalid options provided');
+        throw new Error('lens-filter-invert:: invalid options provided');
     }
 
     return applyFilter(data, transform, null, nWorkers);

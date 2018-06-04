@@ -222,10 +222,8 @@
         });
     }
 
-    module.exports = {
-        applyFilter: applyFilter,
-        convertImageDataToCanvasURL: convertImageDataToCanvasURL,
-        getCanvas: getCanvas
-    };
+    exports.getCanvas = getCanvas;
+    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
+    exports.applyFilter = applyFilter;
 });
-//# sourceMappingURL=image-filter-core.umd.js.map
+//# sourceMappingURL=lens-core.umd.js.map

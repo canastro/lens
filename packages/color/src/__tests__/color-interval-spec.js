@@ -11,7 +11,7 @@ describe('color-interval', function() {
             }
 
             expect(fn).toThrowError(
-                'image-filter-color:: Invalid ColorInterval => no match or noMatch provided'
+                'lens-filter-color:: Invalid ColorInterval => no match or noMatch provided'
             );
         });
     });
@@ -27,7 +27,7 @@ describe('color-interval', function() {
             }
 
             expect(fn).toThrowError(
-                'image-filter-color:: Invalid ColorInterval'
+                'lens-filter-color:: Invalid ColorInterval'
             );
         });
     });
@@ -43,7 +43,7 @@ describe('color-interval', function() {
             }
 
             expect(fn).toThrowError(
-                'image-filter-color:: Invalid ColorInterval'
+                'lens-filter-color:: Invalid ColorInterval'
             );
         });
     });
@@ -61,7 +61,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => red color'
+                    'lens-filter-color:: Invalid ColorInterval => red color'
                 );
             });
         });
@@ -78,7 +78,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => red color'
+                    'lens-filter-color:: Invalid ColorInterval => red color'
                 );
             });
         });
@@ -95,7 +95,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => red color'
+                    'lens-filter-color:: Invalid ColorInterval => red color'
                 );
             });
         });
@@ -114,7 +114,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => green color'
+                    'lens-filter-color:: Invalid ColorInterval => green color'
                 );
             });
         });
@@ -131,7 +131,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => green color'
+                    'lens-filter-color:: Invalid ColorInterval => green color'
                 );
             });
         });
@@ -148,7 +148,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => green color'
+                    'lens-filter-color:: Invalid ColorInterval => green color'
                 );
             });
         });
@@ -167,7 +167,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => blue color'
+                    'lens-filter-color:: Invalid ColorInterval => blue color'
                 );
             });
         });
@@ -184,7 +184,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => blue color'
+                    'lens-filter-color:: Invalid ColorInterval => blue color'
                 );
             });
         });
@@ -201,7 +201,7 @@ describe('color-interval', function() {
                 }
 
                 expect(fn).toThrowError(
-                    'image-filter-color:: Invalid ColorInterval => blue color'
+                    'lens-filter-color:: Invalid ColorInterval => blue color'
                 );
             });
         });

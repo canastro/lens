@@ -1,0 +1,1397 @@
+0 silly input []
+1 silly flags { _: [ 'bootstrap' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   args: [] }
+2 verbose rootPath /Users/ricardocanastro/dev/personal/lens
+3 info version 2.11.0
+4 silly existsSync /Users/ricardocanastro/dev/personal/lens/VERSION
+5 silly initialize attempt
+6 silly npmConfig { registry: undefined,
+6 silly npmConfig   npmClient: undefined,
+6 silly npmConfig   npmClientArgs: undefined,
+6 silly npmConfig   mutex: undefined }
+7 silly initialize success
+8 silly execute attempt
+9 info Bootstrapping 11 packages
+10 info lifecycle preinstall
+11 silly runScript preinstall lens-filter-brightness
+12 silly lens-filter-brightness
+13 silly runScript preinstall lens-filter-color
+14 silly lens-filter-color
+15 silly runScript preinstall lens-filter-colorize
+16 silly lens-filter-colorize
+17 silly runScript preinstall lens-filter-contrast
+18 silly lens-filter-contrast
+19 silly runScript preinstall lens-core
+20 silly lens-core
+21 silly runScript preinstall lens-filter-gamma
+22 silly lens-filter-gamma
+23 silly runScript preinstall lens-filter-grayscale
+24 silly lens-filter-grayscale
+25 silly runScript preinstall lens-filter-invert
+26 silly lens-filter-invert
+27 silly runScript preinstall lens-filter-noise
+28 silly lens-filter-noise
+29 silly runScript preinstall lens-filter-sepia
+30 silly lens-filter-sepia
+31 silly runScript preinstall lens-filter-threshold
+32 silly lens-filter-threshold
+33 silly hasDependencyInstalled lens-filter-brightness eslint
+34 silly dependencyIsSatisfied [ 'eslint',
+34 silly dependencyIsSatisfied   '^4.19.1',
+34 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+35 verbose dependencyIsSatisfied eslint false
+36 silly hasDependencyInstalled lens-filter-color eslint
+37 silly dependencyIsSatisfied [ 'eslint',
+37 silly dependencyIsSatisfied   '^4.19.1',
+37 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+38 verbose dependencyIsSatisfied eslint false
+39 silly hasDependencyInstalled lens-filter-colorize eslint
+40 silly dependencyIsSatisfied [ 'eslint',
+40 silly dependencyIsSatisfied   '^4.19.1',
+40 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+41 verbose dependencyIsSatisfied eslint false
+42 silly hasDependencyInstalled lens-filter-contrast eslint
+43 silly dependencyIsSatisfied [ 'eslint',
+43 silly dependencyIsSatisfied   '^4.19.1',
+43 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+44 verbose dependencyIsSatisfied eslint false
+45 silly hasDependencyInstalled lens-core eslint
+46 silly dependencyIsSatisfied [ 'eslint',
+46 silly dependencyIsSatisfied   '^4.19.1',
+46 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+47 verbose dependencyIsSatisfied eslint false
+48 silly hasDependencyInstalled lens-filter-gamma eslint
+49 silly dependencyIsSatisfied [ 'eslint',
+49 silly dependencyIsSatisfied   '^4.19.1',
+49 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+50 verbose dependencyIsSatisfied eslint false
+51 silly hasDependencyInstalled lens-filter-grayscale eslint
+52 silly dependencyIsSatisfied [ 'eslint',
+52 silly dependencyIsSatisfied   '^4.19.1',
+52 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+53 verbose dependencyIsSatisfied eslint false
+54 silly hasDependencyInstalled lens-filter-invert eslint
+55 silly dependencyIsSatisfied [ 'eslint',
+55 silly dependencyIsSatisfied   '^4.19.1',
+55 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+56 verbose dependencyIsSatisfied eslint false
+57 silly hasDependencyInstalled lens-filter-noise eslint
+58 silly dependencyIsSatisfied [ 'eslint',
+58 silly dependencyIsSatisfied   '^4.19.1',
+58 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+59 verbose dependencyIsSatisfied eslint false
+60 silly hasDependencyInstalled lens-filter-sepia eslint
+61 silly dependencyIsSatisfied [ 'eslint',
+61 silly dependencyIsSatisfied   '^4.19.1',
+61 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+62 verbose dependencyIsSatisfied eslint false
+63 silly hasDependencyInstalled lens-filter-threshold eslint
+64 silly dependencyIsSatisfied [ 'eslint',
+64 silly dependencyIsSatisfied   '^4.19.1',
+64 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+65 verbose dependencyIsSatisfied eslint false
+66 silly hasDependencyInstalled lens-filter-brightness babel-core
+67 silly dependencyIsSatisfied [ 'babel-core',
+67 silly dependencyIsSatisfied   '^6.26.0',
+67 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+68 verbose dependencyIsSatisfied babel-core false
+69 silly hasDependencyInstalled lens-filter-color babel-core
+70 silly dependencyIsSatisfied [ 'babel-core',
+70 silly dependencyIsSatisfied   '^6.26.0',
+70 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+71 verbose dependencyIsSatisfied babel-core false
+72 silly hasDependencyInstalled lens-filter-colorize babel-core
+73 silly dependencyIsSatisfied [ 'babel-core',
+73 silly dependencyIsSatisfied   '^6.26.0',
+73 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+74 verbose dependencyIsSatisfied babel-core false
+75 silly hasDependencyInstalled lens-filter-contrast babel-core
+76 silly dependencyIsSatisfied [ 'babel-core',
+76 silly dependencyIsSatisfied   '^6.26.0',
+76 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+77 verbose dependencyIsSatisfied babel-core false
+78 silly hasDependencyInstalled lens-core babel-core
+79 silly dependencyIsSatisfied [ 'babel-core',
+79 silly dependencyIsSatisfied   '^6.26.0',
+79 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+80 verbose dependencyIsSatisfied babel-core false
+81 silly hasDependencyInstalled lens-filter-gamma babel-core
+82 silly dependencyIsSatisfied [ 'babel-core',
+82 silly dependencyIsSatisfied   '^6.26.0',
+82 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+83 verbose dependencyIsSatisfied babel-core false
+84 silly hasDependencyInstalled lens-filter-grayscale babel-core
+85 silly dependencyIsSatisfied [ 'babel-core',
+85 silly dependencyIsSatisfied   '^6.26.0',
+85 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+86 verbose dependencyIsSatisfied babel-core false
+87 silly hasDependencyInstalled lens-filter-invert babel-core
+88 silly dependencyIsSatisfied [ 'babel-core',
+88 silly dependencyIsSatisfied   '^6.26.0',
+88 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+89 verbose dependencyIsSatisfied babel-core false
+90 silly hasDependencyInstalled lens-filter-noise babel-core
+91 silly dependencyIsSatisfied [ 'babel-core',
+91 silly dependencyIsSatisfied   '^6.26.0',
+91 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+92 verbose dependencyIsSatisfied babel-core false
+93 silly hasDependencyInstalled lens-filter-sepia babel-core
+94 silly dependencyIsSatisfied [ 'babel-core',
+94 silly dependencyIsSatisfied   '^6.26.0',
+94 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+95 verbose dependencyIsSatisfied babel-core false
+96 silly hasDependencyInstalled lens-filter-threshold babel-core
+97 silly dependencyIsSatisfied [ 'babel-core',
+97 silly dependencyIsSatisfied   '^6.26.0',
+97 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+98 verbose dependencyIsSatisfied babel-core false
+99 silly hasDependencyInstalled lens-filter-brightness babel-preset-env
+100 silly dependencyIsSatisfied [ 'babel-preset-env',
+100 silly dependencyIsSatisfied   '^1.6.1',
+100 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+101 verbose dependencyIsSatisfied babel-preset-env false
+102 silly hasDependencyInstalled lens-filter-color babel-preset-env
+103 silly dependencyIsSatisfied [ 'babel-preset-env',
+103 silly dependencyIsSatisfied   '^1.6.1',
+103 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+104 verbose dependencyIsSatisfied babel-preset-env false
+105 silly hasDependencyInstalled lens-filter-colorize babel-preset-env
+106 silly dependencyIsSatisfied [ 'babel-preset-env',
+106 silly dependencyIsSatisfied   '^1.6.1',
+106 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+107 verbose dependencyIsSatisfied babel-preset-env false
+108 silly hasDependencyInstalled lens-filter-contrast babel-preset-env
+109 silly dependencyIsSatisfied [ 'babel-preset-env',
+109 silly dependencyIsSatisfied   '^1.6.1',
+109 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+110 verbose dependencyIsSatisfied babel-preset-env false
+111 silly hasDependencyInstalled lens-core babel-preset-env
+112 silly dependencyIsSatisfied [ 'babel-preset-env',
+112 silly dependencyIsSatisfied   '^1.6.1',
+112 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+113 verbose dependencyIsSatisfied babel-preset-env false
+114 silly hasDependencyInstalled lens-filter-gamma babel-preset-env
+115 silly dependencyIsSatisfied [ 'babel-preset-env',
+115 silly dependencyIsSatisfied   '^1.6.1',
+115 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+116 verbose dependencyIsSatisfied babel-preset-env false
+117 silly hasDependencyInstalled lens-filter-grayscale babel-preset-env
+118 silly dependencyIsSatisfied [ 'babel-preset-env',
+118 silly dependencyIsSatisfied   '^1.6.1',
+118 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+119 verbose dependencyIsSatisfied babel-preset-env false
+120 silly hasDependencyInstalled lens-filter-invert babel-preset-env
+121 silly dependencyIsSatisfied [ 'babel-preset-env',
+121 silly dependencyIsSatisfied   '^1.6.1',
+121 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+122 verbose dependencyIsSatisfied babel-preset-env false
+123 silly hasDependencyInstalled lens-filter-noise babel-preset-env
+124 silly dependencyIsSatisfied [ 'babel-preset-env',
+124 silly dependencyIsSatisfied   '^1.6.1',
+124 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+125 verbose dependencyIsSatisfied babel-preset-env false
+126 silly hasDependencyInstalled lens-filter-sepia babel-preset-env
+127 silly dependencyIsSatisfied [ 'babel-preset-env',
+127 silly dependencyIsSatisfied   '^1.6.1',
+127 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+128 verbose dependencyIsSatisfied babel-preset-env false
+129 silly hasDependencyInstalled lens-filter-threshold babel-preset-env
+130 silly dependencyIsSatisfied [ 'babel-preset-env',
+130 silly dependencyIsSatisfied   '^1.6.1',
+130 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+131 verbose dependencyIsSatisfied babel-preset-env false
+132 silly hasDependencyInstalled lens-filter-brightness babel-preset-jest
+133 silly dependencyIsSatisfied [ 'babel-preset-jest',
+133 silly dependencyIsSatisfied   '^23.0.1',
+133 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+134 verbose dependencyIsSatisfied babel-preset-jest false
+135 silly hasDependencyInstalled lens-filter-color babel-preset-jest
+136 silly dependencyIsSatisfied [ 'babel-preset-jest',
+136 silly dependencyIsSatisfied   '^23.0.1',
+136 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+137 verbose dependencyIsSatisfied babel-preset-jest false
+138 silly hasDependencyInstalled lens-filter-colorize babel-preset-jest
+139 silly dependencyIsSatisfied [ 'babel-preset-jest',
+139 silly dependencyIsSatisfied   '^23.0.1',
+139 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+140 verbose dependencyIsSatisfied babel-preset-jest false
+141 silly hasDependencyInstalled lens-filter-contrast babel-preset-jest
+142 silly dependencyIsSatisfied [ 'babel-preset-jest',
+142 silly dependencyIsSatisfied   '^23.0.1',
+142 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+143 verbose dependencyIsSatisfied babel-preset-jest false
+144 silly hasDependencyInstalled lens-core babel-preset-jest
+145 silly dependencyIsSatisfied [ 'babel-preset-jest',
+145 silly dependencyIsSatisfied   '^23.0.1',
+145 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+146 verbose dependencyIsSatisfied babel-preset-jest false
+147 silly hasDependencyInstalled lens-filter-gamma babel-preset-jest
+148 silly dependencyIsSatisfied [ 'babel-preset-jest',
+148 silly dependencyIsSatisfied   '^23.0.1',
+148 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+149 verbose dependencyIsSatisfied babel-preset-jest false
+150 silly hasDependencyInstalled lens-filter-grayscale babel-preset-jest
+151 silly dependencyIsSatisfied [ 'babel-preset-jest',
+151 silly dependencyIsSatisfied   '^23.0.1',
+151 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+152 verbose dependencyIsSatisfied babel-preset-jest false
+153 silly hasDependencyInstalled lens-filter-invert babel-preset-jest
+154 silly dependencyIsSatisfied [ 'babel-preset-jest',
+154 silly dependencyIsSatisfied   '^23.0.1',
+154 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+155 verbose dependencyIsSatisfied babel-preset-jest false
+156 silly hasDependencyInstalled lens-filter-noise babel-preset-jest
+157 silly dependencyIsSatisfied [ 'babel-preset-jest',
+157 silly dependencyIsSatisfied   '^23.0.1',
+157 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+158 verbose dependencyIsSatisfied babel-preset-jest false
+159 silly hasDependencyInstalled lens-filter-sepia babel-preset-jest
+160 silly dependencyIsSatisfied [ 'babel-preset-jest',
+160 silly dependencyIsSatisfied   '^23.0.1',
+160 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+161 verbose dependencyIsSatisfied babel-preset-jest false
+162 silly hasDependencyInstalled lens-filter-threshold babel-preset-jest
+163 silly dependencyIsSatisfied [ 'babel-preset-jest',
+163 silly dependencyIsSatisfied   '^23.0.1',
+163 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+164 verbose dependencyIsSatisfied babel-preset-jest false
+165 silly hasDependencyInstalled lens-filter-brightness codecov.io
+166 silly dependencyIsSatisfied [ 'codecov.io',
+166 silly dependencyIsSatisfied   '^0.1.6',
+166 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+167 verbose dependencyIsSatisfied codecov.io false
+168 silly hasDependencyInstalled lens-filter-color codecov.io
+169 silly dependencyIsSatisfied [ 'codecov.io',
+169 silly dependencyIsSatisfied   '^0.1.6',
+169 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+170 verbose dependencyIsSatisfied codecov.io false
+171 silly hasDependencyInstalled lens-filter-colorize codecov.io
+172 silly dependencyIsSatisfied [ 'codecov.io',
+172 silly dependencyIsSatisfied   '^0.1.6',
+172 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+173 verbose dependencyIsSatisfied codecov.io false
+174 silly hasDependencyInstalled lens-filter-contrast codecov.io
+175 silly dependencyIsSatisfied [ 'codecov.io',
+175 silly dependencyIsSatisfied   '^0.1.6',
+175 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+176 verbose dependencyIsSatisfied codecov.io false
+177 silly hasDependencyInstalled lens-core codecov.io
+178 silly dependencyIsSatisfied [ 'codecov.io',
+178 silly dependencyIsSatisfied   '^0.1.6',
+178 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+179 verbose dependencyIsSatisfied codecov.io false
+180 silly hasDependencyInstalled lens-filter-gamma codecov.io
+181 silly dependencyIsSatisfied [ 'codecov.io',
+181 silly dependencyIsSatisfied   '^0.1.6',
+181 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+182 verbose dependencyIsSatisfied codecov.io false
+183 silly hasDependencyInstalled lens-filter-grayscale codecov.io
+184 silly dependencyIsSatisfied [ 'codecov.io',
+184 silly dependencyIsSatisfied   '^0.1.6',
+184 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+185 verbose dependencyIsSatisfied codecov.io false
+186 silly hasDependencyInstalled lens-filter-invert codecov.io
+187 silly dependencyIsSatisfied [ 'codecov.io',
+187 silly dependencyIsSatisfied   '^0.1.6',
+187 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+188 verbose dependencyIsSatisfied codecov.io false
+189 silly hasDependencyInstalled lens-filter-noise codecov.io
+190 silly dependencyIsSatisfied [ 'codecov.io',
+190 silly dependencyIsSatisfied   '^0.1.6',
+190 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+191 verbose dependencyIsSatisfied codecov.io false
+192 silly hasDependencyInstalled lens-filter-sepia codecov.io
+193 silly dependencyIsSatisfied [ 'codecov.io',
+193 silly dependencyIsSatisfied   '^0.1.6',
+193 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+194 verbose dependencyIsSatisfied codecov.io false
+195 silly hasDependencyInstalled lens-filter-threshold codecov.io
+196 silly dependencyIsSatisfied [ 'codecov.io',
+196 silly dependencyIsSatisfied   '^0.1.6',
+196 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+197 verbose dependencyIsSatisfied codecov.io false
+198 silly hasDependencyInstalled lens-filter-brightness jest
+199 silly dependencyIsSatisfied [ 'jest',
+199 silly dependencyIsSatisfied   '^23.1.0',
+199 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+200 verbose dependencyIsSatisfied jest false
+201 silly hasDependencyInstalled lens-filter-color jest
+202 silly dependencyIsSatisfied [ 'jest',
+202 silly dependencyIsSatisfied   '^23.1.0',
+202 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+203 verbose dependencyIsSatisfied jest false
+204 silly hasDependencyInstalled lens-filter-colorize jest
+205 silly dependencyIsSatisfied [ 'jest',
+205 silly dependencyIsSatisfied   '^23.1.0',
+205 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+206 verbose dependencyIsSatisfied jest false
+207 silly hasDependencyInstalled lens-filter-contrast jest
+208 silly dependencyIsSatisfied [ 'jest',
+208 silly dependencyIsSatisfied   '^23.1.0',
+208 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+209 verbose dependencyIsSatisfied jest false
+210 silly hasDependencyInstalled lens-core jest
+211 silly dependencyIsSatisfied [ 'jest',
+211 silly dependencyIsSatisfied   '^23.1.0',
+211 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+212 verbose dependencyIsSatisfied jest false
+213 silly hasDependencyInstalled lens-filter-gamma jest
+214 silly dependencyIsSatisfied [ 'jest',
+214 silly dependencyIsSatisfied   '^23.1.0',
+214 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+215 verbose dependencyIsSatisfied jest false
+216 silly hasDependencyInstalled lens-filter-grayscale jest
+217 silly dependencyIsSatisfied [ 'jest',
+217 silly dependencyIsSatisfied   '^23.1.0',
+217 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+218 verbose dependencyIsSatisfied jest false
+219 silly hasDependencyInstalled lens-filter-invert jest
+220 silly dependencyIsSatisfied [ 'jest',
+220 silly dependencyIsSatisfied   '^23.1.0',
+220 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+221 verbose dependencyIsSatisfied jest false
+222 silly hasDependencyInstalled lens-filter-noise jest
+223 silly dependencyIsSatisfied [ 'jest',
+223 silly dependencyIsSatisfied   '^23.1.0',
+223 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+224 verbose dependencyIsSatisfied jest false
+225 silly hasDependencyInstalled lens-filter-sepia jest
+226 silly dependencyIsSatisfied [ 'jest',
+226 silly dependencyIsSatisfied   '^23.1.0',
+226 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+227 verbose dependencyIsSatisfied jest false
+228 silly hasDependencyInstalled lens-filter-threshold jest
+229 silly dependencyIsSatisfied [ 'jest',
+229 silly dependencyIsSatisfied   '^23.1.0',
+229 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+230 verbose dependencyIsSatisfied jest false
+231 silly hasDependencyInstalled lens-filter-brightness rollup
+232 silly dependencyIsSatisfied [ 'rollup',
+232 silly dependencyIsSatisfied   '^0.59.4',
+232 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+233 verbose dependencyIsSatisfied rollup false
+234 silly hasDependencyInstalled lens-filter-color rollup
+235 silly dependencyIsSatisfied [ 'rollup',
+235 silly dependencyIsSatisfied   '^0.59.4',
+235 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+236 verbose dependencyIsSatisfied rollup false
+237 silly hasDependencyInstalled lens-filter-colorize rollup
+238 silly dependencyIsSatisfied [ 'rollup',
+238 silly dependencyIsSatisfied   '^0.59.4',
+238 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+239 verbose dependencyIsSatisfied rollup false
+240 silly hasDependencyInstalled lens-filter-contrast rollup
+241 silly dependencyIsSatisfied [ 'rollup',
+241 silly dependencyIsSatisfied   '^0.59.4',
+241 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+242 verbose dependencyIsSatisfied rollup false
+243 silly hasDependencyInstalled lens-core rollup
+244 silly dependencyIsSatisfied [ 'rollup',
+244 silly dependencyIsSatisfied   '^0.59.4',
+244 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+245 verbose dependencyIsSatisfied rollup false
+246 silly hasDependencyInstalled lens-filter-gamma rollup
+247 silly dependencyIsSatisfied [ 'rollup',
+247 silly dependencyIsSatisfied   '^0.59.4',
+247 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+248 verbose dependencyIsSatisfied rollup false
+249 silly hasDependencyInstalled lens-filter-grayscale rollup
+250 silly dependencyIsSatisfied [ 'rollup',
+250 silly dependencyIsSatisfied   '^0.59.4',
+250 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+251 verbose dependencyIsSatisfied rollup false
+252 silly hasDependencyInstalled lens-filter-invert rollup
+253 silly dependencyIsSatisfied [ 'rollup',
+253 silly dependencyIsSatisfied   '^0.59.4',
+253 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+254 verbose dependencyIsSatisfied rollup false
+255 silly hasDependencyInstalled lens-filter-noise rollup
+256 silly dependencyIsSatisfied [ 'rollup',
+256 silly dependencyIsSatisfied   '^0.59.4',
+256 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+257 verbose dependencyIsSatisfied rollup false
+258 silly hasDependencyInstalled lens-filter-sepia rollup
+259 silly dependencyIsSatisfied [ 'rollup',
+259 silly dependencyIsSatisfied   '^0.59.4',
+259 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+260 verbose dependencyIsSatisfied rollup false
+261 silly hasDependencyInstalled lens-filter-threshold rollup
+262 silly dependencyIsSatisfied [ 'rollup',
+262 silly dependencyIsSatisfied   '^0.59.4',
+262 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+263 verbose dependencyIsSatisfied rollup false
+264 silly hasDependencyInstalled lens-filter-brightness rollup-plugin-babel
+265 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+265 silly dependencyIsSatisfied   '^3.0.3',
+265 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+266 verbose dependencyIsSatisfied rollup-plugin-babel false
+267 silly hasDependencyInstalled lens-filter-color rollup-plugin-babel
+268 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+268 silly dependencyIsSatisfied   '^3.0.3',
+268 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+269 verbose dependencyIsSatisfied rollup-plugin-babel false
+270 silly hasDependencyInstalled lens-filter-colorize rollup-plugin-babel
+271 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+271 silly dependencyIsSatisfied   '^3.0.3',
+271 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+272 verbose dependencyIsSatisfied rollup-plugin-babel false
+273 silly hasDependencyInstalled lens-filter-contrast rollup-plugin-babel
+274 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+274 silly dependencyIsSatisfied   '^3.0.3',
+274 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+275 verbose dependencyIsSatisfied rollup-plugin-babel false
+276 silly hasDependencyInstalled lens-core rollup-plugin-babel
+277 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+277 silly dependencyIsSatisfied   '^3.0.3',
+277 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+278 verbose dependencyIsSatisfied rollup-plugin-babel false
+279 silly hasDependencyInstalled lens-filter-gamma rollup-plugin-babel
+280 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+280 silly dependencyIsSatisfied   '^3.0.3',
+280 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+281 verbose dependencyIsSatisfied rollup-plugin-babel false
+282 silly hasDependencyInstalled lens-filter-grayscale rollup-plugin-babel
+283 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+283 silly dependencyIsSatisfied   '^3.0.3',
+283 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+284 verbose dependencyIsSatisfied rollup-plugin-babel false
+285 silly hasDependencyInstalled lens-filter-invert rollup-plugin-babel
+286 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+286 silly dependencyIsSatisfied   '^3.0.3',
+286 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+287 verbose dependencyIsSatisfied rollup-plugin-babel false
+288 silly hasDependencyInstalled lens-filter-noise rollup-plugin-babel
+289 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+289 silly dependencyIsSatisfied   '^3.0.3',
+289 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+290 verbose dependencyIsSatisfied rollup-plugin-babel false
+291 silly hasDependencyInstalled lens-filter-sepia rollup-plugin-babel
+292 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+292 silly dependencyIsSatisfied   '^3.0.3',
+292 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+293 verbose dependencyIsSatisfied rollup-plugin-babel false
+294 silly hasDependencyInstalled lens-filter-threshold rollup-plugin-babel
+295 silly dependencyIsSatisfied [ 'rollup-plugin-babel',
+295 silly dependencyIsSatisfied   '^3.0.3',
+295 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+296 verbose dependencyIsSatisfied rollup-plugin-babel false
+297 silly hasDependencyInstalled lens-filter-brightness rollup-plugin-commonjs
+298 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+298 silly dependencyIsSatisfied   '^9.1.0',
+298 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+299 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+300 silly hasDependencyInstalled lens-filter-color rollup-plugin-commonjs
+301 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+301 silly dependencyIsSatisfied   '^9.1.0',
+301 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+302 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+303 silly hasDependencyInstalled lens-filter-colorize rollup-plugin-commonjs
+304 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+304 silly dependencyIsSatisfied   '^9.1.0',
+304 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+305 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+306 silly hasDependencyInstalled lens-filter-contrast rollup-plugin-commonjs
+307 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+307 silly dependencyIsSatisfied   '^9.1.0',
+307 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+308 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+309 silly hasDependencyInstalled lens-core rollup-plugin-commonjs
+310 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+310 silly dependencyIsSatisfied   '^9.1.0',
+310 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+311 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+312 silly hasDependencyInstalled lens-filter-gamma rollup-plugin-commonjs
+313 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+313 silly dependencyIsSatisfied   '^9.1.0',
+313 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+314 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+315 silly hasDependencyInstalled lens-filter-grayscale rollup-plugin-commonjs
+316 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+316 silly dependencyIsSatisfied   '^9.1.0',
+316 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+317 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+318 silly hasDependencyInstalled lens-filter-invert rollup-plugin-commonjs
+319 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+319 silly dependencyIsSatisfied   '^9.1.0',
+319 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+320 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+321 silly hasDependencyInstalled lens-filter-noise rollup-plugin-commonjs
+322 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+322 silly dependencyIsSatisfied   '^9.1.0',
+322 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+323 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+324 silly hasDependencyInstalled lens-filter-sepia rollup-plugin-commonjs
+325 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+325 silly dependencyIsSatisfied   '^9.1.0',
+325 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+326 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+327 silly hasDependencyInstalled lens-filter-threshold rollup-plugin-commonjs
+328 silly dependencyIsSatisfied [ 'rollup-plugin-commonjs',
+328 silly dependencyIsSatisfied   '^9.1.0',
+328 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+329 verbose dependencyIsSatisfied rollup-plugin-commonjs false
+330 silly hasDependencyInstalled lens-filter-brightness rollup-plugin-node-resolve
+331 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+331 silly dependencyIsSatisfied   '^3.2.0',
+331 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+332 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+333 silly hasDependencyInstalled lens-filter-color rollup-plugin-node-resolve
+334 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+334 silly dependencyIsSatisfied   '^3.2.0',
+334 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+335 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+336 silly hasDependencyInstalled lens-filter-colorize rollup-plugin-node-resolve
+337 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+337 silly dependencyIsSatisfied   '^3.2.0',
+337 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+338 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+339 silly hasDependencyInstalled lens-filter-contrast rollup-plugin-node-resolve
+340 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+340 silly dependencyIsSatisfied   '^3.2.0',
+340 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+341 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+342 silly hasDependencyInstalled lens-core rollup-plugin-node-resolve
+343 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+343 silly dependencyIsSatisfied   '^3.2.0',
+343 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+344 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+345 silly hasDependencyInstalled lens-filter-gamma rollup-plugin-node-resolve
+346 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+346 silly dependencyIsSatisfied   '^3.2.0',
+346 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+347 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+348 silly hasDependencyInstalled lens-filter-grayscale rollup-plugin-node-resolve
+349 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+349 silly dependencyIsSatisfied   '^3.2.0',
+349 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+350 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+351 silly hasDependencyInstalled lens-filter-invert rollup-plugin-node-resolve
+352 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+352 silly dependencyIsSatisfied   '^3.2.0',
+352 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+353 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+354 silly hasDependencyInstalled lens-filter-noise rollup-plugin-node-resolve
+355 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+355 silly dependencyIsSatisfied   '^3.2.0',
+355 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+356 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+357 silly hasDependencyInstalled lens-filter-sepia rollup-plugin-node-resolve
+358 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+358 silly dependencyIsSatisfied   '^3.2.0',
+358 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+359 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+360 silly hasDependencyInstalled lens-filter-threshold rollup-plugin-node-resolve
+361 silly dependencyIsSatisfied [ 'rollup-plugin-node-resolve',
+361 silly dependencyIsSatisfied   '^3.2.0',
+361 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+362 verbose dependencyIsSatisfied rollup-plugin-node-resolve false
+363 silly hasDependencyInstalled lens-filter-brightness rollup-plugin-serve
+364 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+364 silly dependencyIsSatisfied   '^0.4.2',
+364 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+365 verbose dependencyIsSatisfied rollup-plugin-serve false
+366 silly hasDependencyInstalled lens-filter-color rollup-plugin-serve
+367 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+367 silly dependencyIsSatisfied   '^0.4.2',
+367 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+368 verbose dependencyIsSatisfied rollup-plugin-serve false
+369 silly hasDependencyInstalled lens-filter-colorize rollup-plugin-serve
+370 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+370 silly dependencyIsSatisfied   '^0.4.2',
+370 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+371 verbose dependencyIsSatisfied rollup-plugin-serve false
+372 silly hasDependencyInstalled lens-filter-contrast rollup-plugin-serve
+373 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+373 silly dependencyIsSatisfied   '^0.4.2',
+373 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+374 verbose dependencyIsSatisfied rollup-plugin-serve false
+375 silly hasDependencyInstalled lens-core rollup-plugin-serve
+376 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+376 silly dependencyIsSatisfied   '^0.4.2',
+376 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+377 verbose dependencyIsSatisfied rollup-plugin-serve false
+378 silly hasDependencyInstalled lens-filter-gamma rollup-plugin-serve
+379 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+379 silly dependencyIsSatisfied   '^0.4.2',
+379 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+380 verbose dependencyIsSatisfied rollup-plugin-serve false
+381 silly hasDependencyInstalled lens-filter-grayscale rollup-plugin-serve
+382 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+382 silly dependencyIsSatisfied   '^0.4.2',
+382 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+383 verbose dependencyIsSatisfied rollup-plugin-serve false
+384 silly hasDependencyInstalled lens-filter-invert rollup-plugin-serve
+385 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+385 silly dependencyIsSatisfied   '^0.4.2',
+385 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+386 verbose dependencyIsSatisfied rollup-plugin-serve false
+387 silly hasDependencyInstalled lens-filter-noise rollup-plugin-serve
+388 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+388 silly dependencyIsSatisfied   '^0.4.2',
+388 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+389 verbose dependencyIsSatisfied rollup-plugin-serve false
+390 silly hasDependencyInstalled lens-filter-sepia rollup-plugin-serve
+391 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+391 silly dependencyIsSatisfied   '^0.4.2',
+391 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+392 verbose dependencyIsSatisfied rollup-plugin-serve false
+393 silly hasDependencyInstalled lens-filter-threshold rollup-plugin-serve
+394 silly dependencyIsSatisfied [ 'rollup-plugin-serve',
+394 silly dependencyIsSatisfied   '^0.4.2',
+394 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+395 verbose dependencyIsSatisfied rollup-plugin-serve false
+396 silly hasDependencyInstalled lens-filter-brightness lens-core
+397 silly dependencyIsSatisfied [ 'lens-core',
+397 silly dependencyIsSatisfied   '../core',
+397 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/node_modules' ]
+398 verbose dependencyIsSatisfied lens-core false
+399 silly hasDependencyInstalled lens-filter-color lens-core
+400 silly dependencyIsSatisfied [ 'lens-core',
+400 silly dependencyIsSatisfied   '../core',
+400 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/color/node_modules' ]
+401 verbose dependencyIsSatisfied lens-core false
+402 silly hasDependencyInstalled lens-filter-colorize lens-core
+403 silly dependencyIsSatisfied [ 'lens-core',
+403 silly dependencyIsSatisfied   '../core',
+403 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules' ]
+404 verbose dependencyIsSatisfied lens-core false
+405 silly hasDependencyInstalled lens-filter-contrast lens-core
+406 silly dependencyIsSatisfied [ 'lens-core',
+406 silly dependencyIsSatisfied   '../core',
+406 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/node_modules' ]
+407 verbose dependencyIsSatisfied lens-core false
+408 silly hasDependencyInstalled lens-filter-gamma lens-core
+409 silly dependencyIsSatisfied [ 'lens-core',
+409 silly dependencyIsSatisfied   '../core',
+409 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/gamma/node_modules' ]
+410 verbose dependencyIsSatisfied lens-core false
+411 silly hasDependencyInstalled lens-filter-grayscale lens-core
+412 silly dependencyIsSatisfied [ 'lens-core',
+412 silly dependencyIsSatisfied   '../core',
+412 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/grayscale/node_modules' ]
+413 verbose dependencyIsSatisfied lens-core false
+414 silly hasDependencyInstalled lens-filter-invert lens-core
+415 silly dependencyIsSatisfied [ 'lens-core',
+415 silly dependencyIsSatisfied   '../core',
+415 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/invert/node_modules' ]
+416 verbose dependencyIsSatisfied lens-core false
+417 silly hasDependencyInstalled lens-filter-noise lens-core
+418 silly dependencyIsSatisfied [ 'lens-core',
+418 silly dependencyIsSatisfied   '../core',
+418 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/noise/node_modules' ]
+419 verbose dependencyIsSatisfied lens-core false
+420 silly hasDependencyInstalled lens-filter-sepia lens-core
+421 silly dependencyIsSatisfied [ 'lens-core',
+421 silly dependencyIsSatisfied   '../core',
+421 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/sepia/node_modules' ]
+422 verbose dependencyIsSatisfied lens-core false
+423 silly hasDependencyInstalled lens-filter-threshold lens-core
+424 silly dependencyIsSatisfied [ 'lens-core',
+424 silly dependencyIsSatisfied   '../core',
+424 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/threshold/node_modules' ]
+425 verbose dependencyIsSatisfied lens-core false
+426 silly hasDependencyInstalled lens-core workerize
+427 silly dependencyIsSatisfied [ 'workerize',
+427 silly dependencyIsSatisfied   '^0.1.7',
+427 silly dependencyIsSatisfied   '/Users/ricardocanastro/dev/personal/lens/packages/core/node_modules' ]
+428 verbose dependencyIsSatisfied workerize false
+429 silly root dependencies []
+430 silly leaf dependencies {
+430 silly leaf dependencies   "lens-filter-brightness": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-color": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-colorize": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-contrast": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-core": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "workerize@^0.1.7",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-gamma": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-grayscale": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-invert": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-noise": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-sepia": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ],
+430 silly leaf dependencies   "lens-filter-threshold": [
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "eslint@^4.19.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-core@^6.26.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-env@^1.6.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "babel-preset-jest@^23.0.1",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "codecov.io@^0.1.6",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "jest@^23.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup@^0.59.4",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-babel@^3.0.3",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-commonjs@^9.1.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-node-resolve@^3.2.0",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "rollup-plugin-serve@^0.4.2",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     },
+430 silly leaf dependencies     {
+430 silly leaf dependencies       "dependency": "lens-core@../core",
+430 silly leaf dependencies       "isSatisfied": false
+430 silly leaf dependencies     }
+430 silly leaf dependencies   ]
+430 silly leaf dependencies }
+431 info Installing external dependencies
+432 verbose actions 11 actions, concurrency 4
+433 silly installInDir brightness [ 'eslint@^4.19.1',
+433 silly installInDir   'babel-core@^6.26.0',
+433 silly installInDir   'babel-preset-env@^1.6.1',
+433 silly installInDir   'babel-preset-jest@^23.0.1',
+433 silly installInDir   'codecov.io@^0.1.6',
+433 silly installInDir   'jest@^23.1.0',
+433 silly installInDir   'rollup@^0.59.4',
+433 silly installInDir   'rollup-plugin-babel@^3.0.3',
+433 silly installInDir   'rollup-plugin-commonjs@^9.1.0',
+433 silly installInDir   'rollup-plugin-node-resolve@^3.2.0',
+433 silly installInDir   'rollup-plugin-serve@^0.4.2',
+433 silly installInDir   'lens-core@../core' ]
+434 silly installInDir backup /Users/ricardocanastro/dev/personal/lens/packages/brightness/package.json
+435 silly rename [ '/Users/ricardocanastro/dev/personal/lens/packages/brightness/package.json',
+435 silly rename   '/Users/ricardocanastro/dev/personal/lens/packages/brightness/package.json.lerna_backup' ]
+436 silly installInDir color [ 'eslint@^4.19.1',
+436 silly installInDir   'babel-core@^6.26.0',
+436 silly installInDir   'babel-preset-env@^1.6.1',
+436 silly installInDir   'babel-preset-jest@^23.0.1',
+436 silly installInDir   'codecov.io@^0.1.6',
+436 silly installInDir   'jest@^23.1.0',
+436 silly installInDir   'rollup@^0.59.4',
+436 silly installInDir   'rollup-plugin-babel@^3.0.3',
+436 silly installInDir   'rollup-plugin-commonjs@^9.1.0',
+436 silly installInDir   'rollup-plugin-node-resolve@^3.2.0',
+436 silly installInDir   'rollup-plugin-serve@^0.4.2',
+436 silly installInDir   'lens-core@../core' ]
+437 silly installInDir backup /Users/ricardocanastro/dev/personal/lens/packages/color/package.json
+438 silly rename [ '/Users/ricardocanastro/dev/personal/lens/packages/color/package.json',
+438 silly rename   '/Users/ricardocanastro/dev/personal/lens/packages/color/package.json.lerna_backup' ]
+439 silly installInDir colorize [ 'eslint@^4.19.1',
+439 silly installInDir   'babel-core@^6.26.0',
+439 silly installInDir   'babel-preset-env@^1.6.1',
+439 silly installInDir   'babel-preset-jest@^23.0.1',
+439 silly installInDir   'codecov.io@^0.1.6',
+439 silly installInDir   'jest@^23.1.0',
+439 silly installInDir   'rollup@^0.59.4',
+439 silly installInDir   'rollup-plugin-babel@^3.0.3',
+439 silly installInDir   'rollup-plugin-commonjs@^9.1.0',
+439 silly installInDir   'rollup-plugin-node-resolve@^3.2.0',
+439 silly installInDir   'rollup-plugin-serve@^0.4.2',
+439 silly installInDir   'lens-core@../core' ]
+440 silly installInDir backup /Users/ricardocanastro/dev/personal/lens/packages/colorize/package.json
+441 silly rename [ '/Users/ricardocanastro/dev/personal/lens/packages/colorize/package.json',
+441 silly rename   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/package.json.lerna_backup' ]
+442 silly installInDir contrast [ 'eslint@^4.19.1',
+442 silly installInDir   'babel-core@^6.26.0',
+442 silly installInDir   'babel-preset-env@^1.6.1',
+442 silly installInDir   'babel-preset-jest@^23.0.1',
+442 silly installInDir   'codecov.io@^0.1.6',
+442 silly installInDir   'jest@^23.1.0',
+442 silly installInDir   'rollup@^0.59.4',
+442 silly installInDir   'rollup-plugin-babel@^3.0.3',
+442 silly installInDir   'rollup-plugin-commonjs@^9.1.0',
+442 silly installInDir   'rollup-plugin-node-resolve@^3.2.0',
+442 silly installInDir   'rollup-plugin-serve@^0.4.2',
+442 silly installInDir   'lens-core@../core' ]
+443 silly installInDir backup /Users/ricardocanastro/dev/personal/lens/packages/contrast/package.json
+444 silly rename [ '/Users/ricardocanastro/dev/personal/lens/packages/contrast/package.json',
+444 silly rename   '/Users/ricardocanastro/dev/personal/lens/packages/contrast/package.json.lerna_backup' ]
+445 silly installInDir writing tempJson { dependencies:
+445 silly installInDir    { eslint: '^4.19.1',
+445 silly installInDir      'babel-core': '^6.26.0',
+445 silly installInDir      'babel-preset-env': '^1.6.1',
+445 silly installInDir      'babel-preset-jest': '^23.0.1',
+445 silly installInDir      'codecov.io': '^0.1.6',
+445 silly installInDir      jest: '^23.1.0',
+445 silly installInDir      rollup: '^0.59.4',
+445 silly installInDir      'rollup-plugin-babel': '^3.0.3',
+445 silly installInDir      'rollup-plugin-commonjs': '^9.1.0',
+445 silly installInDir      'rollup-plugin-node-resolve': '^3.2.0',
+445 silly installInDir      'rollup-plugin-serve': '^0.4.2',
+445 silly installInDir      'lens-core': '../core' } }
+446 silly installInDir writing tempJson { dependencies:
+446 silly installInDir    { eslint: '^4.19.1',
+446 silly installInDir      'babel-core': '^6.26.0',
+446 silly installInDir      'babel-preset-env': '^1.6.1',
+446 silly installInDir      'babel-preset-jest': '^23.0.1',
+446 silly installInDir      'codecov.io': '^0.1.6',
+446 silly installInDir      jest: '^23.1.0',
+446 silly installInDir      rollup: '^0.59.4',
+446 silly installInDir      'rollup-plugin-babel': '^3.0.3',
+446 silly installInDir      'rollup-plugin-commonjs': '^9.1.0',
+446 silly installInDir      'rollup-plugin-node-resolve': '^3.2.0',
+446 silly installInDir      'rollup-plugin-serve': '^0.4.2',
+446 silly installInDir      'lens-core': '../core' } }
+447 silly installInDir writing tempJson { dependencies:
+447 silly installInDir    { eslint: '^4.19.1',
+447 silly installInDir      'babel-core': '^6.26.0',
+447 silly installInDir      'babel-preset-env': '^1.6.1',
+447 silly installInDir      'babel-preset-jest': '^23.0.1',
+447 silly installInDir      'codecov.io': '^0.1.6',
+447 silly installInDir      jest: '^23.1.0',
+447 silly installInDir      rollup: '^0.59.4',
+447 silly installInDir      'rollup-plugin-babel': '^3.0.3',
+447 silly installInDir      'rollup-plugin-commonjs': '^9.1.0',
+447 silly installInDir      'rollup-plugin-node-resolve': '^3.2.0',
+447 silly installInDir      'rollup-plugin-serve': '^0.4.2',
+447 silly installInDir      'lens-core': '../core' } }
+448 silly installInDir writing tempJson { dependencies:
+448 silly installInDir    { eslint: '^4.19.1',
+448 silly installInDir      'babel-core': '^6.26.0',
+448 silly installInDir      'babel-preset-env': '^1.6.1',
+448 silly installInDir      'babel-preset-jest': '^23.0.1',
+448 silly installInDir      'codecov.io': '^0.1.6',
+448 silly installInDir      jest: '^23.1.0',
+448 silly installInDir      rollup: '^0.59.4',
+448 silly installInDir      'rollup-plugin-babel': '^3.0.3',
+448 silly installInDir      'rollup-plugin-commonjs': '^9.1.0',
+448 silly installInDir      'rollup-plugin-node-resolve': '^3.2.0',
+448 silly installInDir      'rollup-plugin-serve': '^0.4.2',
+448 silly installInDir      'lens-core': '../core' } }
+449 silly getExecOpts { cwd: '/Users/ricardocanastro/dev/personal/lens/packages/brightness' }
+450 silly installInDir [ 'npm', [ 'install' ] ]
+451 silly getExecOpts { cwd: '/Users/ricardocanastro/dev/personal/lens/packages/color' }
+452 silly installInDir [ 'npm', [ 'install' ] ]
+453 silly getExecOpts { cwd: '/Users/ricardocanastro/dev/personal/lens/packages/colorize' }
+454 silly installInDir [ 'npm', [ 'install' ] ]
+455 silly getExecOpts { cwd: '/Users/ricardocanastro/dev/personal/lens/packages/contrast' }
+456 silly installInDir [ 'npm', [ 'install' ] ]
+457 silly installInDir cleanup /Users/ricardocanastro/dev/personal/lens/packages/colorize/package.json
+458 silly renameSync [ '/Users/ricardocanastro/dev/personal/lens/packages/colorize/package.json.lerna_backup',
+458 silly renameSync   '/Users/ricardocanastro/dev/personal/lens/packages/colorize/package.json' ]
+459 verbose installed leaf lens-filter-colorize
+460 error execute callback with error
+461 error Error: Command failed: npm install
+461 error npm WARN colorize No repository field.
+461 error npm WARN colorize No license field.
+461 error npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 (node_modules/fsevents):
+461 error npm WARN enoent SKIPPING OPTIONAL DEPENDENCY: ENOENT: no such file or directory, rename '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules/.staging/fsevents-0b7a9a31/node_modules/ms' -> '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules/.staging/ms-9eb7ebf2'
+461 error
+461 error npm ERR! path /Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules/.staging/lens-core-098b3d00/node_modules/@babel/code-frame
+461 error npm ERR! code ENOENT
+461 error npm ERR! errno -2
+461 error npm ERR! syscall rename
+461 error npm ERR! enoent ENOENT: no such file or directory, rename '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules/.staging/lens-core-098b3d00/node_modules/@babel/code-frame' -> '/Users/ricardocanastro/dev/personal/lens/packages/colorize/node_modules/.staging/@babel/code-frame-7fe4714f'
+461 error npm ERR! enoent This is related to npm not being able to find a file.
+461 error npm ERR! enoent
+461 error
+461 error npm ERR! A complete log of this run can be found in:
+461 error npm ERR!     /Users/ricardocanastro/.npm/_logs/2018-06-04T07_46_58_092Z-debug.log
+461 error
+461 error     at Promise.all.then.arr (/Users/ricardocanastro/dev/personal/lens/node_modules/execa/index.js:236:11)

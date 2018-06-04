@@ -1,10 +1,10 @@
-var imageFilterCore = require('image-filter-core');
+var lensCore = require('lens-core');
 var imageSepia = require('../src/index');
 
 function applyResults(selector, canvas, context, src) {
     const target = document.querySelectorAll(selector)[0];
     const image = document.createElement('img');
-    image.setAttribute('src', imageFilterCore.convertImageDataToCanvasURL(src));
+    image.setAttribute('src', lensCore.convertImageDataToCanvasURL(src));
     target.appendChild(image);
 }
 

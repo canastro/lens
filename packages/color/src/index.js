@@ -1,4 +1,4 @@
-import { applyFilter } from 'image-filter-core';
+import { applyFilter } from 'lens-core';
 
 /**
  * Iterate over the array applying the color transformation
@@ -74,7 +74,7 @@ export default function color(data, options, nWorkers) {
         !options.colorsInterval ||
         !Array.isArray(options.colorsInterval)
     ) {
-        throw new Error('image-filter-color:: invalid options provided');
+        throw new Error('lens-filter-color:: invalid options provided');
     }
 
     return applyFilter(data, transform, options, nWorkers);

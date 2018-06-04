@@ -3,7 +3,7 @@
         ? factory(exports)
         : typeof define === 'function' && define.amd
             ? define(['exports'], factory)
-            : factory((global.ImageFilterColorize = {}));
+            : factory((global.lensFilterGamma = {}));
 })(this, function(exports) {
     'use strict';
 
@@ -24,7 +24,7 @@
         );
     }
 
-    var imageFilterCore_umd = createCommonjsModule(function(module, exports) {
+    var lensCore_umd = createCommonjsModule(function(module, exports) {
         (function(global, factory) {
             factory();
         })(commonjsGlobal, function() {
@@ -264,61 +264,48 @@
                 });
             }
 
-            module.exports = {
-                applyFilter: applyFilter,
-                convertImageDataToCanvasURL: convertImageDataToCanvasURL,
-                getCanvas: getCanvas
-            };
+            exports.getCanvas = getCanvas;
+            exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
+            exports.applyFilter = applyFilter;
         });
     });
-    var imageFilterCore_umd_1 = imageFilterCore_umd.applyFilter;
-    var imageFilterCore_umd_2 = imageFilterCore_umd.convertImageDataToCanvasURL;
-    var imageFilterCore_umd_3 = imageFilterCore_umd.getCanvas;
+    var lensCore_umd_1 = lensCore_umd.getCanvas;
+    var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
+    var lensCore_umd_3 = lensCore_umd.applyFilter;
 
     /**
+     * Iterate over the array applying the gamma transformation
      * @param {Object} data
      * @param {Number} length
      * @param {Object} options
-     * @param {Number} [options.color]
-     * @param {Number} [options.level]
+     * @param {Number} [options.adjustment]
      */
     var transform = function transform(data, length, options) {
-        var hex =
-            options.color.charAt(0) === '#'
-                ? options.color.substr(1)
-                : options.color;
-        var colorRGB = {
-            r: parseInt(hex.substr(0, 2), 16),
-            g: parseInt(hex.substr(2, 2), 16),
-            b: parseInt(hex.substr(4, 2), 16)
-        };
-
         for (var i = 0; i < length; i += 4) {
-            data[i] -= (data[i] - colorRGB.r) * (options.level / 100);
-            data[i + 1] -= (data[i + 1] - colorRGB.g) * (options.level / 100);
-            data[i + 2] -= (data[i + 2] - colorRGB.b) * (options.level / 100);
+            data[i] = Math.pow(data[i] / 255, options.adjustment) * 255;
+            data[i + 1] = Math.pow(data[i + 1] / 255, options.adjustment) * 255;
+            data[i + 2] = Math.pow(data[i + 2] / 255, options.adjustment) * 255;
         }
     };
 
     /**
      * @param {ImageData} data - data of a image extracted from a canvas
      * @param {Object} options - options to pass to the transformation function
-     * @param {Number} [options.color] - color value to apply in the transformation
-     * @param {Number} [options.level] - level value to apply in the transformation
+     * @param {Number} [options.adjustment] - adjustment to apply in the transformation
      * @param {Number} nWorkers - number of workers
      * @returns {Promise}
      */
-    function colorize(data, options, nWorkers) {
-        if (!data || !options || !options.color || !options.level) {
-            throw new Error('image-filter-colorize:: invalid options provided');
+    function gamma(data, options, nWorkers) {
+        if (!data || !options || !options.adjustment) {
+            throw new Error('lens-filter-gamma:: invalid options provided');
         }
 
-        return imageFilterCore_umd_1(data, transform, options, nWorkers);
+        return lensCore_umd_3(data, transform, options, nWorkers);
     }
 
     exports.transform = transform;
-    exports.default = colorize;
+    exports.default = gamma;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 });
-//# sourceMappingURL=image-filter-color.umd.js.map
+//# sourceMappingURL=lens-filter-gamma.umd.js.map

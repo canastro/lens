@@ -1,13 +1,13 @@
-import core from 'image-filter-core';
+import core from 'lens-core';
 import victim, { transform } from '../index';
 
-jest.mock('image-filter-core');
+jest.mock('lens-core');
 
 describe('noise', () => {
     describe('when data is not defined', () => {
         it('should throw error', () => {
             expect(() => victim()).toThrowError(
-                'image-filter-noise:: invalid options provided'
+                'lens-filter-noise:: invalid options provided'
             );
         });
     });
@@ -15,7 +15,7 @@ describe('noise', () => {
     describe('when options is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({})).toThrowError(
-                'image-filter-noise:: invalid options provided'
+                'lens-filter-noise:: invalid options provided'
             );
         });
     });
@@ -23,7 +23,7 @@ describe('noise', () => {
     describe('when adjust is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({}, {})).toThrowError(
-                'image-filter-noise:: invalid options provided'
+                'lens-filter-noise:: invalid options provided'
             );
         });
     });

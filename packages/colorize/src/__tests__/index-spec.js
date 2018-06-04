@@ -1,13 +1,13 @@
-import core from 'image-filter-core';
+import core from 'lens-core';
 import victim, { transform } from '../index';
 
-jest.mock('image-filter-core');
+jest.mock('lens-core');
 
 describe('colorize', () => {
     describe('when data is not defined', () => {
         it('should throw error', () => {
             expect(() => victim()).toThrowError(
-                'image-filter-colorize:: invalid options provided'
+                'lens-filter-colorize:: invalid options provided'
             );
         });
     });
@@ -15,7 +15,7 @@ describe('colorize', () => {
     describe('when options is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({})).toThrowError(
-                'image-filter-colorize:: invalid options provided'
+                'lens-filter-colorize:: invalid options provided'
             );
         });
     });
@@ -23,7 +23,7 @@ describe('colorize', () => {
     describe('when color is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({}, {})).toThrowError(
-                'image-filter-colorize:: invalid options provided'
+                'lens-filter-colorize:: invalid options provided'
             );
         });
     });
@@ -31,7 +31,7 @@ describe('colorize', () => {
     describe('when level is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({}, { color: '#FFF' })).toThrowError(
-                'image-filter-colorize:: invalid options provided'
+                'lens-filter-colorize:: invalid options provided'
             );
         });
     });

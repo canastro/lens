@@ -3,7 +3,7 @@
         ? factory(exports)
         : typeof define === 'function' && define.amd
             ? define(['exports'], factory)
-            : factory((global.ImageFilterGrayscale = {}));
+            : factory((global.lensFilterInvert = {}));
 })(this, function(exports) {
     'use strict';
 
@@ -24,7 +24,7 @@
         );
     }
 
-    var imageFilterCore_umd = createCommonjsModule(function(module, exports) {
+    var lensCore_umd = createCommonjsModule(function(module, exports) {
         (function(global, factory) {
             factory();
         })(commonjsGlobal, function() {
@@ -264,53 +264,46 @@
                 });
             }
 
-            module.exports = {
-                applyFilter: applyFilter,
-                convertImageDataToCanvasURL: convertImageDataToCanvasURL,
-                getCanvas: getCanvas
-            };
+            exports.getCanvas = getCanvas;
+            exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
+            exports.applyFilter = applyFilter;
         });
     });
-    var imageFilterCore_umd_1 = imageFilterCore_umd.applyFilter;
-    var imageFilterCore_umd_2 = imageFilterCore_umd.convertImageDataToCanvasURL;
-    var imageFilterCore_umd_3 = imageFilterCore_umd.getCanvas;
+    var lensCore_umd_1 = lensCore_umd.getCanvas;
+    var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
+    var lensCore_umd_3 = lensCore_umd.applyFilter;
 
     /**
-     * Iterate over the array applying the grayscale transformation
+     * Iterate over the array applying the invert transformation
+     * @name transform
      * @param {Object} data
      * @param {Number} length
      */
     var transform = function transform(data, length) {
         for (var i = 0; i < length; i += 4) {
-            var r = data[i];
-            var g = data[i + 1];
-            var b = data[i + 2];
-
-            // CIE luminance for the RGB
-            // The human eye is bad at seeing red and blue, so we de-emphasize them.
-            var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-            data[i] = data[i + 1] = data[i + 2] = v;
+            data[i] = 255 - data[i];
+            data[i + 1] = 255 - data[i + 1];
+            data[i + 2] = 255 - data[i + 2];
         }
     };
 
     /**
+     * @name invert
      * @param {ImageData} data - data of a image extracted from a canvas
      * @param {Number} nWorkers - number of workers
      * @returns {Promise}
      */
-    function grayscale(data, options, nWorkers) {
+    function invert(data, options, nWorkers) {
         if (!data) {
-            throw new Error(
-                'image-filter-grayscale:: invalid options provided'
-            );
+            throw new Error('lens-filter-invert:: invalid options provided');
         }
 
-        return imageFilterCore_umd_1(data, transform, null, nWorkers);
+        return lensCore_umd_3(data, transform, null, nWorkers);
     }
 
     exports.transform = transform;
-    exports.default = grayscale;
+    exports.default = invert;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 });
-//# sourceMappingURL=image-filter-grayscale.umd.js.map
+//# sourceMappingURL=lens-filter-grayscale.umd.js.map

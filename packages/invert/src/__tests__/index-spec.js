@@ -1,13 +1,13 @@
-import core from 'image-filter-core';
+import core from 'lens-core';
 import victim, { transform } from '../index';
 
-jest.mock('image-filter-core');
+jest.mock('lens-core');
 
 describe('invert', () => {
     describe('when data is not defined', () => {
         it('should throw error', () => {
             expect(() => victim()).toThrowError(
-                'image-filter-invert:: invalid options provided'
+                'lens-filter-invert:: invalid options provided'
             );
         });
     });

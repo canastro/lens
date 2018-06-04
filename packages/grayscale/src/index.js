@@ -1,4 +1,4 @@
-import { applyFilter } from 'image-filter-core';
+import { applyFilter } from 'lens-core';
 
 /**
  * Iterate over the array applying the grayscale transformation
@@ -25,7 +25,7 @@ export const transform = (data, length) => {
  */
 export default function grayscale(data, options, nWorkers) {
     if (!data) {
-        throw new Error('image-filter-grayscale:: invalid options provided');
+        throw new Error('lens-filter-grayscale:: invalid options provided');
     }
 
     return applyFilter(data, transform, null, nWorkers);

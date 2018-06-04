@@ -3,7 +3,7 @@
         ? factory(exports)
         : typeof define === 'function' && define.amd
             ? define(['exports'], factory)
-            : factory((global.ImageFilterColor = {}));
+            : factory((global.lensFilterNoise = {}));
 })(this, function(exports) {
     'use strict';
 
@@ -24,7 +24,7 @@
         );
     }
 
-    var imageFilterCore_umd = createCommonjsModule(function(module, exports) {
+    var lensCore_umd = createCommonjsModule(function(module, exports) {
         (function(global, factory) {
             factory();
         })(commonjsGlobal, function() {
@@ -264,116 +264,68 @@
                 });
             }
 
-            module.exports = {
-                applyFilter: applyFilter,
-                convertImageDataToCanvasURL: convertImageDataToCanvasURL,
-                getCanvas: getCanvas
-            };
+            exports.getCanvas = getCanvas;
+            exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
+            exports.applyFilter = applyFilter;
         });
     });
-    var imageFilterCore_umd_1 = imageFilterCore_umd.applyFilter;
-    var imageFilterCore_umd_2 = imageFilterCore_umd.convertImageDataToCanvasURL;
-    var imageFilterCore_umd_3 = imageFilterCore_umd.getCanvas;
+    var lensCore_umd_1 = lensCore_umd.getCanvas;
+    var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
+    var lensCore_umd_3 = lensCore_umd.applyFilter;
 
     /**
-     * Iterate over the array applying the color transformation
-     * @param {Object} data
+     * Iterate over the array applying the noise transformation
+     * @param {Array} data
      * @param {Number} length
      * @param {Object} options
-     * @param {Array<ColorInterval>} [options.colorsInterval]
+     * @param {Number} [options.adjust]
      */
     var transform = function transform(data, length, options) {
-        /**
-         * Validates if param is numeric
-         * @param   {Number}  n
-         * @returns {Boolean}
-         */
-        var isNumeric = function isNumeric(n) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
-        };
+        var adjust = Math.abs(options.adjust) * 2.55;
 
-        /**
-         * @param {Array} pixles
-         * @param {Number} index
-         * @param {Color} color
-         */
-        var applyPixelTransformation = function applyPixelTransformation(
-            pixels,
-            index,
-            color
-        ) {
-            pixels[index] = !isNumeric(color.r) ? pixels[index] : color.r;
-            pixels[index + 1] = !isNumeric(color.g)
-                ? pixels[index + 1]
-                : color.g;
-            pixels[index + 2] = !isNumeric(color.b)
-                ? pixels[index + 2]
-                : color.b;
-            pixels[index + 3] = !isNumeric(color.a)
-                ? pixels[index + 3]
-                : color.a;
-        };
+        var add = function add(original, increment) {
+            var result = original + increment;
 
-        /**
-         * @param {Array} data
-         * @param {Number} index
-         * @param {ColorInterval} colorInterval
-         */
-        var evaluatePixel = function evaluatePixel(data, index, colorInterval) {
-            var red = data[index];
-            var green = data[index + 1];
-            var blue = data[index + 2];
+            if (result > 255) {
+                return 255;
+            } else if (result < 0) {
+                return 0;
+            }
 
-            return (
-                red >= colorInterval.from.r &&
-                red <= colorInterval.to.r &&
-                green >= colorInterval.from.g &&
-                green <= colorInterval.to.g &&
-                blue >= colorInterval.from.b &&
-                blue <= colorInterval.to.b
-            );
-        };
-
-        var _loop = function _loop(i) {
-            options.colorsInterval.forEach(function(colorInterval) {
-                var isMatch = evaluatePixel(data, i, colorInterval);
-
-                if (isMatch && colorInterval.match) {
-                    applyPixelTransformation(data, i, colorInterval.match);
-                } else if (!isMatch && colorInterval.noMatch) {
-                    applyPixelTransformation(data, i, colorInterval.noMatch);
-                }
-            });
+            return result;
         };
 
         for (var i = 0; i < length; i += 4) {
-            _loop(i);
+            // Calculate if should be negative or positive
+            var multiplier = Math.random() < 0.5 ? -1 : 1;
+
+            // Calculate random noise
+            var rand = multiplier * (Math.random() + adjust);
+
+            data[i] = add(data[i], rand);
+            data[i + 1] = add(data[i + 1], rand);
+            data[i + 2] = add(data[i + 2], rand);
         }
     };
 
     /**
      * @param {ImageData} data - data of a image extracted from a canvas
      * @param {Object} options - options to pass to the transformation function
-     * @param {ColorInterval} [options.colorsInterval] - adjustment to apply in the transformation
+     * @param {Number} [options.noise] - noise to apply in the transformation
      * @param {Number} nWorkers - number of workers
      * @returns {Promise}
      */
-    function color(data, options, nWorkers) {
-        if (
-            !data ||
-            !options ||
-            !options.colorsInterval ||
-            !Array.isArray(options.colorsInterval)
-        ) {
-            throw new Error('image-filter-color:: invalid options provided');
+    function noise(data, options, nWorkers) {
+        if (!data || !options || !options.adjust) {
+            throw new Error('lens-filter-noise:: invalid options provided');
         }
 
-        return imageFilterCore_umd_1(data, transform, options, nWorkers);
+        return lensCore_umd_3(data, transform, options, nWorkers);
     }
 
     exports.transform = transform;
-    exports.default = color;
+    exports.default = noise;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 });
-//# sourceMappingURL=image-filter-color.umd.js.map
+//# sourceMappingURL=lens-filter-noise.umd.js.map

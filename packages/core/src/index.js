@@ -110,4 +110,6 @@ function applyFilter(data, transform, options, nWorkers) {
     });
 }
 
-module.exports = { applyFilter, convertImageDataToCanvasURL, getCanvas };
+exports.getCanvas = getCanvas;
+exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
+exports.applyFilter = applyFilter;

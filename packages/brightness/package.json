@@ -1,8 +1,8 @@
 {
-  "name": "image-filter-brightness",
-  "version": "1.0.0",
+  "name": "lens-filter-brightness",
+  "version": "0.0.1",
   "description": "Small library to apply a brightness transformation to a image",
-  "main": "dist/image-filter-brightness.umd.js",
+  "main": "dist/lens-filter-brightness.umd.js",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "codecov": "cat coverage/*/lcov.info | codecov",
@@ -14,14 +14,14 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/canastro/image-filters"
+    "url": "https://github.com/canastro/lens"
   },
   "bugs": {
-    "url": "https://github.com/canastro/image-filters/issues"
+    "url": "https://github.com/canastro/lens/issues"
   },
   "keywords": [
     "image",
-    "image-filter-brightness",
+    "lens-filter-brightness",
     "filter",
     "filters",
     "processing",
@@ -44,6 +44,6 @@
     "rollup-plugin-serve": "^0.4.2"
   },
   "dependencies": {
-    "image-filter-core": "../core"
+    "lens-core": "../core"
   }
 }

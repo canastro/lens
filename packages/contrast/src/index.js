@@ -1,4 +1,4 @@
-import { applyFilter } from 'image-filter-core';
+import { applyFilter } from 'lens-core';
 
 /**
  * Iterate over the array applying the contrast transformation
@@ -28,7 +28,7 @@ export const transform = (data, length, options) => {
  */
 export default function contrast(data, options, nWorkers) {
     if (!data || !options || !options.contrast) {
-        throw new Error('image-filter-contrast:: invalid options provided');
+        throw new Error('lens-filter-contrast:: invalid options provided');
     }
 
     return applyFilter(data, transform, options, nWorkers);

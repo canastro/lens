@@ -1,4 +1,4 @@
-import { applyFilter } from 'image-filter-core';
+import { applyFilter } from 'lens-core';
 
 /**
  * Iterate over the array applying the brightness transformation
@@ -24,7 +24,7 @@ export const transform = (data, length, options) => {
  */
 export default function brightness(data, options, nWorkers) {
     if (!data || !options || !options.adjustment) {
-        throw new Error('image-filter-brightness:: invalid options provided');
+        throw new Error('lens-filter-brightness:: invalid options provided');
     }
 
     return applyFilter(data, transform, options, nWorkers);

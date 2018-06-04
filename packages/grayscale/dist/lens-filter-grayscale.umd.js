@@ -3,7 +3,7 @@
         ? factory(exports)
         : typeof define === 'function' && define.amd
             ? define(['exports'], factory)
-            : factory((global.ImageFilterGamma = {}));
+            : factory((global.lensFilterGrayscale = {}));
 })(this, function(exports) {
     'use strict';
 
@@ -24,7 +24,7 @@
         );
     }
 
-    var imageFilterCore_umd = createCommonjsModule(function(module, exports) {
+    var lensCore_umd = createCommonjsModule(function(module, exports) {
         (function(global, factory) {
             factory();
         })(commonjsGlobal, function() {
@@ -264,50 +264,49 @@
                 });
             }
 
-            module.exports = {
-                applyFilter: applyFilter,
-                convertImageDataToCanvasURL: convertImageDataToCanvasURL,
-                getCanvas: getCanvas
-            };
+            exports.getCanvas = getCanvas;
+            exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
+            exports.applyFilter = applyFilter;
         });
     });
-    var imageFilterCore_umd_1 = imageFilterCore_umd.applyFilter;
-    var imageFilterCore_umd_2 = imageFilterCore_umd.convertImageDataToCanvasURL;
-    var imageFilterCore_umd_3 = imageFilterCore_umd.getCanvas;
+    var lensCore_umd_1 = lensCore_umd.getCanvas;
+    var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
+    var lensCore_umd_3 = lensCore_umd.applyFilter;
 
     /**
-     * Iterate over the array applying the gamma transformation
+     * Iterate over the array applying the grayscale transformation
      * @param {Object} data
      * @param {Number} length
-     * @param {Object} options
-     * @param {Number} [options.adjustment]
      */
-    var transform = function transform(data, length, options) {
+    var transform = function transform(data, length) {
         for (var i = 0; i < length; i += 4) {
-            data[i] = Math.pow(data[i] / 255, options.adjustment) * 255;
-            data[i + 1] = Math.pow(data[i + 1] / 255, options.adjustment) * 255;
-            data[i + 2] = Math.pow(data[i + 2] / 255, options.adjustment) * 255;
+            var r = data[i];
+            var g = data[i + 1];
+            var b = data[i + 2];
+
+            // CIE luminance for the RGB
+            // The human eye is bad at seeing red and blue, so we de-emphasize them.
+            var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+            data[i] = data[i + 1] = data[i + 2] = v;
         }
     };
 
     /**
      * @param {ImageData} data - data of a image extracted from a canvas
-     * @param {Object} options - options to pass to the transformation function
-     * @param {Number} [options.adjustment] - adjustment to apply in the transformation
      * @param {Number} nWorkers - number of workers
      * @returns {Promise}
      */
-    function gamma(data, options, nWorkers) {
-        if (!data || !options || !options.adjustment) {
-            throw new Error('image-filter-gamma:: invalid options provided');
+    function grayscale(data, options, nWorkers) {
+        if (!data) {
+            throw new Error('lens-filter-grayscale:: invalid options provided');
         }
 
-        return imageFilterCore_umd_1(data, transform, options, nWorkers);
+        return lensCore_umd_3(data, transform, null, nWorkers);
     }
 
     exports.transform = transform;
-    exports.default = gamma;
+    exports.default = grayscale;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 });
-//# sourceMappingURL=image-filter-gamma.umd.js.map
+//# sourceMappingURL=lens-filter-grayscale.umd.js.map

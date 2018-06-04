@@ -3,7 +3,7 @@
         ? factory(exports)
         : typeof define === 'function' && define.amd
             ? define(['exports'], factory)
-            : factory((global.ImageFilterSepia = {}));
+            : factory((global.lensFilterSepia = {}));
 })(this, function(exports) {
     'use strict';
 
@@ -24,7 +24,7 @@
         );
     }
 
-    var imageFilterCore_umd = createCommonjsModule(function(module, exports) {
+    var lensCore_umd = createCommonjsModule(function(module, exports) {
         (function(global, factory) {
             factory();
         })(commonjsGlobal, function() {
@@ -264,16 +264,14 @@
                 });
             }
 
-            module.exports = {
-                applyFilter: applyFilter,
-                convertImageDataToCanvasURL: convertImageDataToCanvasURL,
-                getCanvas: getCanvas
-            };
+            exports.getCanvas = getCanvas;
+            exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
+            exports.applyFilter = applyFilter;
         });
     });
-    var imageFilterCore_umd_1 = imageFilterCore_umd.applyFilter;
-    var imageFilterCore_umd_2 = imageFilterCore_umd.convertImageDataToCanvasURL;
-    var imageFilterCore_umd_3 = imageFilterCore_umd.getCanvas;
+    var lensCore_umd_1 = lensCore_umd.getCanvas;
+    var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
+    var lensCore_umd_3 = lensCore_umd.applyFilter;
 
     /**
      * Iterate over the array applying the sepia transformation
@@ -299,10 +297,10 @@
      */
     function sepia(data, options, nWorkers) {
         if (!data) {
-            throw new Error('image-filter-sepia:: invalid options provided');
+            throw new Error('lens-filter-sepia:: invalid options provided');
         }
 
-        return imageFilterCore_umd_1(data, transform, null, nWorkers);
+        return lensCore_umd_3(data, transform, null, nWorkers);
     }
 
     exports.transform = transform;
@@ -310,4 +308,4 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 });
-//# sourceMappingURL=image-filter-sepia.umd.js.map
+//# sourceMappingURL=lens-filter-sepia.umd.js.map

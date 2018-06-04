@@ -1,51 +1,51 @@
-![build status](https://travis-ci.org/canastro/image-filter-threshold.svg?branch=master)
-[![Dependency Status](https://dependencyci.com/github/canastro/image-filter-core/badge)](https://dependencyci.com/github/canastro/image-filter-core)
-[![npm version](https://badge.fury.io/js/image-filter-threshold.svg)](https://badge.fury.io/js/image-filter-threshold)
-[![codecov](https://codecov.io/gh/canastro/image-filter-core/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/image-filter-core)
+![build status](https://travis-ci.org/canastro/lens-filter-threshold.svg?branch=master)
+[![Dependency Status](https://dependencyci.com/github/canastro/lens-core/badge)](https://dependencyci.com/github/canastro/lens-core)
+[![npm version](https://badge.fury.io/js/lens-filter-threshold.svg)](https://badge.fury.io/js/lens-filter-threshold)
+[![codecov](https://codecov.io/gh/canastro/lens-core/branch/master/graph/badge.svg)](https://codecov.io/gh/canastro/lens-core)
 
-# image-filter-core
+# lens-core
 Small library that relies on webworkers to apply image transformations.
 
-There are several modules that use `image-filter-core`, such as:
-* [image-filters](https://www.npmjs.com/package/image-filters)
-* [image-filter-brightness](https://www.npmjs.com/package/image-filter-brightness)
-* [image-filter-contrast](https://www.npmjs.com/package/image-filter-contrast)
-* [image-filter-grayscale](https://www.npmjs.com/package/image-filter-grayscale)
-* [image-filter-threshold](https://www.npmjs.com/package/image-filter-threshold)
-* [image-filter-sepia](https://www.npmjs.com/package/image-filter-sepia)
-* [image-filter-invert](https://www.npmjs.com/package/image-filter-invert)
-* [image-filter-gamma](https://www.npmjs.com/package/image-filter-gamma)
-* [image-filter-colorize](https://www.npmjs.com/package/image-filter-colorize)
+There are several modules that use `lens-core`, such as:
+* [lens](https://www.npmjs.com/package/lens)
+* [lens-filter-brightness](https://www.npmjs.com/package/lens-filter-brightness)
+* [lens-filter-contrast](https://www.npmjs.com/package/lens-filter-contrast)
+* [lens-filter-grayscale](https://www.npmjs.com/package/lens-filter-grayscale)
+* [lens-filter-threshold](https://www.npmjs.com/package/lens-filter-threshold)
+* [lens-filter-sepia](https://www.npmjs.com/package/lens-filter-sepia)
+* [lens-filter-invert](https://www.npmjs.com/package/lens-filter-invert)
+* [lens-filter-gamma](https://www.npmjs.com/package/lens-filter-gamma)
+* [lens-filter-colorize](https://www.npmjs.com/package/lens-filter-colorize)
 
-But you can easily create your own transformation function and rely on `image-filter-core` to handle the webworkers and to split the work.
+But you can easily create your own transformation function and rely on `lens-core` to handle the webworkers and to split the work.
 
 ## Install
 ```
-npm install image-filter-core --save
+npm install lens-core --save
 ```
 
 ## Methods
 ### # getCanvas()
 It returns a canvas with the given width and height
 ```js
-var imageFilterCore = require('image-filter-core');
-var canvas = imageFilterCore.getCanvas(100, 100);
+var lensCore = require('lens-core');
+var canvas = lensCore.getCanvas(100, 100);
 ```
 
 ### # convertImageDataToCanvasURL()
 Given a ImageData it returns the dataURL
 ```js
-var imageFilterCore = require('image-filter-core');
-var canvasURL = imageFilterCore.convertImageDataToCanvasURL(imageData);
+var lensCore = require('lens-core');
+var canvasURL = lensCore.convertImageDataToCanvasURL(imageData);
 ```
 
 ### # apply()
 Provide the ImageData, the transformation function, the options to be passed to the transformation function and the number of workers to split the work.
 
 ```js
-var imageFilterCore = require('image-filter-core');
+var lensCore = require('lens-core');
 
-imageFilterCore.apply(data, transform, options, nWorkers)
+lensCore.apply(data, transform, options, nWorkers)
     .then(function (imageData) {
         // Do whatever you want with imageData
     });
