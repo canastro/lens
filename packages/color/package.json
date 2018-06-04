@@ -1,6 +1,6 @@
 {
   "name": "lens-filter-color",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Small library to apply a color transformation to a image",
   "main": "dist/lens-filter-color.umd.js",
   "scripts": {
