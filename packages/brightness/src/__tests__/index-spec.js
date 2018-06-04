@@ -28,23 +28,23 @@ describe('brightness', () => {
         });
     });
 
-    describe('when has all paramters', () => {
+    describe('when has all parameters', () => {
         let result;
         const data = 'DATA';
         const options = { adjustment: 'ADJUSTMENT' };
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
-            result = victim(data, options, 4);
+            result = victim({ data, options, nWorkers: 4 });
         });
 
         it('should call applyFilter', () => {
-            expect(core.applyFilter).toHaveBeenCalledWith(
+            expect(core.applyFilter).toHaveBeenCalledWith({
                 data,
-                expect.anything(),
+                transform: expect.anything(),
                 options,
-                4
-            );
+                nWorkers: 4
+            });
         });
 
         it('should return the applyFilter result', () => {
@@ -59,7 +59,11 @@ describe('#transform()', function() {
 
         const expectedData = [198, 224, 247, 255, 193, 219, 242, 255];
 
-        transform(data, 4, { adjustment: 5 });
-        expect(data).toEqual(expectedData);
+        const result = transform({
+            data,
+            length: 4,
+            options: { adjustment: 5 }
+        });
+        expect(result).toEqual(expectedData);
     });
 });

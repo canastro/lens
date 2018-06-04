@@ -196,11 +196,16 @@
              * @param {Number} nWorkers - number of workers to transform the image
              * @returns {Promise}
              */
-            function applyFilter(data, transform, options, nWorkers) {
+            function applyFilter(_ref) {
+                var data = _ref.data,
+                    transform = _ref.transform,
+                    options = _ref.options,
+                    nWorkers = _ref.nWorkers;
+
                 var worker = workerize(
                     '\n        var transform = ' +
                         transform +
-                        ';\n\n        export function execute(canvas, index, length, options) {\n            transform(canvas.data, length, options);\n            return { result: canvas, index };\n        }\n    '
+                        ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
                 );
 
                 // Drawing the source image into the target canvas
@@ -278,7 +283,10 @@
      * @param {Object} data
      * @param {Number} length
      */
-    var transform = function transform(data, length) {
+    var transform = function transform(_ref) {
+        var data = _ref.data,
+            length = _ref.length;
+
         for (var i = 0; i < length; i += 4) {
             var r = data[i];
             var g = data[i + 1];
@@ -289,6 +297,8 @@
             var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
             data[i] = data[i + 1] = data[i + 2] = v;
         }
+
+        return data;
     };
 
     /**
@@ -296,12 +306,23 @@
      * @param {Number} nWorkers - number of workers
      * @returns {Promise}
      */
-    function grayscale(data, options, nWorkers) {
+    function grayscale() {
+        var _ref2 =
+                arguments.length > 0 && arguments[0] !== undefined
+                    ? arguments[0]
+                    : {},
+            data = _ref2.data,
+            nWorkers = _ref2.nWorkers;
+
         if (!data) {
             throw new Error('lens-filter-grayscale:: invalid options provided');
         }
 
-        return lensCore_umd_3(data, transform, null, nWorkers);
+        return lensCore_umd_3({
+            data: data,
+            transform: transform,
+            nWorkers: nWorkers
+        });
     }
 
     exports.transform = transform;

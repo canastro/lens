@@ -39,13 +39,18 @@ function convertImageDataToCanvasURL(imageData) {
  * @param {Number} nWorkers - number of workers to transform the image
  * @returns {Promise}
  */
-function applyFilter(data, transform, options, nWorkers) {
+function applyFilter({ data, transform, options, nWorkers }) {
     const worker = workerize(`
         var transform = ${transform};
 
         export function execute(canvas, index, length, options) {
-            transform(canvas.data, length, options);
-            return { result: canvas, index };
+            canvas.data = transform({ 
+                data: canvas.data, 
+                length: length, 
+                options: options
+            });
+
+            return { result: canvas, index: index };
         }
     `);
 

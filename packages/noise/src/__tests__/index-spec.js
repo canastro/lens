@@ -35,16 +35,16 @@ describe('noise', () => {
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
-            result = victim(data, options, 4);
+            result = victim({ data, options, nWorkers: 4 });
         });
 
         it('should call applyFilter', () => {
-            expect(core.applyFilter).toHaveBeenCalledWith(
+            expect(core.applyFilter).toHaveBeenCalledWith({
                 data,
-                expect.anything(),
+                transform: expect.anything(),
                 options,
-                4
-            );
+                nWorkers: 4
+            });
         });
 
         it('should return the applyFilter result', () => {
@@ -66,9 +66,13 @@ describe('#transform()', function() {
             .mockReturnValueOnce(0.5)
             .mockReturnValueOnce(1);
 
-        transform(data, 8, { adjust: adjust });
+        const result = transform({
+            data,
+            length: 8,
+            options: { adjust: adjust }
+        });
 
-        data.forEach(function(item, index) {
+        result.forEach(function(item, index) {
             const range = adjust * 2.55;
             const isInRange =
                 item > original[index] - range &&

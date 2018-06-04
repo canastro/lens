@@ -154,11 +154,16 @@
      * @param {Number} nWorkers - number of workers to transform the image
      * @returns {Promise}
      */
-    function applyFilter(data, transform, options, nWorkers) {
+    function applyFilter(_ref) {
+        var data = _ref.data,
+            transform = _ref.transform,
+            options = _ref.options,
+            nWorkers = _ref.nWorkers;
+
         var worker = workerize(
             '\n        var transform = ' +
                 transform +
-                ';\n\n        export function execute(canvas, index, length, options) {\n            transform(canvas.data, length, options);\n            return { result: canvas, index };\n        }\n    '
+                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
         );
 
         // Drawing the source image into the target canvas

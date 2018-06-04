@@ -196,11 +196,16 @@
              * @param {Number} nWorkers - number of workers to transform the image
              * @returns {Promise}
              */
-            function applyFilter(data, transform, options, nWorkers) {
+            function applyFilter(_ref) {
+                var data = _ref.data,
+                    transform = _ref.transform,
+                    options = _ref.options,
+                    nWorkers = _ref.nWorkers;
+
                 var worker = workerize(
                     '\n        var transform = ' +
                         transform +
-                        ';\n\n        export function execute(canvas, index, length, options) {\n            transform(canvas.data, length, options);\n            return { result: canvas, index };\n        }\n    '
+                        ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
                 );
 
                 // Drawing the source image into the target canvas
@@ -280,7 +285,11 @@
      * @param {Object} options
      * @param {Array<ColorInterval>} [options.colorsInterval]
      */
-    var transform = function transform(data, length, options) {
+    var transform = function transform(_ref) {
+        var data = _ref.data,
+            length = _ref.length,
+            options = _ref.options;
+
         /**
          * Validates if param is numeric
          * @param   {Number}  n
@@ -347,6 +356,8 @@
         for (var i = 0; i < length; i += 4) {
             _loop(i);
         }
+
+        return data;
     };
 
     /**
@@ -356,7 +367,15 @@
      * @param {Number} nWorkers - number of workers
      * @returns {Promise}
      */
-    function color(data, options, nWorkers) {
+    function color() {
+        var _ref2 =
+                arguments.length > 0 && arguments[0] !== undefined
+                    ? arguments[0]
+                    : {},
+            data = _ref2.data,
+            options = _ref2.options,
+            nWorkers = _ref2.nWorkers;
+
         if (
             !data ||
             !options ||
@@ -366,7 +385,12 @@
             throw new Error('lens-filter-color:: invalid options provided');
         }
 
-        return lensCore_umd_3(data, transform, options, nWorkers);
+        return lensCore_umd_3({
+            data: data,
+            transform: transform,
+            options: options,
+            nWorkers: nWorkers
+        });
     }
 
     exports.transform = transform;

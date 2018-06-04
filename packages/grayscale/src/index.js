@@ -5,7 +5,7 @@ import { applyFilter } from 'lens-core';
  * @param {Object} data
  * @param {Number} length
  */
-export const transform = (data, length) => {
+export const transform = ({ data, length }) => {
     for (let i = 0; i < length; i += 4) {
         const r = data[i];
         const g = data[i + 1];
@@ -16,6 +16,8 @@ export const transform = (data, length) => {
         const v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
         data[i] = data[i + 1] = data[i + 2] = v;
     }
+
+    return data;
 };
 
 /**
@@ -23,10 +25,10 @@ export const transform = (data, length) => {
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */
-export default function grayscale(data, options, nWorkers) {
+export default function grayscale({ data, nWorkers } = {}) {
     if (!data) {
         throw new Error('lens-filter-grayscale:: invalid options provided');
     }
 
-    return applyFilter(data, transform, null, nWorkers);
+    return applyFilter({ data, transform, nWorkers });
 }

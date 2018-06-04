@@ -71,12 +71,12 @@ describe('index', () => {
             const options = { test: 'DUMMY-OPTION' };
             const nWorkers = 4;
 
-            result = await victim.applyFilter(
+            result = await victim.applyFilter({
                 data,
-                mockTransform,
+                transform: mockTransform,
                 options,
                 nWorkers
-            );
+            });
         });
 
         it('should call workerize', () => {

@@ -7,12 +7,14 @@ import { applyFilter } from 'lens-core';
  * @param {Object} options
  * @param {Number} [options.adjustment]
  */
-export const transform = (data, length, options) => {
+export const transform = ({ data, length, options }) => {
     for (let i = 0; i < length; i += 4) {
         data[i] += options.adjustment;
         data[i + 1] += options.adjustment;
         data[i + 2] += options.adjustment;
     }
+
+    return data;
 };
 
 /**
@@ -22,10 +24,10 @@ export const transform = (data, length, options) => {
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */
-export default function brightness(data, options, nWorkers) {
+export default function brightness({ data, options, nWorkers } = {}) {
     if (!data || !options || !options.adjustment) {
         throw new Error('lens-filter-brightness:: invalid options provided');
     }
 
-    return applyFilter(data, transform, options, nWorkers);
+    return applyFilter({ data, transform, options, nWorkers });
 }

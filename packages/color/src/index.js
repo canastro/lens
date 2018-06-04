@@ -7,7 +7,7 @@ import { applyFilter } from 'lens-core';
  * @param {Object} options
  * @param {Array<ColorInterval>} [options.colorsInterval]
  */
-export const transform = (data, length, options) => {
+export const transform = ({ data, length, options }) => {
     /**
      * Validates if param is numeric
      * @param   {Number}  n
@@ -58,6 +58,8 @@ export const transform = (data, length, options) => {
             }
         });
     }
+
+    return data;
 };
 
 /**
@@ -67,7 +69,7 @@ export const transform = (data, length, options) => {
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */
-export default function color(data, options, nWorkers) {
+export default function color({ data, options, nWorkers } = {}) {
     if (
         !data ||
         !options ||
@@ -77,5 +79,5 @@ export default function color(data, options, nWorkers) {
         throw new Error('lens-filter-color:: invalid options provided');
     }
 
-    return applyFilter(data, transform, options, nWorkers);
+    return applyFilter({ data, transform, options, nWorkers });
 }

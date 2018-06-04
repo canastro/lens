@@ -6,12 +6,14 @@ import { applyFilter } from 'lens-core';
  * @param {Object} data
  * @param {Number} length
  */
-export const transform = (data, length) => {
+export const transform = ({ data, length }) => {
     for (var i = 0; i < length; i += 4) {
         data[i] = 255 - data[i];
         data[i + 1] = 255 - data[i + 1];
         data[i + 2] = 255 - data[i + 2];
     }
+
+    return data;
 };
 
 /**
@@ -20,10 +22,10 @@ export const transform = (data, length) => {
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */
-export default function invert(data, options, nWorkers) {
+export default function invert({ data, nWorkers } = {}) {
     if (!data) {
         throw new Error('lens-filter-invert:: invalid options provided');
     }
 
-    return applyFilter(data, transform, null, nWorkers);
+    return applyFilter({ data, transform, nWorkers });
 }

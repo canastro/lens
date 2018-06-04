@@ -35,16 +35,16 @@ describe('contrast', () => {
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
-            result = victim(data, options, 4);
+            result = victim({ data, options, nWorkers: 4 });
         });
 
         it('should call applyFilter', () => {
-            expect(core.applyFilter).toHaveBeenCalledWith(
+            expect(core.applyFilter).toHaveBeenCalledWith({
                 data,
-                expect.anything(),
+                transform: expect.anything(),
                 options,
-                4
-            );
+                nWorkers: 4
+            });
         });
 
         it('should return the applyFilter result', () => {
@@ -67,7 +67,11 @@ describe('#transform()', function() {
             255
         ];
 
-        transform(data, 4, { contrast: 70 });
-        expect(data).toEqual(expectedData);
+        const result = transform({
+            data,
+            length: 4,
+            options: { contrast: 70 }
+        });
+        expect(result).toEqual(expectedData);
     });
 });

@@ -8,7 +8,7 @@ import { applyFilter } from 'lens-core';
  * @param {Object} options
  * @param {Number} [options.contrast]
  */
-export const transform = (data, length, options) => {
+export const transform = ({ data, length, options }) => {
     const factor =
         (259 * (options.contrast + 255)) / (255 * (259 - options.contrast));
 
@@ -17,6 +17,8 @@ export const transform = (data, length, options) => {
         data[i + 1] = factor * (data[i + 1] - 128) + 128;
         data[i + 2] = factor * (data[i + 2] - 128) + 128;
     }
+
+    return data;
 };
 
 /**
@@ -26,10 +28,10 @@ export const transform = (data, length, options) => {
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */
-export default function contrast(data, options, nWorkers) {
+export default function contrast({ data, options, nWorkers } = {}) {
     if (!data || !options || !options.contrast) {
         throw new Error('lens-filter-contrast:: invalid options provided');
     }
 
-    return applyFilter(data, transform, options, nWorkers);
+    return applyFilter({ data, transform, options, nWorkers });
 }

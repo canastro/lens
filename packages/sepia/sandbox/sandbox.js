@@ -19,7 +19,7 @@ window.onload = function() {
 
         const data = context.getImageData(0, 0, img.width, img.height);
 
-        imageSepia(data, null, 4).then(function(results) {
+        imageSepia({ data, nWorkers: 4 }).then(function(results) {
             applyResults('#target-1', canvas, context, results);
         });
     };

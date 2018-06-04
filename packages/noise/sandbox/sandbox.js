@@ -19,13 +19,17 @@ window.onload = function() {
 
         var data = context.getImageData(0, 0, img.width, img.height);
 
-        imageNoise(data, { adjust: 50 }, 4).then(function(results) {
-            applyResults('#target-1', canvas, context, results);
-        });
+        imageNoise({ data, options: { adjust: 50 }, nWorkers: 4 }).then(
+            function(results) {
+                applyResults('#target-1', canvas, context, results);
+            }
+        );
 
-        imageNoise(data, { adjust: 100 }, 4).then(function(results) {
-            applyResults('#target-2', canvas, context, results);
-        });
+        imageNoise({ data, options: { adjust: 100 }, nWorkers: 4 }).then(
+            function(results) {
+                applyResults('#target-2', canvas, context, results);
+            }
+        );
     };
 
     img.src = 'dummy.jpg';

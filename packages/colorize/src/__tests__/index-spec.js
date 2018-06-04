@@ -43,16 +43,16 @@ describe('colorize', () => {
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
-            result = victim(data, options, 4);
+            result = victim({ data, options, nWorkers: 4 });
         });
 
         it('should call applyFilter', () => {
-            expect(core.applyFilter).toHaveBeenCalledWith(
+            expect(core.applyFilter).toHaveBeenCalledWith({
                 data,
-                expect.anything(),
+                transform: expect.anything(),
                 options,
-                4
-            );
+                nWorkers: 4
+            });
         });
 
         it('should return the applyFilter result', () => {
@@ -66,7 +66,11 @@ describe('#transform()', function() {
         const data = [193, 219, 242, 255, 193, 219, 242, 255];
         const expectedData = [96.5, 173.5, 185, 255, 193, 219, 242, 255];
 
-        transform(data, 4, { color: '#008080', level: 50 });
+        transform({
+            data,
+            length: 4,
+            options: { color: '#008080', level: 50 }
+        });
         expect(data).toEqual(expectedData);
     });
 });

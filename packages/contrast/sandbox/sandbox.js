@@ -19,13 +19,17 @@ window.onload = function() {
 
         var data = context.getImageData(0, 0, img.width, img.height);
 
-        imageContrast(data, { contrast: 30 }, 4).then(function(results) {
-            applyResults('#target-1', canvas, context, results);
-        });
+        imageContrast({ data, options: { contrast: 30 }, nWorkers: 4 }).then(
+            function(results) {
+                applyResults('#target-1', canvas, context, results);
+            }
+        );
 
-        imageContrast(data, { contrast: 70 }, 4).then(function(results) {
-            applyResults('#target-2', canvas, context, results);
-        });
+        imageContrast({ data, options: { contrast: 70 }, nWorkers: 4 }).then(
+            function(results) {
+                applyResults('#target-2', canvas, context, results);
+            }
+        );
     };
 
     img.src = 'dummy.jpg';

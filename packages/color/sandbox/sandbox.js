@@ -37,7 +37,7 @@ window.onload = function() {
             colorsInterval: [colorIntervalBlue, colorIntervalPink]
         };
 
-        lensFilterColor(data, options, 4).then(function(results) {
+        lensFilterColor({ data, options, nWorkers: 4 }).then(function(results) {
             applyResults('#target-1', canvas, context, results);
         });
     };

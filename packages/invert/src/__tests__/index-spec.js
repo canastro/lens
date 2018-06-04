@@ -18,16 +18,15 @@ describe('invert', () => {
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
-            result = victim(data, {}, 4);
+            result = victim({ data, nWorkers: 4 });
         });
 
         it('should call applyFilter', () => {
-            expect(core.applyFilter).toHaveBeenCalledWith(
+            expect(core.applyFilter).toHaveBeenCalledWith({
                 data,
-                expect.anything(),
-                null,
-                4
-            );
+                transform: expect.anything(),
+                nWorkers: 4
+            });
         });
 
         it('should return the applyFilter result', () => {
@@ -42,7 +41,7 @@ describe('#transform()', function() {
 
         const expectedData = [62, 36, 13, 255, 193, 219, 242, 255];
 
-        transform(data, 4);
-        expect(data).toEqual(expectedData);
+        const result = transform({ data, length: 4 });
+        expect(result).toEqual(expectedData);
     });
 });

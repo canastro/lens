@@ -19,9 +19,11 @@ window.onload = function() {
 
         var data = context.getImageData(0, 0, img.width, img.height);
 
-        imageColorize(data, { color: '#008080', level: 50 }, 4).then(function(
-            results
-        ) {
+        imageColorize({
+            data,
+            options: { color: '#008080', level: 50 },
+            nWorkers: 4
+        }).then(function(results) {
             applyResults('#target-1', canvas, context, results);
         });
     };

@@ -7,7 +7,7 @@ import { applyFilter } from 'lens-core';
  * @param {Number} [options.color]
  * @param {Number} [options.level]
  */
-export const transform = (data, length, options) => {
+export const transform = ({ data, length, options }) => {
     const hex =
         options.color.charAt(0) === '#'
             ? options.color.substr(1)
@@ -23,6 +23,8 @@ export const transform = (data, length, options) => {
         data[i + 1] -= (data[i + 1] - colorRGB.g) * (options.level / 100);
         data[i + 2] -= (data[i + 2] - colorRGB.b) * (options.level / 100);
     }
+
+    return data;
 };
 
 /**
@@ -33,10 +35,10 @@ export const transform = (data, length, options) => {
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */
-export default function colorize(data, options, nWorkers) {
+export default function colorize({ data, options, nWorkers } = {}) {
     if (!data || !options || !options.color || !options.level) {
         throw new Error('lens-filter-colorize:: invalid options provided');
     }
 
-    return applyFilter(data, transform, options, nWorkers);
+    return applyFilter({ data, transform, options, nWorkers });
 }

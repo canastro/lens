@@ -19,7 +19,7 @@ window.onload = function() {
 
         var data = context.getImageData(0, 0, img.width, img.height);
 
-        imageInvert(data, 4).then(function(results) {
+        imageInvert({ data, nWorkers: 4 }).then(function(results) {
             applyResults('#target-1', canvas, context, results);
         });
     };

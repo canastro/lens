@@ -35,16 +35,16 @@ describe('threshold', () => {
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
-            result = victim(data, options, 4);
+            result = victim({ data, options, nWorkers: 4 });
         });
 
         it('should call applyFilter', () => {
-            expect(core.applyFilter).toHaveBeenCalledWith(
+            expect(core.applyFilter).toHaveBeenCalledWith({
                 data,
-                expect.anything(),
+                transform: expect.anything(),
                 options,
-                4
-            );
+                nWorkers: 4
+            });
         });
 
         it('should return the applyFilter result', () => {
@@ -59,8 +59,11 @@ describe('#transform()', function() {
 
         const expectedData = [0, 0, 0, 255, 255, 255, 255, 255];
 
-        transform(data, 8, { threshold: 216 });
-
-        expect(data).toEqual(expectedData);
+        const result = transform({
+            data,
+            length: 8,
+            options: { threshold: 216 }
+        });
+        expect(result).toEqual(expectedData);
     });
 });
