@@ -283,14 +283,14 @@
      * @param {Array} data
      * @param {Number} length
      * @param {Object} options
-     * @param {Number} [options.adjust]
+     * @param {Number} [options.adjustment]
      */
     var transform = function transform(_ref) {
         var data = _ref.data,
             length = _ref.length,
             options = _ref.options;
 
-        var adjust = Math.abs(options.adjust) * 2.55;
+        var adjustment = Math.abs(options.adjustment) * 2.55;
 
         var add = function add(original, increment) {
             var result = original + increment;
@@ -309,7 +309,7 @@
             var multiplier = Math.random() < 0.5 ? -1 : 1;
 
             // Calculate random noise
-            var rand = multiplier * (Math.random() + adjust);
+            var rand = multiplier * (Math.random() + adjustment);
 
             data[i] = add(data[i], rand);
             data[i + 1] = add(data[i + 1], rand);
@@ -335,7 +335,7 @@
             options = _ref2.options,
             nWorkers = _ref2.nWorkers;
 
-        if (!data || !options || !options.adjust) {
+        if (!data || !options || !options.adjustment) {
             throw new Error('lens-filter-noise:: invalid options provided');
         }
 
