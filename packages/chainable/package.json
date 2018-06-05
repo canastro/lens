@@ -43,6 +43,7 @@
     "rollup-plugin-serve": "^0.4.2"
   },
   "dependencies": {
+    "lens-core": "^0.0.2",
     "lens-filter-brightness": "^0.0.2",
     "lens-filter-color": "^0.0.2",
     "lens-filter-colorize": "^0.0.2",
