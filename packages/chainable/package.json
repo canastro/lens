@@ -2,7 +2,7 @@
   "name": "lens-chainable",
   "version": "0.0.3",
   "description": "Chainable module for lens filters",
-  "main": "dist/lens-core.umd.js",
+  "main": "dist/lens-chainable.umd.js",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "codecov": "cat coverage/*/lcov.info | codecov",

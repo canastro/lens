@@ -5,10 +5,10 @@ import { applyFilter } from 'lens-core';
  * @param {Array} data
  * @param {Number} length
  * @param {Object} options
- * @param {Number} [options.adjust]
+ * @param {Number} [options.adjustment]
  */
 export const transform = ({ data, length, options }) => {
-    const adjust = Math.abs(options.adjust) * 2.55;
+    const adjustment = Math.abs(options.adjustment) * 2.55;
 
     const add = (original, increment) => {
         const result = original + increment;
@@ -27,7 +27,7 @@ export const transform = ({ data, length, options }) => {
         const multiplier = Math.random() < 0.5 ? -1 : 1;
 
         // Calculate random noise
-        const rand = multiplier * (Math.random() + adjust);
+        const rand = multiplier * (Math.random() + adjustment);
 
         data[i] = add(data[i], rand);
         data[i + 1] = add(data[i + 1], rand);
@@ -45,7 +45,7 @@ export const transform = ({ data, length, options }) => {
  * @returns {Promise}
  */
 export default function noise({ data, options, nWorkers } = {}) {
-    if (!data || !options || !options.adjust) {
+    if (!data || !options || !options.adjustment) {
         throw new Error('lens-filter-noise:: invalid options provided');
     }
 

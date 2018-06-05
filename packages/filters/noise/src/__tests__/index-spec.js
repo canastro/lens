@@ -20,7 +20,7 @@ describe('noise', () => {
         });
     });
 
-    describe('when adjust is not defined', () => {
+    describe('when adjustment is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({}, {})).toThrowError(
                 'lens-filter-noise:: invalid options provided'
@@ -31,7 +31,7 @@ describe('noise', () => {
     describe('when has all paramters', () => {
         let result;
         const data = 'DATA';
-        const options = { adjust: 50 };
+        const options = { adjustment: 50 };
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
@@ -57,7 +57,7 @@ describe('#transform()', function() {
     it('should apply transformation and return as imageData', function() {
         const data = [1, 250, 1, 255, 255, 255, 255, 255];
         const original = data.slice();
-        const adjust = 50;
+        const adjustment = 50;
 
         Math.random = jest
             .fn()
@@ -69,11 +69,11 @@ describe('#transform()', function() {
         const result = transform({
             data,
             length: 8,
-            options: { adjust: adjust }
+            options: { adjustment: adjustment }
         });
 
         result.forEach(function(item, index) {
-            const range = adjust * 2.55;
+            const range = adjustment * 2.55;
             const isInRange =
                 item > original[index] - range &&
                 item < original[index] + range;
