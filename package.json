@@ -1,14 +1,14 @@
 {
 	"scripts": {
 		"bootstrap": "lerna bootstrap",
-		"format": "prettier es5 --single-quote --write --tab-width 4 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
+		"format": "prettier es5 --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/*.js'",
 		"lint": "eslint .",
 		"precommit": "lint-staged",
 		"publish": "lerna publish"
 	},
 	"lint-staged": {
 		"*.js": [
-			"prettier es5 --single-quote --write --tab-width 4",
+			"prettier es5 --write",
 			"git add"
 		]
 	},

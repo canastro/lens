@@ -1,0 +1,57 @@
+{
+  "name": "lens-chainable",
+  "version": "0.0.1",
+  "description": "Chainable module for lens filters",
+  "main": "dist/lens-core.umd.js",
+  "scripts": {
+    "build": "NODE_ENV=production rollup -c",
+    "codecov": "cat coverage/*/lcov.info | codecov",
+    "dev": "NODE_ENV=production rollup -c -w",
+    "sandbox": "rollup -c rollup.dev.config.js -w",
+    "test": "NODE_ENV=test jest --coverage"
+  },
+  "author": "Ricardo Canastro",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/canastro/lens"
+  },
+  "bugs": {
+    "url": "https://github.com/canastro/lens/issues"
+  },
+  "keywords": [
+    "image",
+    "filter",
+    "filters",
+    "processing",
+    "manipulation",
+    "contrast",
+    "transformation",
+    "pixel"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-jest": "^23.0.1",
+    "codecov.io": "^0.1.6",
+    "eslint": "^4.19.1",
+    "jest": "^23.1.0",
+    "rollup": "^0.59.4",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-serve": "^0.4.2"
+  },
+  "dependencies": {
+    "lens-filter-brightness": "^0.0.2",
+    "lens-filter-color": "^0.0.2",
+    "lens-filter-colorize": "^0.0.2",
+    "lens-filter-contrast": "^0.0.2",
+    "lens-filter-gamma": "^0.0.2",
+    "lens-filter-grayscale": "^0.0.2",
+    "lens-filter-invert": "^0.0.2",
+    "lens-filter-noise": "^0.0.2",
+    "lens-filter-sepia": "^0.0.2",
+    "lens-filter-threshold": "^0.0.2"
+  }
+}
