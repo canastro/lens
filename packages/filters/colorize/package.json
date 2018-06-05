@@ -1,6 +1,6 @@
 {
   "name": "lens-filter-colorize",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Small library to apply a colorize transformation to a image",
   "main": "dist/lens-filter-color.umd.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "lens-filter-contrast",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Small library to apply a contrast transformation to a image",
   "main": "dist/lens-filter-contrast.umd.js",
   "scripts": {

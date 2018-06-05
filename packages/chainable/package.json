@@ -1,6 +1,6 @@
 {
   "name": "lens-chainable",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Chainable module for lens filters",
   "main": "dist/lens-core.umd.js",
   "scripts": {
@@ -44,15 +44,15 @@
   },
   "dependencies": {
     "lens-core": "^0.0.2",
-    "lens-filter-brightness": "^0.0.2",
-    "lens-filter-color": "^0.0.2",
-    "lens-filter-colorize": "^0.0.2",
-    "lens-filter-contrast": "^0.0.2",
-    "lens-filter-gamma": "^0.0.2",
-    "lens-filter-grayscale": "^0.0.2",
-    "lens-filter-invert": "^0.0.2",
-    "lens-filter-noise": "^0.0.2",
-    "lens-filter-sepia": "^0.0.2",
-    "lens-filter-threshold": "^0.0.2"
+    "lens-filter-brightness": "^0.0.3",
+    "lens-filter-color": "^0.0.3",
+    "lens-filter-colorize": "^0.0.3",
+    "lens-filter-contrast": "^0.0.3",
+    "lens-filter-gamma": "^0.0.3",
+    "lens-filter-grayscale": "^0.0.3",
+    "lens-filter-invert": "^0.0.3",
+    "lens-filter-noise": "^0.0.3",
+    "lens-filter-sepia": "^0.0.3",
+    "lens-filter-threshold": "^0.0.3"
   }
 }
