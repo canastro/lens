@@ -1,6 +1,6 @@
 {
   "name": "lens-filter-threshold",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Small library to apply a threshold transformation to a image",
   "main": "dist/lens-filter-threshold.umd.js",
   "scripts": {
@@ -45,6 +45,6 @@
     "rollup-plugin-uglify": "^4.0.0"
   },
   "dependencies": {
-    "lens-core": "^0.0.4"
+    "lens-core": "^0.0.5"
   }
 }
