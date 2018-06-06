@@ -1,401 +1,75 @@
-(function(global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined'
-        ? factory(exports)
-        : typeof define === 'function' && define.amd
-            ? define(['exports'], factory)
-            : factory((global.lensFilterColor = {}));
-})(this, function(exports) {
+!(function(o, r) {
+    'object' == typeof exports && 'undefined' != typeof module
+        ? r(exports, require('lens-core'))
+        : 'function' == typeof define && define.amd
+            ? define(['exports', 'lens-core'], r)
+            : r((o.lensFilterColor = {}), o.lensCore);
+})(this, function(o, n) {
     'use strict';
-
-    var commonjsGlobal =
-        typeof window !== 'undefined'
-            ? window
-            : typeof global !== 'undefined'
-                ? global
-                : typeof self !== 'undefined'
-                    ? self
-                    : {};
-
-    function createCommonjsModule(fn, module) {
-        return (
-            (module = { exports: {} }),
-            fn(module, module.exports),
-            module.exports
-        );
-    }
-
-    var lensCore_umd = createCommonjsModule(function(module, exports) {
-        (function(global, factory) {
-            factory();
-        })(commonjsGlobal, function() {
-            function e(e, t, n) {
-                e.addEventListener('message', function(r) {
-                    var o = r.data,
-                        a = o.id;
-                    if ('RPC' === o.type && null != a)
-                        if (o.method) {
-                            var s = t[o.method];
-                            null == s
-                                ? e.postMessage({
-                                      type: 'RPC',
-                                      id: a,
-                                      error: 'NO_SUCH_METHOD'
-                                  })
-                                : Promise.resolve()
-                                      .then(function() {
-                                          return s.apply(null, o.params);
-                                      })
-                                      .then(function(t) {
-                                          e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              result: t
-                                          });
-                                      })
-                                      .catch(function(t) {
-                                          e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: '' + t
-                                          });
-                                      });
-                        } else {
-                            var i = n[a];
-                            if (null == i) throw Error('Unknown callback ' + a);
-                            delete n[a],
-                                o.error ? i[1](Error(o.error)) : i[0](o.result);
-                        }
-                });
-            }
-            function workerize(t, n) {
-                var r = this,
-                    o = {},
-                    a =
-                        '__xpo' +
-                        Math.random()
-                            .toString()
-                            .substring(2) +
-                        '__';
-                'function' == typeof t &&
-                    (t =
-                        '(' +
-                        Function.prototype.toString.call(t) +
-                        ')(' +
-                        a +
-                        ')'),
-                    (t =
-                        (function(e, t, n) {
-                            return (
-                                (e = (e = e.replace(
-                                    /^(\s*)export\s+default\s+/m,
-                                    function(e, r) {
-                                        return (
-                                            (n.default = !0),
-                                            '' + r + t + '.default='
-                                        );
-                                    }
-                                )).replace(
-                                    /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                    function(e, r, o, a, s) {
-                                        return (
-                                            (n[s] = !0),
-                                            '' +
-                                                r +
-                                                t +
-                                                '.' +
-                                                s +
-                                                '=' +
-                                                o +
-                                                a +
-                                                s
-                                        );
-                                    }
-                                )),
-                                'var ' + t + '={};\n' + e + '\n' + t + ';'
-                            );
-                        })(t, a, o) +
-                        '\n(' +
-                        Function.prototype.toString.call(e) +
-                        ')(self,' +
-                        a +
-                        ',{})');
-                var s,
-                    i = URL.createObjectURL(new Blob([t])),
-                    l = new Worker(i, n),
-                    c = l.terminate,
-                    u = {},
-                    p = 0;
-                for (s in ((l.kill = function(e) {
-                    l.postMessage({ type: 'KILL', signal: e }),
-                        setTimeout(l.terminate);
-                }),
-                (l.terminate = function() {
-                    URL.revokeObjectURL(i), c.call(r);
-                }),
-                (l.call = function(e, t) {
-                    return new Promise(function(n, r) {
-                        var o = 'rpc' + ++p;
-                        (u[o] = [n, r]),
-                            l.postMessage({
-                                type: 'RPC',
-                                id: o,
-                                method: e,
-                                params: t
-                            });
+    var i = function(o) {
+        for (
+            var l = o.data,
+                r = o.length,
+                e = o.options,
+                t = function(o) {
+                    return !isNaN(parseFloat(o)) && isFinite(o);
+                },
+                c = function(o, r, e) {
+                    (o[r] = t(e.r) ? e.r : o[r]),
+                        (o[r + 1] = t(e.g) ? e.g : o[r + 1]),
+                        (o[r + 2] = t(e.b) ? e.b : o[r + 2]),
+                        (o[r + 3] = t(e.a) ? e.a : o[r + 3]);
+                },
+                n = function(s) {
+                    e.colorsInterval.forEach(function(o) {
+                        var r,
+                            e,
+                            t,
+                            n,
+                            i,
+                            a,
+                            f = ((t = o),
+                            (n = (r = l)[(e = s)]),
+                            (i = r[e + 1]),
+                            (a = r[e + 2]),
+                            n >= t.from.r &&
+                                n <= t.to.r &&
+                                i >= t.from.g &&
+                                i <= t.to.g &&
+                                a >= t.from.b &&
+                                a <= t.to.b);
+                        f && o.match
+                            ? c(l, s, o.match)
+                            : !f && o.noMatch && c(l, s, o.noMatch);
                     });
-                }),
-                (l.rpcMethods = {}),
-                e(l, l.rpcMethods, u),
-                (l.expose = function(e) {
-                    l[s] = function() {
-                        return l.call(e, [].slice.call(arguments));
-                    };
-                }),
-                o)) {
-                    s in l || l.expose(s);
-                }
-                return l;
-            }
-
-            /**
-             * It returns a canvas with the given width and height
-             * @param {Number} w - width
-             * @param {Number} h - height
-             * @returns {Object}
-             */
-            function getCanvas(w, h) {
-                var canvas = document.createElement('canvas');
-                canvas.width = w;
-                canvas.height = h;
-
-                return canvas;
-            }
-
-            /**
-             * Given a ImageData it returns the dataURL
-             * @param {ImageData} imageData
-             * @returns {String}
-             */
-            function convertImageDataToCanvasURL(imageData) {
-                var canvas = window.document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-                canvas.width = imageData.width;
-                canvas.height = imageData.height;
-                ctx.putImageData(imageData, 0, 0);
-
-                return canvas.toDataURL();
-            }
-
-            /**
-             * Given a worker file with the transformation the work is split
-             * between the configured number of workers and the transformation is applied
-             * returning a Promise
-             * @param {Object} data - image data
-             * @param {Function} transform - transformation function
-             * @param {Object} options - object to be passed to the transform function
-             * @param {Number} nWorkers - number of workers to transform the image
-             * @returns {Promise}
-             */
-            function applyFilter(_ref) {
-                var data = _ref.data,
-                    transform = _ref.transform,
-                    options = _ref.options,
-                    nWorkers = _ref.nWorkers;
-
-                var worker = workerize(
-                    '\n        var transform = ' +
-                        transform +
-                        ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                );
-
-                // Drawing the source image into the target canvas
-                var canvas = getCanvas(data.width, data.height);
-                var context = canvas.getContext('2d');
-                context.putImageData(data, 0, 0);
-
-                // Minimium 1 worker
-                nWorkers = nWorkers || 1;
-
-                // Height of the picture chunck for every worker
-                var blockSize = Math.floor(canvas.height / nWorkers);
-
-                return new Promise(function(resolve) {
-                    var finished = 0;
-                    var height = void 0;
-
-                    for (var index = 0; index < nWorkers; index++) {
-                        // In the last worker we have to make sure we process whatever is missing
-                        height = blockSize;
-
-                        if (index + 1 === nWorkers) {
-                            height = canvas.height - blockSize * index;
-                        }
-
-                        // Getting the picture
-                        var canvasData = context.getImageData(
-                            0,
-                            blockSize * index,
-                            canvas.width,
-                            height
-                        );
-                        var length = height * canvas.width * 4;
-
-                        worker
-                            .execute(canvasData, index, length, options)
-                            .then(function(response) {
-                                // Copying back canvas data to canvas
-                                // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                context.putImageData(
-                                    response.result,
-                                    0,
-                                    blockSize * response.index
-                                );
-
-                                finished++;
-
-                                if (finished === nWorkers) {
-                                    resolve(
-                                        context.getImageData(
-                                            0,
-                                            0,
-                                            canvas.width,
-                                            canvas.height
-                                        )
-                                    );
-                                }
-                            });
-                    }
-                });
-            }
-
-            exports.getCanvas = getCanvas;
-            exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-            exports.applyFilter = applyFilter;
-        });
-    });
-    var lensCore_umd_1 = lensCore_umd.getCanvas;
-    var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-    var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-    /**
-     * Iterate over the array applying the color transformation
-     * @param {Object} data
-     * @param {Number} length
-     * @param {Object} options
-     * @param {Array<ColorInterval>} [options.colorsInterval]
-     */
-    var transform = function transform(_ref) {
-        var data = _ref.data,
-            length = _ref.length,
-            options = _ref.options;
-
-        /**
-         * Validates if param is numeric
-         * @param   {Number}  n
-         * @returns {Boolean}
-         */
-        var isNumeric = function isNumeric(n) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
-        };
-
-        /**
-         * @param {Array} pixles
-         * @param {Number} index
-         * @param {Color} color
-         */
-        var applyPixelTransformation = function applyPixelTransformation(
-            pixels,
-            index,
-            color
-        ) {
-            pixels[index] = !isNumeric(color.r) ? pixels[index] : color.r;
-            pixels[index + 1] = !isNumeric(color.g)
-                ? pixels[index + 1]
-                : color.g;
-            pixels[index + 2] = !isNumeric(color.b)
-                ? pixels[index + 2]
-                : color.b;
-            pixels[index + 3] = !isNumeric(color.a)
-                ? pixels[index + 3]
-                : color.a;
-        };
-
-        /**
-         * @param {Array} data
-         * @param {Number} index
-         * @param {ColorInterval} colorInterval
-         */
-        var evaluatePixel = function evaluatePixel(data, index, colorInterval) {
-            var red = data[index];
-            var green = data[index + 1];
-            var blue = data[index + 2];
-
-            return (
-                red >= colorInterval.from.r &&
-                red <= colorInterval.to.r &&
-                green >= colorInterval.from.g &&
-                green <= colorInterval.to.g &&
-                blue >= colorInterval.from.b &&
-                blue <= colorInterval.to.b
-            );
-        };
-
-        var _loop = function _loop(i) {
-            options.colorsInterval.forEach(function(colorInterval) {
-                var isMatch = evaluatePixel(data, i, colorInterval);
-
-                if (isMatch && colorInterval.match) {
-                    applyPixelTransformation(data, i, colorInterval.match);
-                } else if (!isMatch && colorInterval.noMatch) {
-                    applyPixelTransformation(data, i, colorInterval.noMatch);
-                }
-            });
-        };
-
-        for (var i = 0; i < length; i += 4) {
-            _loop(i);
-        }
-
-        return data;
+                },
+                i = 0;
+            i < r;
+            i += 4
+        )
+            n(i);
+        return l;
     };
-
-    /**
-     * @param {ImageData} data - data of a image extracted from a canvas
-     * @param {Object} options - options to pass to the transformation function
-     * @param {ColorInterval} [options.colorsInterval] - adjustment to apply in the transformation
-     * @param {Number} nWorkers - number of workers
-     * @returns {Promise}
-     */
-    function color() {
-        var _ref2 =
-                arguments.length > 0 && arguments[0] !== undefined
-                    ? arguments[0]
-                    : {},
-            data = _ref2.data,
-            options = _ref2.options,
-            nWorkers = _ref2.nWorkers;
-
-        if (
-            !data ||
-            !options ||
-            !options.colorsInterval ||
-            !Array.isArray(options.colorsInterval)
-        ) {
-            throw new Error('lens-filter-color:: invalid options provided');
-        }
-
-        return lensCore_umd_3({
-            data: data,
-            transform: transform,
-            options: options,
-            nWorkers: nWorkers
-        });
-    }
-
-    exports.transform = transform;
-    exports.default = color;
-
-    Object.defineProperty(exports, '__esModule', { value: true });
+    (o.transform = i),
+        (o.default = function() {
+            var o =
+                    0 < arguments.length && void 0 !== arguments[0]
+                        ? arguments[0]
+                        : {},
+                r = o.data,
+                e = o.options,
+                t = o.nWorkers;
+            if (
+                !(r && e && e.colorsInterval && Array.isArray(e.colorsInterval))
+            )
+                throw new Error('lens-filter-color:: invalid options provided');
+            return n.applyFilter({
+                data: r,
+                transform: i,
+                options: e,
+                nWorkers: t
+            });
+        }),
+        Object.defineProperty(o, '__esModule', { value: !0 });
 });
 //# sourceMappingURL=lens-filter-color.umd.js.map

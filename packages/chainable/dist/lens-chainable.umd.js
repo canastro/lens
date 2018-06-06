@@ -1,4104 +1,3356 @@
-(function(global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined'
-        ? (module.exports = factory())
-        : typeof define === 'function' && define.amd
-            ? define(factory)
-            : (global.lensCore = factory());
+!(function(t, e) {
+    'object' == typeof exports && 'undefined' != typeof module
+        ? (module.exports = e())
+        : 'function' == typeof define && define.amd
+            ? define(e)
+            : (t.lensCore = e());
 })(this, function() {
     'use strict';
-
-    var commonjsGlobal =
-        typeof window !== 'undefined'
+    var i =
+        'undefined' != typeof window
             ? window
-            : typeof global !== 'undefined'
+            : 'undefined' != typeof global
                 ? global
-                : typeof self !== 'undefined'
+                : 'undefined' != typeof self
                     ? self
                     : {};
-
-    function unwrapExports(x) {
-        return x &&
-            x.__esModule &&
-            Object.prototype.hasOwnProperty.call(x, 'default')
-            ? x['default']
-            : x;
+    function t(t) {
+        return t &&
+            t.__esModule &&
+            Object.prototype.hasOwnProperty.call(t, 'default')
+            ? t.default
+            : t;
     }
-
-    function createCommonjsModule(fn, module) {
-        return (
-            (module = { exports: {} }),
-            fn(module, module.exports),
-            module.exports
-        );
+    function e(t, e) {
+        return t((e = { exports: {} }), e.exports), e.exports;
     }
-
-    var lensCore_umd = createCommonjsModule(function(module, exports) {
-        (function(global, factory) {
-            factory();
-        })(commonjsGlobal, function() {
-            function e(e, t, n) {
-                e.addEventListener('message', function(r) {
-                    var o = r.data,
-                        a = o.id;
-                    if ('RPC' === o.type && null != a)
-                        if (o.method) {
-                            var s = t[o.method];
-                            null == s
-                                ? e.postMessage({
-                                      type: 'RPC',
-                                      id: a,
-                                      error: 'NO_SUCH_METHOD'
-                                  })
-                                : Promise.resolve()
-                                      .then(function() {
-                                          return s.apply(null, o.params);
+    var n = e(function(t, e) {
+            !(function() {
+                function h(o, i, s) {
+                    o.addEventListener('message', function(t) {
+                        var e = t.data,
+                            n = e.id;
+                        if ('RPC' === e.type && null != n)
+                            if (e.method) {
+                                var r = i[e.method];
+                                null == r
+                                    ? o.postMessage({
+                                          type: 'RPC',
+                                          id: n,
+                                          error: 'NO_SUCH_METHOD'
                                       })
-                                      .then(function(t) {
-                                          e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              result: t
+                                    : Promise.resolve()
+                                          .then(function() {
+                                              return r.apply(null, e.params);
+                                          })
+                                          .then(function(t) {
+                                              o.postMessage({
+                                                  type: 'RPC',
+                                                  id: n,
+                                                  result: t
+                                              });
+                                          })
+                                          .catch(function(t) {
+                                              o.postMessage({
+                                                  type: 'RPC',
+                                                  id: n,
+                                                  error: '' + t
+                                              });
                                           });
-                                      })
-                                      .catch(function(t) {
-                                          e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: '' + t
-                                          });
-                                      });
-                        } else {
-                            var i = n[a];
-                            if (null == i) throw Error('Unknown callback ' + a);
-                            delete n[a],
-                                o.error ? i[1](Error(o.error)) : i[0](o.result);
-                        }
-                });
-            }
-            function workerize(t, n) {
-                var r = this,
-                    o = {},
-                    a =
-                        '__xpo' +
-                        Math.random()
-                            .toString()
-                            .substring(2) +
-                        '__';
-                'function' == typeof t &&
-                    (t =
-                        '(' +
-                        Function.prototype.toString.call(t) +
-                        ')(' +
-                        a +
-                        ')'),
-                    (t =
-                        (function(e, t, n) {
-                            return (
-                                (e = (e = e.replace(
-                                    /^(\s*)export\s+default\s+/m,
-                                    function(e, r) {
-                                        return (
-                                            (n.default = !0),
-                                            '' + r + t + '.default='
-                                        );
-                                    }
-                                )).replace(
-                                    /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                    function(e, r, o, a, s) {
-                                        return (
-                                            (n[s] = !0),
-                                            '' +
-                                                r +
-                                                t +
-                                                '.' +
-                                                s +
-                                                '=' +
-                                                o +
-                                                a +
-                                                s
-                                        );
-                                    }
-                                )),
-                                'var ' + t + '={};\n' + e + '\n' + t + ';'
-                            );
-                        })(t, a, o) +
-                        '\n(' +
-                        Function.prototype.toString.call(e) +
-                        ')(self,' +
-                        a +
-                        ',{})');
-                var s,
-                    i = URL.createObjectURL(new Blob([t])),
-                    l = new Worker(i, n),
-                    c = l.terminate,
-                    u = {},
-                    p = 0;
-                for (s in ((l.kill = function(e) {
-                    l.postMessage({ type: 'KILL', signal: e }),
-                        setTimeout(l.terminate);
-                }),
-                (l.terminate = function() {
-                    URL.revokeObjectURL(i), c.call(r);
-                }),
-                (l.call = function(e, t) {
-                    return new Promise(function(n, r) {
-                        var o = 'rpc' + ++p;
-                        (u[o] = [n, r]),
-                            l.postMessage({
-                                type: 'RPC',
-                                id: o,
-                                method: e,
-                                params: t
-                            });
+                            } else {
+                                var a = s[n];
+                                if (null == a)
+                                    throw Error('Unknown callback ' + n);
+                                delete s[n],
+                                    e.error
+                                        ? a[1](Error(e.error))
+                                        : a[0](e.result);
+                            }
                     });
-                }),
-                (l.rpcMethods = {}),
-                e(l, l.rpcMethods, u),
-                (l.expose = function(e) {
-                    l[s] = function() {
-                        return l.call(e, [].slice.call(arguments));
-                    };
-                }),
-                o)) {
-                    s in l || l.expose(s);
                 }
-                return l;
-            }
-
-            /**
-             * It returns a canvas with the given width and height
-             * @param {Number} w - width
-             * @param {Number} h - height
-             * @returns {Object}
-             */
-            function getCanvas(w, h) {
-                var canvas = document.createElement('canvas');
-                canvas.width = w;
-                canvas.height = h;
-
-                return canvas;
-            }
-
-            /**
-             * Given a ImageData it returns the dataURL
-             * @param {ImageData} imageData
-             * @returns {String}
-             */
-            function convertImageDataToCanvasURL(imageData) {
-                var canvas = window.document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-                canvas.width = imageData.width;
-                canvas.height = imageData.height;
-                ctx.putImageData(imageData, 0, 0);
-
-                return canvas.toDataURL();
-            }
-
-            /**
-             * Given a worker file with the transformation the work is split
-             * between the configured number of workers and the transformation is applied
-             * returning a Promise
-             * @param {Object} data - image data
-             * @param {Function} transform - transformation function
-             * @param {Object} options - object to be passed to the transform function
-             * @param {Number} nWorkers - number of workers to transform the image
-             * @returns {Promise}
-             */
-            function applyFilter(_ref) {
-                var data = _ref.data,
-                    transform = _ref.transform,
-                    options = _ref.options,
-                    nWorkers = _ref.nWorkers;
-
-                var worker = workerize(
-                    '\n        var transform = ' +
-                        transform +
-                        ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                );
-
-                // Drawing the source image into the target canvas
-                var canvas = getCanvas(data.width, data.height);
-                var context = canvas.getContext('2d');
-                context.putImageData(data, 0, 0);
-
-                // Minimium 1 worker
-                nWorkers = nWorkers || 1;
-
-                // Height of the picture chunck for every worker
-                var blockSize = Math.floor(canvas.height / nWorkers);
-
-                return new Promise(function(resolve) {
-                    var finished = 0;
-                    var height = void 0;
-
-                    for (var index = 0; index < nWorkers; index++) {
-                        // In the last worker we have to make sure we process whatever is missing
-                        height = blockSize;
-
-                        if (index + 1 === nWorkers) {
-                            height = canvas.height - blockSize * index;
-                        }
-
-                        // Getting the picture
-                        var canvasData = context.getImageData(
-                            0,
-                            blockSize * index,
-                            canvas.width,
-                            height
+                function r(t, e) {
+                    var n = document.createElement('canvas');
+                    return (n.width = t), (n.height = e), n;
+                }
+                (e.getCanvas = r),
+                    (e.convertImageDataToCanvasURL = function(t) {
+                        var e = window.document.createElement('canvas'),
+                            n = e.getContext('2d');
+                        return (
+                            (e.width = t.width),
+                            (e.height = t.height),
+                            n.putImageData(t, 0, 0),
+                            e.toDataURL()
                         );
-                        var length = height * canvas.width * 4;
-
-                        worker
-                            .execute(canvasData, index, length, options)
-                            .then(function(response) {
-                                // Copying back canvas data to canvas
-                                // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                context.putImageData(
-                                    response.result,
-                                    0,
-                                    blockSize * response.index
-                                );
-
-                                finished++;
-
-                                if (finished === nWorkers) {
-                                    resolve(
-                                        context.getImageData(
-                                            0,
-                                            0,
-                                            canvas.width,
-                                            canvas.height
-                                        )
-                                    );
-                                }
-                            });
-                    }
-                });
-            }
-
-            exports.getCanvas = getCanvas;
-            exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-            exports.applyFilter = applyFilter;
-        });
-    });
-    var lensCore_umd_1 = lensCore_umd.getCanvas;
-    var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-    var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-    var lensFilterBrightness_umd = createCommonjsModule(function(
-        module,
-        exports
-    ) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
+                    }),
+                    (e.applyFilter = function(t) {
+                        var e = t.data,
+                            n = t.transform,
+                            i = t.options,
+                            s = t.nWorkers,
+                            u = (function(t, e) {
+                                var n,
+                                    o,
+                                    i,
+                                    r = this,
+                                    a = {},
+                                    s =
+                                        '__xpo' +
+                                        Math.random()
+                                            .toString()
+                                            .substring(2) +
+                                        '__';
+                                'function' == typeof t &&
+                                    (t =
+                                        '(' +
+                                        Function.prototype.toString.call(t) +
+                                        ')(' +
+                                        s +
+                                        ')'),
+                                    (o = s),
+                                    (i = a),
+                                    (n = (n = (n = t).replace(
+                                        /^(\s*)export\s+default\s+/m,
+                                        function(t, e) {
+                                            return (
+                                                (i.default = !0),
+                                                '' + e + o + '.default='
                                             );
                                         }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the brightness transformation
-             * @param {Object} data
-             * @param {Number} length
-             * @param {Object} options
-             * @param {Number} [options.adjustment]
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length,
-                    options = _ref.options;
-
-                for (var i = 0; i < length; i += 4) {
-                    data[i] += options.adjustment;
-                    data[i + 1] += options.adjustment;
-                    data[i + 2] += options.adjustment;
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Object} options - options to pass to the transformation function
-             * @param {Number} [options.adjustment] - adjustment to apply in the transformation
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function brightness() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    options = _ref2.options,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data || !options || !options.adjustment) {
-                    throw new Error(
-                        'lens-filter-brightness:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    options: options,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = brightness;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var brightness = unwrapExports(lensFilterBrightness_umd);
-
-    var lensFilterColor_umd = createCommonjsModule(function(module, exports) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
+                                    )).replace(
+                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                        function(t, e, n, r, a) {
+                                            return (
+                                                (i[a] = !0),
+                                                '' +
+                                                    e +
+                                                    o +
+                                                    '.' +
+                                                    a +
+                                                    '=' +
+                                                    n +
+                                                    r +
+                                                    a
                                             );
                                         }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the color transformation
-             * @param {Object} data
-             * @param {Number} length
-             * @param {Object} options
-             * @param {Array<ColorInterval>} [options.colorsInterval]
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length,
-                    options = _ref.options;
-
-                /**
-                 * Validates if param is numeric
-                 * @param   {Number}  n
-                 * @returns {Boolean}
-                 */
-                var isNumeric = function isNumeric(n) {
-                    return !isNaN(parseFloat(n)) && isFinite(n);
-                };
-
-                /**
-                 * @param {Array} pixles
-                 * @param {Number} index
-                 * @param {Color} color
-                 */
-                var applyPixelTransformation = function applyPixelTransformation(
-                    pixels,
-                    index,
-                    color
-                ) {
-                    pixels[index] = !isNumeric(color.r)
-                        ? pixels[index]
-                        : color.r;
-                    pixels[index + 1] = !isNumeric(color.g)
-                        ? pixels[index + 1]
-                        : color.g;
-                    pixels[index + 2] = !isNumeric(color.b)
-                        ? pixels[index + 2]
-                        : color.b;
-                    pixels[index + 3] = !isNumeric(color.a)
-                        ? pixels[index + 3]
-                        : color.a;
-                };
-
-                /**
-                 * @param {Array} data
-                 * @param {Number} index
-                 * @param {ColorInterval} colorInterval
-                 */
-                var evaluatePixel = function evaluatePixel(
-                    data,
-                    index,
-                    colorInterval
-                ) {
-                    var red = data[index];
-                    var green = data[index + 1];
-                    var blue = data[index + 2];
-
-                    return (
-                        red >= colorInterval.from.r &&
-                        red <= colorInterval.to.r &&
-                        green >= colorInterval.from.g &&
-                        green <= colorInterval.to.g &&
-                        blue >= colorInterval.from.b &&
-                        blue <= colorInterval.to.b
-                    );
-                };
-
-                var _loop = function _loop(i) {
-                    options.colorsInterval.forEach(function(colorInterval) {
-                        var isMatch = evaluatePixel(data, i, colorInterval);
-
-                        if (isMatch && colorInterval.match) {
-                            applyPixelTransformation(
-                                data,
-                                i,
-                                colorInterval.match
-                            );
-                        } else if (!isMatch && colorInterval.noMatch) {
-                            applyPixelTransformation(
-                                data,
-                                i,
-                                colorInterval.noMatch
-                            );
-                        }
-                    });
-                };
-
-                for (var i = 0; i < length; i += 4) {
-                    _loop(i);
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Object} options - options to pass to the transformation function
-             * @param {ColorInterval} [options.colorsInterval] - adjustment to apply in the transformation
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function color() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    options = _ref2.options,
-                    nWorkers = _ref2.nWorkers;
-
-                if (
-                    !data ||
-                    !options ||
-                    !options.colorsInterval ||
-                    !Array.isArray(options.colorsInterval)
-                ) {
-                    throw new Error(
-                        'lens-filter-color:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    options: options,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = color;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var color = unwrapExports(lensFilterColor_umd);
-
-    var lensFilterColor_umd$1 = createCommonjsModule(function(module, exports) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
+                                    )),
+                                    (t =
                                         'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
+                                        o +
+                                        '={};\n' +
+                                        n +
+                                        '\n' +
+                                        o +
+                                        ';\n(' +
+                                        Function.prototype.toString.call(h) +
+                                        ')(self,' +
+                                        s +
+                                        ',{})');
+                                var u,
+                                    c = URL.createObjectURL(new Blob([t])),
+                                    l = new Worker(c, e),
+                                    f = l.terminate,
+                                    d = {},
+                                    p = 0;
+                                for (u in ((l.kill = function(t) {
+                                    l.postMessage({ type: 'KILL', signal: t }),
+                                        setTimeout(l.terminate);
+                                }),
+                                (l.terminate = function() {
+                                    URL.revokeObjectURL(c), f.call(r);
+                                }),
+                                (l.call = function(r, a) {
+                                    return new Promise(function(t, e) {
+                                        var n = 'rpc' + ++p;
+                                        (d[n] = [t, e]),
+                                            l.postMessage({
+                                                type: 'RPC',
+                                                id: n,
+                                                method: r,
+                                                params: a
+                                            });
                                     });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
+                                }),
+                                (l.rpcMethods = {}),
+                                h(l, l.rpcMethods, d),
+                                (l.expose = function(t) {
+                                    l[u] = function() {
+                                        return l.call(
+                                            t,
+                                            [].slice.call(arguments)
                                         );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
+                                    };
+                                }),
+                                a))
+                                    u in l || l.expose(u);
+                                return l;
+                            })(
+                                '\n        var transform = ' +
+                                    n +
+                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                            ),
+                            c = r(e.width, e.height),
+                            l = c.getContext('2d');
+                        l.putImageData(e, 0, 0), (s = s || 1);
+                        var f = Math.floor(c.height / s);
+                        return new Promise(function(e) {
+                            for (var n = 0, t = void 0, r = 0; r < s; r++) {
+                                (t = f), r + 1 === s && (t = c.height - f * r);
+                                var a = l.getImageData(0, f * r, c.width, t),
+                                    o = t * c.width * 4;
+                                u.execute(a, r, o, i).then(function(t) {
+                                    l.putImageData(t.result, 0, f * t.index),
+                                        ++n === s &&
+                                            e(
+                                                l.getImageData(
                                                     0,
                                                     0,
-                                                    canvas.width,
-                                                    canvas.height
+                                                    c.width,
+                                                    c.height
                                                 )
                                             );
-                                        }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * @param {Object} data
-             * @param {Number} length
-             * @param {Object} options
-             * @param {Number} [options.color]
-             * @param {Number} [options.level]
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length,
-                    options = _ref.options;
-
-                var hex =
-                    options.color.charAt(0) === '#'
-                        ? options.color.substr(1)
-                        : options.color;
-                var colorRGB = {
-                    r: parseInt(hex.substr(0, 2), 16),
-                    g: parseInt(hex.substr(2, 2), 16),
-                    b: parseInt(hex.substr(4, 2), 16)
-                };
-
-                for (var i = 0; i < length; i += 4) {
-                    data[i] -= (data[i] - colorRGB.r) * (options.level / 100);
-                    data[i + 1] -=
-                        (data[i + 1] - colorRGB.g) * (options.level / 100);
-                    data[i + 2] -=
-                        (data[i + 2] - colorRGB.b) * (options.level / 100);
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Object} options - options to pass to the transformation function
-             * @param {Number} [options.color] - color value to apply in the transformation
-             * @param {Number} [options.level] - level value to apply in the transformation
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function colorize() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    options = _ref2.options,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data || !options || !options.color || !options.level) {
-                    throw new Error(
-                        'lens-filter-colorize:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    options: options,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = colorize;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var colorize = unwrapExports(lensFilterColor_umd$1);
-
-    var lensFilterContrast_umd = createCommonjsModule(function(
-        module,
-        exports
-    ) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
-                                            );
-                                        }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the contrast transformation
-             * @name transform
-             * @param {Object} data
-             * @param {Number} length
-             * @param {Object} options
-             * @param {Number} [options.contrast]
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length,
-                    options = _ref.options;
-
-                var factor =
-                    (259 * (options.contrast + 255)) /
-                    (255 * (259 - options.contrast));
-
-                for (var i = 0; i < length; i += 4) {
-                    data[i] = factor * (data[i] - 128) + 128;
-                    data[i + 1] = factor * (data[i + 1] - 128) + 128;
-                    data[i + 2] = factor * (data[i + 2] - 128) + 128;
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Object} options - options to pass to the transformation function
-             * @param {Number} [options.contrast] - contrast value to apply in the transformation
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function contrast() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    options = _ref2.options,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data || !options || !options.contrast) {
-                    throw new Error(
-                        'lens-filter-contrast:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    options: options,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = contrast;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var contrast = unwrapExports(lensFilterContrast_umd);
-
-    var lensFilterGamma_umd = createCommonjsModule(function(module, exports) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
-                                            );
-                                        }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the gamma transformation
-             * @param {Object} data
-             * @param {Number} length
-             * @param {Object} options
-             * @param {Number} [options.adjustment]
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length,
-                    options = _ref.options;
-
-                for (var i = 0; i < length; i += 4) {
-                    data[i] = Math.pow(data[i] / 255, options.adjustment) * 255;
-                    data[i + 1] =
-                        Math.pow(data[i + 1] / 255, options.adjustment) * 255;
-                    data[i + 2] =
-                        Math.pow(data[i + 2] / 255, options.adjustment) * 255;
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Object} options - options to pass to the transformation function
-             * @param {Number} [options.adjustment] - adjustment to apply in the transformation
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function gamma() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    options = _ref2.options,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data || !options || !options.adjustment) {
-                    throw new Error(
-                        'lens-filter-gamma:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    options: options,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = gamma;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var gamma = unwrapExports(lensFilterGamma_umd);
-
-    var lensFilterGrayscale_umd = createCommonjsModule(function(
-        module,
-        exports
-    ) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
-                                            );
-                                        }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the grayscale transformation
-             * @param {Object} data
-             * @param {Number} length
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length;
-
-                for (var i = 0; i < length; i += 4) {
-                    var r = data[i];
-                    var g = data[i + 1];
-                    var b = data[i + 2];
-
-                    // CIE luminance for the RGB
-                    // The human eye is bad at seeing red and blue, so we de-emphasize them.
-                    var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-                    data[i] = data[i + 1] = data[i + 2] = v;
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function grayscale() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data) {
-                    throw new Error(
-                        'lens-filter-grayscale:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = grayscale;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var grayscale = unwrapExports(lensFilterGrayscale_umd);
-
-    var lensFilterGrayscale_umd$1 = createCommonjsModule(function(
-        module,
-        exports
-    ) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
-                                            );
-                                        }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the invert transformation
-             * @name transform
-             * @param {Object} data
-             * @param {Number} length
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length;
-
-                for (var i = 0; i < length; i += 4) {
-                    data[i] = 255 - data[i];
-                    data[i + 1] = 255 - data[i + 1];
-                    data[i + 2] = 255 - data[i + 2];
-                }
-
-                return data;
-            };
-
-            /**
-             * @name invert
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function invert() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data) {
-                    throw new Error(
-                        'lens-filter-invert:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = invert;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var invert = unwrapExports(lensFilterGrayscale_umd$1);
-
-    var lensFilterNoise_umd = createCommonjsModule(function(module, exports) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
-                                            );
-                                        }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the noise transformation
-             * @param {Array} data
-             * @param {Number} length
-             * @param {Object} options
-             * @param {Number} [options.adjustment]
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length,
-                    options = _ref.options;
-
-                var adjustment = Math.abs(options.adjustment) * 2.55;
-
-                var add = function add(original, increment) {
-                    var result = original + increment;
-
-                    if (result > 255) {
-                        return 255;
-                    } else if (result < 0) {
-                        return 0;
-                    }
-
-                    return result;
-                };
-
-                for (var i = 0; i < length; i += 4) {
-                    // Calculate if should be negative or positive
-                    var multiplier = Math.random() < 0.5 ? -1 : 1;
-
-                    // Calculate random noise
-                    var rand = multiplier * (Math.random() + adjustment);
-
-                    data[i] = add(data[i], rand);
-                    data[i + 1] = add(data[i + 1], rand);
-                    data[i + 2] = add(data[i + 2], rand);
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Object} options - options to pass to the transformation function
-             * @param {Number} [options.noise] - noise to apply in the transformation
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function noise() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    options = _ref2.options,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data || !options || !options.adjustment) {
-                    throw new Error(
-                        'lens-filter-noise:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    options: options,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = noise;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var noise = unwrapExports(lensFilterNoise_umd);
-
-    var lensFilterSepia_umd = createCommonjsModule(function(module, exports) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
-                                            );
-                                        }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the sepia transformation
-             * @param {Object} data
-             * @param {Number} length
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length;
-
-                for (var i = 0; i < length; i += 4) {
-                    var r = data[i];
-                    var g = data[i + 1];
-                    var b = data[i + 2];
-
-                    data[i] = r * 0.393 + g * 0.769 + b * 0.189;
-                    data[i + 1] = r * 0.349 + g * 0.686 + b * 0.168;
-                    data[i + 2] = r * 0.272 + g * 0.534 + b * 0.131;
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function sepia() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data) {
-                    throw new Error(
-                        'lens-filter-sepia:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = sepia;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var sepia = unwrapExports(lensFilterSepia_umd);
-
-    var lensFilterThreshold_umd = createCommonjsModule(function(
-        module,
-        exports
-    ) {
-        (function(global, factory) {
-            factory(exports);
-        })(commonjsGlobal, function(exports) {
-            var commonjsGlobal$$1 =
-                typeof window !== 'undefined'
-                    ? window
-                    : typeof commonjsGlobal !== 'undefined'
-                        ? commonjsGlobal
-                        : typeof self !== 'undefined'
-                            ? self
-                            : {};
-
-            function createCommonjsModule$$1(fn, module) {
-                return (
-                    (module = { exports: {} }),
-                    fn(module, module.exports),
-                    module.exports
-                );
-            }
-
-            var lensCore_umd = createCommonjsModule$$1(function(
-                module,
-                exports
-            ) {
-                (function(global, factory) {
-                    factory();
-                })(commonjsGlobal$$1, function() {
-                    function e(e, t, n) {
-                        e.addEventListener('message', function(r) {
-                            var o = r.data,
-                                a = o.id;
-                            if ('RPC' === o.type && null != a)
-                                if (o.method) {
-                                    var s = t[o.method];
-                                    null == s
-                                        ? e.postMessage({
-                                              type: 'RPC',
-                                              id: a,
-                                              error: 'NO_SUCH_METHOD'
-                                          })
-                                        : Promise.resolve()
-                                              .then(function() {
-                                                  return s.apply(
-                                                      null,
-                                                      o.params
-                                                  );
-                                              })
-                                              .then(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      result: t
-                                                  });
-                                              })
-                                              .catch(function(t) {
-                                                  e.postMessage({
-                                                      type: 'RPC',
-                                                      id: a,
-                                                      error: '' + t
-                                                  });
-                                              });
-                                } else {
-                                    var i = n[a];
-                                    if (null == i)
-                                        throw Error('Unknown callback ' + a);
-                                    delete n[a],
-                                        o.error
-                                            ? i[1](Error(o.error))
-                                            : i[0](o.result);
-                                }
-                        });
-                    }
-                    function workerize(t, n) {
-                        var r = this,
-                            o = {},
-                            a =
-                                '__xpo' +
-                                Math.random()
-                                    .toString()
-                                    .substring(2) +
-                                '__';
-                        'function' == typeof t &&
-                            (t =
-                                '(' +
-                                Function.prototype.toString.call(t) +
-                                ')(' +
-                                a +
-                                ')'),
-                            (t =
-                                (function(e, t, n) {
-                                    return (
-                                        (e = (e = e.replace(
-                                            /^(\s*)export\s+default\s+/m,
-                                            function(e, r) {
-                                                return (
-                                                    (n.default = !0),
-                                                    '' + r + t + '.default='
-                                                );
-                                            }
-                                        )).replace(
-                                            /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
-                                            function(e, r, o, a, s) {
-                                                return (
-                                                    (n[s] = !0),
-                                                    '' +
-                                                        r +
-                                                        t +
-                                                        '.' +
-                                                        s +
-                                                        '=' +
-                                                        o +
-                                                        a +
-                                                        s
-                                                );
-                                            }
-                                        )),
-                                        'var ' +
-                                            t +
-                                            '={};\n' +
-                                            e +
-                                            '\n' +
-                                            t +
-                                            ';'
-                                    );
-                                })(t, a, o) +
-                                '\n(' +
-                                Function.prototype.toString.call(e) +
-                                ')(self,' +
-                                a +
-                                ',{})');
-                        var s,
-                            i = URL.createObjectURL(new Blob([t])),
-                            l = new Worker(i, n),
-                            c = l.terminate,
-                            u = {},
-                            p = 0;
-                        for (s in ((l.kill = function(e) {
-                            l.postMessage({ type: 'KILL', signal: e }),
-                                setTimeout(l.terminate);
-                        }),
-                        (l.terminate = function() {
-                            URL.revokeObjectURL(i), c.call(r);
-                        }),
-                        (l.call = function(e, t) {
-                            return new Promise(function(n, r) {
-                                var o = 'rpc' + ++p;
-                                (u[o] = [n, r]),
-                                    l.postMessage({
-                                        type: 'RPC',
-                                        id: o,
-                                        method: e,
-                                        params: t
-                                    });
-                            });
-                        }),
-                        (l.rpcMethods = {}),
-                        e(l, l.rpcMethods, u),
-                        (l.expose = function(e) {
-                            l[s] = function() {
-                                return l.call(e, [].slice.call(arguments));
-                            };
-                        }),
-                        o)) {
-                            s in l || l.expose(s);
-                        }
-                        return l;
-                    }
-
-                    /**
-                     * It returns a canvas with the given width and height
-                     * @param {Number} w - width
-                     * @param {Number} h - height
-                     * @returns {Object}
-                     */
-                    function getCanvas(w, h) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-
-                        return canvas;
-                    }
-
-                    /**
-                     * Given a ImageData it returns the dataURL
-                     * @param {ImageData} imageData
-                     * @returns {String}
-                     */
-                    function convertImageDataToCanvasURL(imageData) {
-                        var canvas = window.document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-                        canvas.width = imageData.width;
-                        canvas.height = imageData.height;
-                        ctx.putImageData(imageData, 0, 0);
-
-                        return canvas.toDataURL();
-                    }
-
-                    /**
-                     * Given a worker file with the transformation the work is split
-                     * between the configured number of workers and the transformation is applied
-                     * returning a Promise
-                     * @param {Object} data - image data
-                     * @param {Function} transform - transformation function
-                     * @param {Object} options - object to be passed to the transform function
-                     * @param {Number} nWorkers - number of workers to transform the image
-                     * @returns {Promise}
-                     */
-                    function applyFilter(_ref) {
-                        var data = _ref.data,
-                            transform = _ref.transform,
-                            options = _ref.options,
-                            nWorkers = _ref.nWorkers;
-
-                        var worker = workerize(
-                            '\n        var transform = ' +
-                                transform +
-                                ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
-                        );
-
-                        // Drawing the source image into the target canvas
-                        var canvas = getCanvas(data.width, data.height);
-                        var context = canvas.getContext('2d');
-                        context.putImageData(data, 0, 0);
-
-                        // Minimium 1 worker
-                        nWorkers = nWorkers || 1;
-
-                        // Height of the picture chunck for every worker
-                        var blockSize = Math.floor(canvas.height / nWorkers);
-
-                        return new Promise(function(resolve) {
-                            var finished = 0;
-                            var height = void 0;
-
-                            for (var index = 0; index < nWorkers; index++) {
-                                // In the last worker we have to make sure we process whatever is missing
-                                height = blockSize;
-
-                                if (index + 1 === nWorkers) {
-                                    height = canvas.height - blockSize * index;
-                                }
-
-                                // Getting the picture
-                                var canvasData = context.getImageData(
-                                    0,
-                                    blockSize * index,
-                                    canvas.width,
-                                    height
-                                );
-                                var length = height * canvas.width * 4;
-
-                                worker
-                                    .execute(canvasData, index, length, options)
-                                    .then(function(response) {
-                                        // Copying back canvas data to canvas
-                                        // If the first webworker  (index 0) returns data, apply it at pixel (0, 0) onwards
-                                        // If the second webworker  (index 1) returns data, apply it at pixel (0, canvas.height/4) onwards, and so on
-                                        context.putImageData(
-                                            response.result,
-                                            0,
-                                            blockSize * response.index
-                                        );
-
-                                        finished++;
-
-                                        if (finished === nWorkers) {
-                                            resolve(
-                                                context.getImageData(
-                                                    0,
-                                                    0,
-                                                    canvas.width,
-                                                    canvas.height
-                                                )
-                                            );
-                                        }
-                                    });
-                            }
-                        });
-                    }
-
-                    exports.getCanvas = getCanvas;
-                    exports.convertImageDataToCanvasURL = convertImageDataToCanvasURL;
-                    exports.applyFilter = applyFilter;
-                });
-            });
-            var lensCore_umd_1 = lensCore_umd.getCanvas;
-            var lensCore_umd_2 = lensCore_umd.convertImageDataToCanvasURL;
-            var lensCore_umd_3 = lensCore_umd.applyFilter;
-
-            /**
-             * Iterate over the array applying the threshold transformation
-             * @param {Array} data
-             * @param {Number} length
-             * @param {Object} options
-             */
-            var transform = function transform(_ref) {
-                var data = _ref.data,
-                    length = _ref.length,
-                    options = _ref.options;
-
-                for (var i = 0; i < length; i += 4) {
-                    var r = data[i];
-                    var g = data[i + 1];
-                    var b = data[i + 2];
-                    var v =
-                        0.2126 * r + 0.7152 * g + 0.0722 * b >=
-                        options.threshold
-                            ? 255
-                            : 0;
-                    data[i] = data[i + 1] = data[i + 2] = v;
-                }
-
-                return data;
-            };
-
-            /**
-             * @param {ImageData} data - data of a image extracted from a canvas
-             * @param {Object} options - options to pass to the transformation function
-             * @param {Number} [options.threshold] - threshold to apply in the transformation
-             * @param {Number} nWorkers - number of workers
-             * @returns {Promise}
-             */
-            function threshold() {
-                var _ref2 =
-                        arguments.length > 0 && arguments[0] !== undefined
-                            ? arguments[0]
-                            : {},
-                    data = _ref2.data,
-                    options = _ref2.options,
-                    nWorkers = _ref2.nWorkers;
-
-                if (!data || !options || !options.threshold) {
-                    throw new Error(
-                        'lens-filter-threshold:: invalid options provided'
-                    );
-                }
-
-                return lensCore_umd_3({
-                    data: data,
-                    transform: transform,
-                    options: options,
-                    nWorkers: nWorkers
-                });
-            }
-
-            exports.transform = transform;
-            exports.default = threshold;
-
-            Object.defineProperty(exports, '__esModule', { value: true });
-        });
-    });
-
-    var threshold = unwrapExports(lensFilterThreshold_umd);
-
-    /**
-     * @method getPixelsFromImage
-     * @param {Object} canvas
-     * @param {Object} context
-     * @param {Object} imageData
-     */
-    function getPixelsFromImage(canvas, context, element) {
-        if (element.tagName !== 'IMG') {
-            throw new Error('lens-chainable:: invalid origin');
-        }
-
-        context.drawImage(element, 0, 0);
-        return context.getImageData(0, 0, canvas.width, canvas.height);
-    }
-
-    /**
-     * Get a dom nome by selector
-     * @method  getElement
-     * @param   {String}   selector
-     * @returns {Node}
-     */
-    function getDomElement(selector) {
-        if (!selector) {
-            throw new Error('lens-chainable:: no selector provided');
-        }
-
-        var target = document.querySelectorAll(selector)[0];
-
-        if (!target) {
-            throw new Error('lens-chainable:: no "to" element found');
-        }
-
-        return target;
-    }
-
-    var _createClass = (function() {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || false;
-                descriptor.configurable = true;
-                if ('value' in descriptor) descriptor.writable = true;
-                Object.defineProperty(target, descriptor.key, descriptor);
-            }
-        }
-        return function(Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
-        };
-    })();
-
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError('Cannot call a class as a function');
-        }
-    }
-
-    var METHODS = {
-        brightness: brightness,
-        color: color,
-        colorize: colorize,
-        contrast: contrast,
-        gamma: gamma,
-        grayscale: grayscale,
-        invert: invert,
-        noise: noise,
-        sepia: sepia,
-        threshold: threshold
-    };
-
-    var getElement = function getElement(options) {
-        if (options.url) {
-            var element = document.createElement('img');
-            element.setAttribute('src', options.url);
-
-            return element;
-        }
-
-        return getDomElement(options.from);
-    };
-
-    var getImageData = function getImageData(options) {
-        if (options.data) return options.data;
-
-        var element = getElement(options);
-        var canvas = lensCore_umd_1(element.width, element.height);
-        var context = canvas.getContext('2d');
-
-        return getPixelsFromImage(canvas, context, element);
-    };
-
-    var Chainable = (function() {
-        function Chainable() {
-            var options =
-                arguments.length > 0 && arguments[0] !== undefined
-                    ? arguments[0]
-                    : {};
-
-            _classCallCheck(this, Chainable);
-
-            if (!options.url && !options.data && !options.from) {
-                throw new Error('lens-chainable:: invalid options object');
-            }
-
-            this.data = getImageData(options);
-
-            if (!this.data) {
-                throw new Error('lens-chainable:: no data found');
-            }
-
-            this.filters = [];
-            this.nWorkers = options.nWorkers;
-            this.url = options.url;
-            this.from = options.from;
-        }
-
-        _createClass(Chainable, [
-            {
-                key: 'applyFilters',
-                value: function applyFilters() {
-                    var _this = this;
-
-                    var initialValue = Promise.resolve(this.data);
-
-                    return this.filters
-                        .reduce(function(promise, item) {
-                            return promise.then(function(data) {
-                                var fn = METHODS[item.filter];
-                                var options = item.options;
-                                var nWorkers = _this.nWorkers;
-
-                                return fn({
-                                    data: data,
-                                    options: options,
-                                    nWorkers: nWorkers
                                 });
-                            });
-                        }, initialValue)
-                        .then(function(data) {
-                            _this.data = data;
-                            return data;
+                            }
                         });
-                }
-            },
-            {
-                key: 'append',
-                value: function append(selector) {
-                    return this.applyFilters().then(function(data) {
-                        var target = getDomElement(selector);
-                        var image = document.createElement('img');
-                        image.setAttribute('src', lensCore_umd_2(data));
-                        target.appendChild(image);
                     });
-                }
-            },
-            {
-                key: 'update',
-                value: function update(selector) {
-                    return this.applyFilters().then(function(data) {
-                        var target = getDomElement(selector);
-                        target.setAttribute('src', lensCore_umd_2(data));
-                    });
-                }
-            },
-            {
-                key: 'getDataURL',
-                value: function getDataURL() {
-                    return lensCore_umd_2(this.data);
-                }
+            })();
+        }),
+        r = n.getCanvas,
+        a = n.convertImageDataToCanvasURL,
+        o = (n.applyFilter,
+        t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        a = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        o = function(t) {
+                            for (
+                                var e = t.data,
+                                    n = t.length,
+                                    r = t.options,
+                                    a = 0;
+                                a < n;
+                                a += 4
+                            )
+                                (e[a] += r.adjustment),
+                                    (e[a + 1] += r.adjustment),
+                                    (e[a + 2] += r.adjustment);
+                            return e;
+                        };
+                    (t.transform = o),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.options,
+                                r = t.nWorkers;
+                            if (!e || !n || !n.adjustment)
+                                throw new Error(
+                                    'lens-filter-brightness:: invalid options provided'
+                                );
+                            return a({
+                                data: e,
+                                transform: o,
+                                options: n,
+                                nWorkers: r
+                            });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        )),
+        s = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        a = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        o = function(t) {
+                            for (
+                                var c = t.data,
+                                    e = t.length,
+                                    n = t.options,
+                                    r = function(t) {
+                                        return (
+                                            !isNaN(parseFloat(t)) && isFinite(t)
+                                        );
+                                    },
+                                    l = function(t, e, n) {
+                                        (t[e] = r(n.r) ? n.r : t[e]),
+                                            (t[e + 1] = r(n.g)
+                                                ? n.g
+                                                : t[e + 1]),
+                                            (t[e + 2] = r(n.b)
+                                                ? n.b
+                                                : t[e + 2]),
+                                            (t[e + 3] = r(n.a)
+                                                ? n.a
+                                                : t[e + 3]);
+                                    },
+                                    a = function(u) {
+                                        n.colorsInterval.forEach(function(t) {
+                                            var e,
+                                                n,
+                                                r,
+                                                a,
+                                                o,
+                                                i,
+                                                s = ((r = t),
+                                                (a = (e = c)[(n = u)]),
+                                                (o = e[n + 1]),
+                                                (i = e[n + 2]),
+                                                a >= r.from.r &&
+                                                    a <= r.to.r &&
+                                                    o >= r.from.g &&
+                                                    o <= r.to.g &&
+                                                    i >= r.from.b &&
+                                                    i <= r.to.b);
+                                            s && t.match
+                                                ? l(c, u, t.match)
+                                                : !s &&
+                                                  t.noMatch &&
+                                                  l(c, u, t.noMatch);
+                                        });
+                                    },
+                                    o = 0;
+                                o < e;
+                                o += 4
+                            )
+                                a(o);
+                            return c;
+                        };
+                    (t.transform = o),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.options,
+                                r = t.nWorkers;
+                            if (
+                                !(
+                                    e &&
+                                    n &&
+                                    n.colorsInterval &&
+                                    Array.isArray(n.colorsInterval)
+                                )
+                            )
+                                throw new Error(
+                                    'lens-filter-color:: invalid options provided'
+                                );
+                            return a({
+                                data: e,
+                                transform: o,
+                                options: n,
+                                nWorkers: r
+                            });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        ),
+        u = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        a = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        o = function(t) {
+                            for (
+                                var e = t.data,
+                                    n = t.length,
+                                    r = t.options,
+                                    a =
+                                        '#' === r.color.charAt(0)
+                                            ? r.color.substr(1)
+                                            : r.color,
+                                    o = {
+                                        r: parseInt(a.substr(0, 2), 16),
+                                        g: parseInt(a.substr(2, 2), 16),
+                                        b: parseInt(a.substr(4, 2), 16)
+                                    },
+                                    i = 0;
+                                i < n;
+                                i += 4
+                            )
+                                (e[i] -= (e[i] - o.r) * (r.level / 100)),
+                                    (e[i + 1] -=
+                                        (e[i + 1] - o.g) * (r.level / 100)),
+                                    (e[i + 2] -=
+                                        (e[i + 2] - o.b) * (r.level / 100));
+                            return e;
+                        };
+                    (t.transform = o),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.options,
+                                r = t.nWorkers;
+                            if (!(e && n && n.color && n.level))
+                                throw new Error(
+                                    'lens-filter-colorize:: invalid options provided'
+                                );
+                            return a({
+                                data: e,
+                                transform: o,
+                                options: n,
+                                nWorkers: r
+                            });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        ),
+        c = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        a = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        o = function(t) {
+                            for (
+                                var e = t.data,
+                                    n = t.length,
+                                    r = t.options,
+                                    a =
+                                        (259 * (r.contrast + 255)) /
+                                        (255 * (259 - r.contrast)),
+                                    o = 0;
+                                o < n;
+                                o += 4
+                            )
+                                (e[o] = a * (e[o] - 128) + 128),
+                                    (e[o + 1] = a * (e[o + 1] - 128) + 128),
+                                    (e[o + 2] = a * (e[o + 2] - 128) + 128);
+                            return e;
+                        };
+                    (t.transform = o),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.options,
+                                r = t.nWorkers;
+                            if (!e || !n || !n.contrast)
+                                throw new Error(
+                                    'lens-filter-contrast:: invalid options provided'
+                                );
+                            return a({
+                                data: e,
+                                transform: o,
+                                options: n,
+                                nWorkers: r
+                            });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        ),
+        l = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        a = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        o = function(t) {
+                            for (
+                                var e = t.data,
+                                    n = t.length,
+                                    r = t.options,
+                                    a = 0;
+                                a < n;
+                                a += 4
+                            )
+                                (e[a] =
+                                    255 * Math.pow(e[a] / 255, r.adjustment)),
+                                    (e[a + 1] =
+                                        255 *
+                                        Math.pow(e[a + 1] / 255, r.adjustment)),
+                                    (e[a + 2] =
+                                        255 *
+                                        Math.pow(e[a + 2] / 255, r.adjustment));
+                            return e;
+                        };
+                    (t.transform = o),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.options,
+                                r = t.nWorkers;
+                            if (!e || !n || !n.adjustment)
+                                throw new Error(
+                                    'lens-filter-gamma:: invalid options provided'
+                                );
+                            return a({
+                                data: e,
+                                transform: o,
+                                options: n,
+                                nWorkers: r
+                            });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        ),
+        f = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        r = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        a = function(t) {
+                            for (
+                                var e = t.data, n = t.length, r = 0;
+                                r < n;
+                                r += 4
+                            ) {
+                                var a = e[r],
+                                    o = e[r + 1],
+                                    i = e[r + 2],
+                                    s = 0.2126 * a + 0.7152 * o + 0.0722 * i;
+                                e[r] = e[r + 1] = e[r + 2] = s;
+                            }
+                            return e;
+                        };
+                    (t.transform = a),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.nWorkers;
+                            if (!e)
+                                throw new Error(
+                                    'lens-filter-grayscale:: invalid options provided'
+                                );
+                            return r({ data: e, transform: a, nWorkers: n });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        ),
+        d = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        r = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        a = function(t) {
+                            for (
+                                var e = t.data, n = t.length, r = 0;
+                                r < n;
+                                r += 4
+                            )
+                                (e[r] = 255 - e[r]),
+                                    (e[r + 1] = 255 - e[r + 1]),
+                                    (e[r + 2] = 255 - e[r + 2]);
+                            return e;
+                        };
+                    (t.transform = a),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.nWorkers;
+                            if (!e)
+                                throw new Error(
+                                    'lens-filter-invert:: invalid options provided'
+                                );
+                            return r({ data: e, transform: a, nWorkers: n });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        ),
+        p = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        a = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        o = function(t) {
+                            for (
+                                var e = t.data,
+                                    n = t.length,
+                                    r = t.options,
+                                    a = 2.55 * Math.abs(r.adjustment),
+                                    o = function(t, e) {
+                                        var n = t + e;
+                                        return 255 < n ? 255 : n < 0 ? 0 : n;
+                                    },
+                                    i = 0;
+                                i < n;
+                                i += 4
+                            ) {
+                                var s = Math.random() < 0.5 ? -1 : 1,
+                                    u = s * (Math.random() + a);
+                                (e[i] = o(e[i], u)),
+                                    (e[i + 1] = o(e[i + 1], u)),
+                                    (e[i + 2] = o(e[i + 2], u));
+                            }
+                            return e;
+                        };
+                    (t.transform = o),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.options,
+                                r = t.nWorkers;
+                            if (!e || !n || !n.adjustment)
+                                throw new Error(
+                                    'lens-filter-noise:: invalid options provided'
+                                );
+                            return a({
+                                data: e,
+                                transform: o,
+                                options: n,
+                                nWorkers: r
+                            });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        ),
+        h = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        r = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        a = function(t) {
+                            for (
+                                var e = t.data, n = t.length, r = 0;
+                                r < n;
+                                r += 4
+                            ) {
+                                var a = e[r],
+                                    o = e[r + 1],
+                                    i = e[r + 2];
+                                (e[r] = 0.393 * a + 0.769 * o + 0.189 * i),
+                                    (e[r + 1] =
+                                        0.349 * a + 0.686 * o + 0.168 * i),
+                                    (e[r + 2] =
+                                        0.272 * a + 0.534 * o + 0.131 * i);
+                            }
+                            return e;
+                        };
+                    (t.transform = a),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.nWorkers;
+                            if (!e)
+                                throw new Error(
+                                    'lens-filter-sepia:: invalid options provided'
+                                );
+                            return r({ data: e, transform: a, nWorkers: n });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        ),
+        v = t(
+            e(function(t, e) {
+                !(function(t) {
+                    'undefined' != typeof window
+                        ? window
+                        : void 0 !== i || ('undefined' != typeof self && self);
+                    var e,
+                        n = ((function(t, e) {
+                            !(function() {
+                                function h(o, i, s) {
+                                    o.addEventListener('message', function(t) {
+                                        var e = t.data,
+                                            n = e.id;
+                                        if ('RPC' === e.type && null != n)
+                                            if (e.method) {
+                                                var r = i[e.method];
+                                                null == r
+                                                    ? o.postMessage({
+                                                          type: 'RPC',
+                                                          id: n,
+                                                          error:
+                                                              'NO_SUCH_METHOD'
+                                                      })
+                                                    : Promise.resolve()
+                                                          .then(function() {
+                                                              return r.apply(
+                                                                  null,
+                                                                  e.params
+                                                              );
+                                                          })
+                                                          .then(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  result: t
+                                                              });
+                                                          })
+                                                          .catch(function(t) {
+                                                              o.postMessage({
+                                                                  type: 'RPC',
+                                                                  id: n,
+                                                                  error: '' + t
+                                                              });
+                                                          });
+                                            } else {
+                                                var a = s[n];
+                                                if (null == a)
+                                                    throw Error(
+                                                        'Unknown callback ' + n
+                                                    );
+                                                delete s[n],
+                                                    e.error
+                                                        ? a[1](Error(e.error))
+                                                        : a[0](e.result);
+                                            }
+                                    });
+                                }
+                                function r(t, e) {
+                                    var n = document.createElement('canvas');
+                                    return (n.width = t), (n.height = e), n;
+                                }
+                                (e.getCanvas = r),
+                                    (e.convertImageDataToCanvasURL = function(
+                                        t
+                                    ) {
+                                        var e = window.document.createElement(
+                                                'canvas'
+                                            ),
+                                            n = e.getContext('2d');
+                                        return (
+                                            (e.width = t.width),
+                                            (e.height = t.height),
+                                            n.putImageData(t, 0, 0),
+                                            e.toDataURL()
+                                        );
+                                    }),
+                                    (e.applyFilter = function(t) {
+                                        var e = t.data,
+                                            n = t.transform,
+                                            i = t.options,
+                                            s = t.nWorkers,
+                                            u = (function(t, e) {
+                                                var n,
+                                                    o,
+                                                    i,
+                                                    r = this,
+                                                    a = {},
+                                                    s =
+                                                        '__xpo' +
+                                                        Math.random()
+                                                            .toString()
+                                                            .substring(2) +
+                                                        '__';
+                                                'function' == typeof t &&
+                                                    (t =
+                                                        '(' +
+                                                        Function.prototype.toString.call(
+                                                            t
+                                                        ) +
+                                                        ')(' +
+                                                        s +
+                                                        ')'),
+                                                    (o = s),
+                                                    (i = a),
+                                                    (n = (n = (n = t).replace(
+                                                        /^(\s*)export\s+default\s+/m,
+                                                        function(t, e) {
+                                                            return (
+                                                                (i.default = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.default='
+                                                            );
+                                                        }
+                                                    )).replace(
+                                                        /^(\s*)export\s+((?:async\s*)?function(?:\s*\*)?|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/gm,
+                                                        function(
+                                                            t,
+                                                            e,
+                                                            n,
+                                                            r,
+                                                            a
+                                                        ) {
+                                                            return (
+                                                                (i[a] = !0),
+                                                                '' +
+                                                                    e +
+                                                                    o +
+                                                                    '.' +
+                                                                    a +
+                                                                    '=' +
+                                                                    n +
+                                                                    r +
+                                                                    a
+                                                            );
+                                                        }
+                                                    )),
+                                                    (t =
+                                                        'var ' +
+                                                        o +
+                                                        '={};\n' +
+                                                        n +
+                                                        '\n' +
+                                                        o +
+                                                        ';\n(' +
+                                                        Function.prototype.toString.call(
+                                                            h
+                                                        ) +
+                                                        ')(self,' +
+                                                        s +
+                                                        ',{})');
+                                                var u,
+                                                    c = URL.createObjectURL(
+                                                        new Blob([t])
+                                                    ),
+                                                    l = new Worker(c, e),
+                                                    f = l.terminate,
+                                                    d = {},
+                                                    p = 0;
+                                                for (u in ((l.kill = function(
+                                                    t
+                                                ) {
+                                                    l.postMessage({
+                                                        type: 'KILL',
+                                                        signal: t
+                                                    }),
+                                                        setTimeout(l.terminate);
+                                                }),
+                                                (l.terminate = function() {
+                                                    URL.revokeObjectURL(c),
+                                                        f.call(r);
+                                                }),
+                                                (l.call = function(r, a) {
+                                                    return new Promise(function(
+                                                        t,
+                                                        e
+                                                    ) {
+                                                        var n = 'rpc' + ++p;
+                                                        (d[n] = [t, e]),
+                                                            l.postMessage({
+                                                                type: 'RPC',
+                                                                id: n,
+                                                                method: r,
+                                                                params: a
+                                                            });
+                                                    });
+                                                }),
+                                                (l.rpcMethods = {}),
+                                                h(l, l.rpcMethods, d),
+                                                (l.expose = function(t) {
+                                                    l[u] = function() {
+                                                        return l.call(
+                                                            t,
+                                                            [].slice.call(
+                                                                arguments
+                                                            )
+                                                        );
+                                                    };
+                                                }),
+                                                a))
+                                                    u in l || l.expose(u);
+                                                return l;
+                                            })(
+                                                '\n        var transform = ' +
+                                                    n +
+                                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                                            ),
+                                            c = r(e.width, e.height),
+                                            l = c.getContext('2d');
+                                        l.putImageData(e, 0, 0), (s = s || 1);
+                                        var f = Math.floor(c.height / s);
+                                        return new Promise(function(e) {
+                                            for (
+                                                var n = 0, t = void 0, r = 0;
+                                                r < s;
+                                                r++
+                                            ) {
+                                                (t = f),
+                                                    r + 1 === s &&
+                                                        (t = c.height - f * r);
+                                                var a = l.getImageData(
+                                                        0,
+                                                        f * r,
+                                                        c.width,
+                                                        t
+                                                    ),
+                                                    o = t * c.width * 4;
+                                                u.execute(a, r, o, i).then(
+                                                    function(t) {
+                                                        l.putImageData(
+                                                            t.result,
+                                                            0,
+                                                            f * t.index
+                                                        ),
+                                                            ++n === s &&
+                                                                e(
+                                                                    l.getImageData(
+                                                                        0,
+                                                                        0,
+                                                                        c.width,
+                                                                        c.height
+                                                                    )
+                                                                );
+                                                    }
+                                                );
+                                            }
+                                        });
+                                    });
+                            })();
+                        })((e = { exports: {} }), e.exports),
+                        e.exports),
+                        a = (n.getCanvas,
+                        n.convertImageDataToCanvasURL,
+                        n.applyFilter),
+                        o = function(t) {
+                            for (
+                                var e = t.data,
+                                    n = t.length,
+                                    r = t.options,
+                                    a = 0;
+                                a < n;
+                                a += 4
+                            ) {
+                                var o = e[a],
+                                    i = e[a + 1],
+                                    s = e[a + 2],
+                                    u =
+                                        0.2126 * o + 0.7152 * i + 0.0722 * s >=
+                                        r.threshold
+                                            ? 255
+                                            : 0;
+                                e[a] = e[a + 1] = e[a + 2] = u;
+                            }
+                            return e;
+                        };
+                    (t.transform = o),
+                        (t.default = function() {
+                            var t =
+                                    0 < arguments.length &&
+                                    void 0 !== arguments[0]
+                                        ? arguments[0]
+                                        : {},
+                                e = t.data,
+                                n = t.options,
+                                r = t.nWorkers;
+                            if (!e || !n || !n.threshold)
+                                throw new Error(
+                                    'lens-filter-threshold:: invalid options provided'
+                                );
+                            return a({
+                                data: e,
+                                transform: o,
+                                options: n,
+                                nWorkers: r
+                            });
+                        }),
+                        Object.defineProperty(t, '__esModule', { value: !0 });
+                })(e);
+            })
+        );
+    function g(t) {
+        if (!t) throw new Error('lens-chainable:: no selector provided');
+        var e = document.querySelectorAll(t)[0];
+        if (!e) throw new Error('lens-chainable:: no "to" element found');
+        return e;
+    }
+    var m = (function() {
+        function r(t, e) {
+            for (var n = 0; n < e.length; n++) {
+                var r = e[n];
+                (r.enumerable = r.enumerable || !1),
+                    (r.configurable = !0),
+                    'value' in r && (r.writable = !0),
+                    Object.defineProperty(t, r.key, r);
             }
-        ]);
-
-        return Chainable;
-    })();
-
-    Object.keys(METHODS).forEach(function(method) {
-        Chainable.prototype[method] = function(options) {
-            this.filters.push({ filter: method, options: options });
-            return this;
+        }
+        return function(t, e, n) {
+            return e && r(t.prototype, e), n && r(t, n), t;
         };
-    });
-
-    return Chainable;
+    })();
+    var w = {
+            brightness: o,
+            color: s,
+            colorize: u,
+            contrast: c,
+            gamma: l,
+            grayscale: f,
+            invert: d,
+            noise: p,
+            sepia: h,
+            threshold: v
+        },
+        y = function(t) {
+            if (t.data) return t.data;
+            var e = (function(t) {
+                    if (t.url) {
+                        var e = document.createElement('img');
+                        return e.setAttribute('src', t.url), e;
+                    }
+                    return g(t.from);
+                })(t),
+                n = r(e.width, e.height);
+            return (function(t, e, n) {
+                if ('IMG' !== n.tagName)
+                    throw new Error('lens-chainable:: invalid origin');
+                return (
+                    e.drawImage(n, 0, 0),
+                    e.getImageData(0, 0, t.width, t.height)
+                );
+            })(n, n.getContext('2d'), e);
+        },
+        x = (function() {
+            function e() {
+                var t =
+                    0 < arguments.length && void 0 !== arguments[0]
+                        ? arguments[0]
+                        : {};
+                if (
+                    ((function(t, e) {
+                        if (!(t instanceof e))
+                            throw new TypeError(
+                                'Cannot call a class as a function'
+                            );
+                    })(this, e),
+                    !t.url && !t.data && !t.from)
+                )
+                    throw new Error('lens-chainable:: invalid options object');
+                if (((this.data = y(t)), !this.data))
+                    throw new Error('lens-chainable:: no data found');
+                (this.filters = []),
+                    (this.nWorkers = t.nWorkers),
+                    (this.url = t.url),
+                    (this.from = t.from);
+            }
+            return (
+                m(e, [
+                    {
+                        key: 'applyFilters',
+                        value: function() {
+                            var n = this,
+                                t = Promise.resolve(this.data);
+                            return this.filters
+                                .reduce(function(t, e) {
+                                    return t.then(function(t) {
+                                        return (0,
+                                        w[
+                                            e.filter
+                                        ])({ data: t, options: e.options, nWorkers: n.nWorkers });
+                                    });
+                                }, t)
+                                .then(function(t) {
+                                    return (n.data = t);
+                                });
+                        }
+                    },
+                    {
+                        key: 'append',
+                        value: function(r) {
+                            return this.applyFilters().then(function(t) {
+                                var e = g(r),
+                                    n = document.createElement('img');
+                                n.setAttribute('src', a(t)), e.appendChild(n);
+                            });
+                        }
+                    },
+                    {
+                        key: 'update',
+                        value: function(e) {
+                            return this.applyFilters().then(function(t) {
+                                g(e).setAttribute('src', a(t));
+                            });
+                        }
+                    },
+                    {
+                        key: 'getDataURL',
+                        value: function() {
+                            return a(this.data);
+                        }
+                    }
+                ]),
+                e
+            );
+        })();
+    return (
+        Object.keys(w).forEach(function(e) {
+            x.prototype[e] = function(t) {
+                return this.filters.push({ filter: e, options: t }), this;
+            };
+        }),
+        x
+    );
 });
 //# sourceMappingURL=lens-chainable.umd.js.map
