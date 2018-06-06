@@ -25,6 +25,10 @@ const METHODS = {
     threshold
 };
 
+/**
+ * Returns the a DOM element to a image
+ * @param {Object} options - options to locate image source
+ */
 const getElement = options => {
     if (options.url) {
         const element = document.createElement('img');
@@ -36,6 +40,11 @@ const getElement = options => {
     return getDomElement(options.from);
 };
 
+/**
+ * Gets the image data from the source
+ * @param {Object} options - options to locate image source
+ * @returns {Array} image data
+ */
 const getImageData = options => {
     if (options.data) return options.data;
 
@@ -47,6 +56,10 @@ const getImageData = options => {
 };
 
 export default class Chainable {
+    /**
+     * Initialize the chainable instance.
+     * @param {Object} options - options to locate image source
+     */
     constructor(options = {}) {
         if (!options.url && !options.data && !options.from) {
             throw new Error('lens-chainable:: invalid options object');
@@ -64,6 +77,10 @@ export default class Chainable {
         this.from = options.from;
     }
 
+    /**
+     * Applies the filters and returns a promise with the new image data.
+     * @returns {Promise<Array>} Promise resolved with the new image data
+     */
     applyFilters() {
         const initialValue = Promise.resolve(this.data);
 
@@ -85,6 +102,12 @@ export default class Chainable {
             });
     }
 
+    /**
+     * Creates a new image element and appends the result of
+     * the chainable operations to a given selector.
+     * @param {String} selector - DOM selector
+     * @returns {Promise} Promised resolved when the new image is appended
+     */
     append(selector) {
         return this.applyFilters().then(data => {
             const target = getDomElement(selector);
@@ -94,6 +117,11 @@ export default class Chainable {
         });
     }
 
+    /**
+     * Updates a image element with the result of the chainable operations.
+     * @param {String} selector - DOM selector
+     * @returns {Promise} Promised resolved when the target image is updated
+     */
     update(selector) {
         return this.applyFilters().then(data => {
             const target = getDomElement(selector);
@@ -101,6 +129,10 @@ export default class Chainable {
         });
     }
 
+    /**
+     * Returns the data url of the applied filters.
+     * @returns {Array} image data
+     */
     getDataURL() {
         return convertImageDataToCanvasURL(this.data);
     }
