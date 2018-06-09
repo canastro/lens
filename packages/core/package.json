@@ -1,6 +1,6 @@
 {
   "name": "lens-core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Core module for lens-filter",
   "main": "dist/lens-core.umd.js",
   "scripts": {

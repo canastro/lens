@@ -1,6 +1,6 @@
 {
   "name": "lens-filter-sepia",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Small library to apply a sepia transformation to a image",
   "main": "dist/lens-filter-sepia.umd.js",
   "scripts": {
@@ -45,6 +45,6 @@
     "rollup-plugin-uglify": "^4.0.0"
   },
   "dependencies": {
-    "lens-core": "^0.0.5"
+    "lens-core": "^0.0.6"
   }
 }
