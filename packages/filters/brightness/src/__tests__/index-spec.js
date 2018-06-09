@@ -20,7 +20,7 @@ describe('brightness', () => {
         });
     });
 
-    describe('when adjustment is not defined', () => {
+    describe('when level is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({}, {})).toThrowError(
                 'lens-filter-brightness:: invalid options provided'
@@ -31,7 +31,7 @@ describe('brightness', () => {
     describe('when has all parameters', () => {
         let result;
         const data = 'DATA';
-        const options = { adjustment: 'ADJUSTMENT' };
+        const options = { level: 'level' };
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
@@ -62,7 +62,7 @@ describe('#transform()', function() {
         const result = transform({
             data,
             length: 4,
-            options: { adjustment: 5 }
+            options: { level: 5 }
         });
         expect(result).toEqual(expectedData);
     });

@@ -23,7 +23,7 @@ import brightness from 'lens-filter-brightness';
 
 brightness({
     data: IMAGE_DATA, 
-    options: { adjustment: 30 }, 
+    options: { level: 30 }, 
     nWorkers: 4
 });
 ```
@@ -59,7 +59,7 @@ import { convertImageDataToCanvasURL } from 'lens-core';
 
 brightness({
     data: IMAGE_DATA, 
-    options: { adjustment: 30 }, 
+    options: { level: 30 }, 
     nWorkers: 4
 }).then(function (result) {
     // result === ImageData object

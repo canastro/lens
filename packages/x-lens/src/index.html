@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+  <script src="/build/xlens.js"></script>
+
+  <style>
+    .x-lens-element {
+      width: 500px;
+    }
+
+    .x-lens-element-2 {
+      width: 500px;
+    }
+  </style>
+
+</head>
+<body>
+
+  <x-lens 
+    class="x-lens-element"
+    src="https://avatars0.githubusercontent.com/u/1267623?s=400&v=4"
+    filter="brightness"
+    level="99"
+  ></x-lens>
+
+  <x-lens 
+    class="x-lens-element-2"
+    src="https://avatars0.githubusercontent.com/u/1267623?s=400&v=4"
+    filter="brightness"
+    level="1"
+  ></x-lens>
+</body>
+</html>

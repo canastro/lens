@@ -31,7 +31,7 @@ describe('threshold', () => {
     describe('when has all paramters', () => {
         let result;
         const data = 'DATA';
-        const options = { threshold: 50 };
+        const options = { level: 50 };
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
@@ -62,7 +62,7 @@ describe('#transform()', function() {
         const result = transform({
             data,
             length: 8,
-            options: { threshold: 216 }
+            options: { level: 216 }
         });
         expect(result).toEqual(expectedData);
     });

@@ -23,7 +23,7 @@ import gamma from 'lens-filter-gamma';
 
 gamma({
     data: IMAGE_DATA, 
-    options: { adjustment: 30 }, 
+    options: { level: 30 }, 
     nWorkers: 4
 });
 ```
@@ -59,7 +59,7 @@ import { convertImageDataToCanvasURL } from 'lens-core';
 
 gamma({
     data: IMAGE_DATA, 
-    options: { adjustment: 30 }, 
+    options: { level: 30 }, 
     nWorkers: 4
 }).then(function (result) {
     // result === ImageData object

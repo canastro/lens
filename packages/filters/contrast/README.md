@@ -23,7 +23,7 @@ import contrast from 'lens-filter-contrast';
 
 contrast({
     data: IMAGE_DATA, 
-    options: { contrast: 30 }, 
+    options: { level: 30 }, 
     nWorkers: 4
 });
 ```
@@ -59,7 +59,7 @@ import { convertImageDataToCanvasURL } from 'lens-core';
 
 contrast({
     data: IMAGE_DATA, 
-    options: { contrast: 30 }, 
+    options: { level: 30 }, 
     nWorkers: 4
 }).then(function (result) {
     // result === ImageData object

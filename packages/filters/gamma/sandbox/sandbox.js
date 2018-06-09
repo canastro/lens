@@ -19,17 +19,17 @@ window.onload = function() {
 
         var data = context.getImageData(0, 0, img.width, img.height);
 
-        imageGamma({ data, options: { adjustment: 30 }, nWorkers: 4 }).then(
-            function(results) {
-                applyResults('#target-1', canvas, context, results);
-            }
-        );
+        imageGamma({ data, options: { level: 30 }, nWorkers: 4 }).then(function(
+            results
+        ) {
+            applyResults('#target-1', canvas, context, results);
+        });
 
-        imageGamma({ data, options: { adjustment: 70 }, nWorkers: 4 }).then(
-            function(results) {
-                applyResults('#target-2', canvas, context, results);
-            }
-        );
+        imageGamma({ data, options: { level: 70 }, nWorkers: 4 }).then(function(
+            results
+        ) {
+            applyResults('#target-2', canvas, context, results);
+        });
     };
 
     img.src = 'dummy.jpg';

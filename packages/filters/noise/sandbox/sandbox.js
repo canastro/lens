@@ -19,13 +19,13 @@ window.onload = function() {
 
         var data = context.getImageData(0, 0, img.width, img.height);
 
-        imageNoise({ data, options: { adjustment: 50 }, nWorkers: 4 }).then(
-            function(results) {
-                applyResults('#target-1', canvas, context, results);
-            }
-        );
+        imageNoise({ data, options: { level: 50 }, nWorkers: 4 }).then(function(
+            results
+        ) {
+            applyResults('#target-1', canvas, context, results);
+        });
 
-        imageNoise({ data, options: { adjustment: 100 }, nWorkers: 4 }).then(
+        imageNoise({ data, options: { level: 100 }, nWorkers: 4 }).then(
             function(results) {
                 applyResults('#target-2', canvas, context, results);
             }

@@ -138,12 +138,12 @@ describe('#<filter>()', () => {
 
     beforeEach(() => {
         lensChainable = new Chainable({ from: '#dummy' });
-        result = lensChainable.brightness({ adjustment: 50 });
+        result = lensChainable.brightness({ level: 50 });
     });
 
     it('should add filter', () => {
         expect(lensChainable.filters).toEqual([
-            { filter: 'brightness', options: { adjustment: 50 } }
+            { filter: 'brightness', options: { level: 50 } }
         ]);
     });
 
@@ -162,7 +162,7 @@ describe('#applyFilters()', () => {
 
         lensChainable = new Chainable({ from: '#dummy', nWorkers: 4 });
         return lensChainable
-            .brightness({ adjustment: 50 })
+            .brightness({ level: 50 })
             .sepia()
             .applyFilters()
             .then(data => (result = data));
@@ -170,7 +170,7 @@ describe('#applyFilters()', () => {
 
     it('should have both filters', () => {
         expect(lensChainable.filters).toEqual([
-            { filter: 'brightness', options: { adjustment: 50 } },
+            { filter: 'brightness', options: { level: 50 } },
             { filter: 'sepia' }
         ]);
     });
@@ -179,7 +179,7 @@ describe('#applyFilters()', () => {
         expect(brightness).toHaveBeenCalledWith({
             data: 'GET-PIXELS-FROM-IMAGE',
             nWorkers: 4,
-            options: { adjustment: 50 }
+            options: { level: 50 }
         });
     });
 
@@ -206,14 +206,14 @@ describe('#append()', () => {
 
         lensChainable = new Chainable({ from: '#dummy', nWorkers: 4 });
         return lensChainable
-            .brightness({ adjustment: 50 })
+            .brightness({ level: 50 })
             .sepia()
             .append('#target');
     });
 
     it('should have both filters', () => {
         expect(lensChainable.filters).toEqual([
-            { filter: 'brightness', options: { adjustment: 50 } },
+            { filter: 'brightness', options: { level: 50 } },
             { filter: 'sepia' }
         ]);
     });
@@ -222,7 +222,7 @@ describe('#append()', () => {
         expect(brightness).toHaveBeenCalledWith({
             data: 'GET-PIXELS-FROM-IMAGE',
             nWorkers: 4,
-            options: { adjustment: 50 }
+            options: { level: 50 }
         });
     });
 
@@ -258,14 +258,14 @@ describe('#update()', () => {
 
         lensChainable = new Chainable({ from: '#dummy', nWorkers: 4 });
         return lensChainable
-            .brightness({ adjustment: 50 })
+            .brightness({ level: 50 })
             .sepia()
             .update('#target');
     });
 
     it('should have both filters', () => {
         expect(lensChainable.filters).toEqual([
-            { filter: 'brightness', options: { adjustment: 50 } },
+            { filter: 'brightness', options: { level: 50 } },
             { filter: 'sepia' }
         ]);
     });
@@ -274,7 +274,7 @@ describe('#update()', () => {
         expect(brightness).toHaveBeenCalledWith({
             data: 'GET-PIXELS-FROM-IMAGE',
             nWorkers: 4,
-            options: { adjustment: 50 }
+            options: { level: 50 }
         });
     });
 

@@ -31,7 +31,7 @@ describe('contrast', () => {
     describe('when has all paramters', () => {
         let result;
         const data = 'DATA';
-        const options = { contrast: 50 };
+        const options = { level: 50 };
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
@@ -70,7 +70,7 @@ describe('#transform()', function() {
         const result = transform({
             data,
             length: 4,
-            options: { contrast: 70 }
+            options: { level: 70 }
         });
         expect(result).toEqual(expectedData);
     });

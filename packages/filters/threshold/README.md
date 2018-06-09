@@ -23,7 +23,7 @@ import threshold from 'lens-filter-threshold';
 
 threshold({
     data: IMAGE_DATA, 
-    options: { threshold: 30 }, 
+    options: { level: 30 }, 
     nWorkers: 4
 });
 ```
@@ -59,7 +59,7 @@ import { convertImageDataToCanvasURL } from 'lens-core';
 
 threshold({
     data: IMAGE_DATA, 
-    options: { threshold: 30 }, 
+    options: { level: 30 }, 
     nWorkers: 4
 }).then(function (result) {
     // result === ImageData object

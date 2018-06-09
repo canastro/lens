@@ -20,7 +20,7 @@ describe('gamma', () => {
         });
     });
 
-    describe('when adjustment is not defined', () => {
+    describe('when level is not defined', () => {
         it('should throw error', () => {
             expect(() => victim({}, {})).toThrowError(
                 'lens-filter-gamma:: invalid options provided'
@@ -31,7 +31,7 @@ describe('gamma', () => {
     describe('when has all paramters', () => {
         let result;
         const data = 'DATA';
-        const options = { adjustment: 50 };
+        const options = { level: 50 };
 
         beforeAll(() => {
             core.applyFilter = jest.fn().mockReturnValue('MOCK-VALUE');
@@ -71,7 +71,7 @@ describe('#transform()', function() {
         const result = transform({
             data,
             length: 4,
-            options: { adjustment: 5 }
+            options: { level: 5 }
         });
         expect(result).toEqual(expectedData);
     });

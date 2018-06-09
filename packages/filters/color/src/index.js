@@ -65,7 +65,7 @@ export const transform = ({ data, length, options }) => {
 /**
  * @param {ImageData} data - data of a image extracted from a canvas
  * @param {Object} options - options to pass to the transformation function
- * @param {ColorInterval} [options.colorsInterval] - adjustment to apply in the transformation
+ * @param {ColorInterval} [options.colorsInterval] - colorsInterval to apply in the transformation
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */

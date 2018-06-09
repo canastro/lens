@@ -19,11 +19,11 @@ window.onload = function() {
 
         const data = context.getImageData(0, 0, img.width, img.height);
 
-        brightness({ data, options: { adjustment: 30 }, nWorkers: 4 }).then(
+        brightness({ data, options: { level: 30 }, nWorkers: 4 }).then(
             results => applyResults('#target-1', results)
         );
 
-        brightness({ data, options: { adjustment: 70 }, nWorkers: 4 }).then(
+        brightness({ data, options: { level: 70 }, nWorkers: 4 }).then(
             results => applyResults('#target-2', results)
         );
     };

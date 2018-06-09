@@ -6,11 +6,11 @@ import { applyFilter } from 'lens-core';
  * @param {Object} data
  * @param {Number} length
  * @param {Object} options
- * @param {Number} [options.contrast]
+ * @param {Number} [options.level]
  */
 export const transform = ({ data, length, options }) => {
     const factor =
-        (259 * (options.contrast + 255)) / (255 * (259 - options.contrast));
+        (259 * (options.level + 255)) / (255 * (259 - options.level));
 
     for (let i = 0; i < length; i += 4) {
         data[i] = factor * (data[i] - 128) + 128;
@@ -24,12 +24,12 @@ export const transform = ({ data, length, options }) => {
 /**
  * @param {ImageData} data - data of a image extracted from a canvas
  * @param {Object} options - options to pass to the transformation function
- * @param {Number} [options.contrast] - contrast value to apply in the transformation
+ * @param {Number} [options.level] - contrast value to apply in the transformation
  * @param {Number} nWorkers - number of workers
  * @returns {Promise}
  */
 export default function contrast({ data, options, nWorkers } = {}) {
-    if (!data || !options || !options.contrast) {
+    if (!data || !options || !options.level) {
         throw new Error('lens-filter-contrast:: invalid options provided');
     }
 

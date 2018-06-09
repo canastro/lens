@@ -37,7 +37,7 @@ Apply a filter to the current chainable instance. Check here the available filte
 ```js
 import Chainable from 'lens-chainable';
 const chainable = new Chainable({ url: 'dummy.jpg ' })
-    .brigthness({ adjustment: 30 })
+    .brigthness({ level: 30 })
     .sepia();
 ```
 
@@ -49,7 +49,7 @@ Creates a new image element and appends the result of the chainable operations t
 ```js
 import Chainable from 'lens-chainable';
 new Chainable({ url: 'dummy.jpg ' })
-    .brigthness({ adjustment: 30 })
+    .brigthness({ level: 30 })
     .sepia()
     .append('#target-div');
 ```
@@ -60,7 +60,7 @@ Applies the filters and returns a promise with the new image data.
 ```js
 import Chainable from 'lens-chainable';
 new Chainable({ url: 'dummy.jpg ' })
-    .brigthness({ adjustment: 30 })
+    .brigthness({ level: 30 })
     .sepia()
     .applyFilters()
     .then(imageData => {
@@ -74,7 +74,7 @@ Returns the data url of the applied filters.
 ```js
 import Chainable from 'lens-chainable';
 const dataURL = new Chainable({ url: 'dummy.jpg ' })
-    .brigthness({ adjustment: 30 })
+    .brigthness({ level: 30 })
     .sepia()
     .getDataURL();
 ```
@@ -87,7 +87,7 @@ Updates a image element with the result of the chainable operations.
 ```js
 import Chainable from 'lens-chainable';
 new Chainable({ url: 'dummy.jpg ' })
-    .brigthness({ adjustment: 30 })
+    .brigthness({ level: 30 })
     .sepia()
     .update('#target-img');
 ```
