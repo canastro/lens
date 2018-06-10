@@ -1,6 +1,6 @@
 {
   "name": "lens-filter-gamma",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Small library to apply a gamma filter to a image",
   "main": "dist/lens-filter-gamma.umd.js",
   "scripts": {
@@ -45,6 +45,6 @@
     "rollup-plugin-uglify": "^4.0.0"
   },
   "dependencies": {
-    "lens-core": "^0.0.6"
+    "lens-core": "^0.0.7"
   }
 }

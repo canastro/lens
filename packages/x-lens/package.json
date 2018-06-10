@@ -1,6 +1,6 @@
 {
   "name": "x-lens",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "X-Lens component",
   "module": "dist/esm/index.js",
   "main": "dist/index.js",
@@ -18,8 +18,8 @@
     "test.watch": "jest --watch"
   },
   "dependencies": {
-    "lens-core": "^0.0.6",
-    "lens-filter-brightness": "^0.0.6"
+    "lens-core": "^0.0.7",
+    "lens-filter-brightness": "^0.0.7"
   },
   "devDependencies": {
     "@stencil/core": "^0.9.1",
