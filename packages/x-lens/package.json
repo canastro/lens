@@ -19,7 +19,16 @@
   },
   "dependencies": {
     "lens-core": "^0.0.7",
-    "lens-filter-brightness": "^0.0.7"
+    "lens-filter-brightness": "^0.0.7",
+    "lens-filter-color": "^0.0.7",
+    "lens-filter-colorize": "^0.0.7",
+    "lens-filter-contrast": "^0.0.7",
+    "lens-filter-gamma": "^0.0.7",
+    "lens-filter-grayscale": "^0.0.7",
+    "lens-filter-invert": "^0.0.7",
+    "lens-filter-noise": "^0.0.7",
+    "lens-filter-sepia": "^0.0.7",
+    "lens-filter-threshold": "^0.0.7"
   },
   "devDependencies": {
     "@stencil/core": "^0.9.1",
