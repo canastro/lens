@@ -1,6 +1,6 @@
 {
   "name": "lens-filter-invert",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Small library to apply a invert transformation to a image",
   "main": "dist/lens-filter-grayscale.umd.js",
   "scripts": {
@@ -45,6 +45,6 @@
     "rollup-plugin-uglify": "^4.0.0"
   },
   "dependencies": {
-    "lens-core": "^0.0.7"
+    "lens-core": "^0.0.8"
   }
 }
