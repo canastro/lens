@@ -1,33 +1,96 @@
 !(function(e, t) {
     'object' == typeof exports && 'undefined' != typeof module
-        ? t(exports, require('lens-core'))
+        ? t(exports, require('workerize'))
         : 'function' == typeof define && define.amd
-            ? define(['exports', 'lens-core'], t)
-            : t((e.lensFilterNoise = {}), e.lensCore);
-})(this, function(e, o) {
+            ? define(['exports', 'workerize'], t)
+            : t((e.lensFilterNoise = {}), e.workerize);
+})(this, function(e, n) {
     'use strict';
-    var i = function(e) {
-        for (
-            var t = e.data,
-                n = e.length,
-                r = e.options,
-                o = 2.55 * Math.abs(r.adjustment),
-                i = function(e, t) {
-                    var n = e + t;
-                    return 255 < n ? 255 : n < 0 ? 0 : n;
-                },
-                a = 0;
-            a < n;
-            a += 4
-        ) {
-            var s = (Math.random() < 0.5 ? -1 : 1) * (Math.random() + o);
-            (t[a] = i(t[a], s)),
-                (t[a + 1] = i(t[a + 1], s)),
-                (t[a + 2] = i(t[a + 2], s));
-        }
-        return t;
-    };
-    (e.transform = i),
+    n = n && n.hasOwnProperty('default') ? n.default : n;
+    'undefined' != typeof window
+        ? window
+        : 'undefined' != typeof global
+            ? global
+            : 'undefined' != typeof self && self;
+    var t,
+        a = ((function(e, t) {
+            !(function(a) {
+                function o(e, t) {
+                    var n = document.createElement('canvas');
+                    return (n.width = e), (n.height = t), n;
+                }
+                (a = a && a.hasOwnProperty('default') ? a.default : a),
+                    (t.getCanvas = o),
+                    (t.convertImageDataToCanvasURL = function(e) {
+                        var t = window.document.createElement('canvas'),
+                            n = t.getContext('2d');
+                        return (
+                            (t.width = e.width),
+                            (t.height = e.height),
+                            n.putImageData(e, 0, 0),
+                            t.toDataURL()
+                        );
+                    }),
+                    (t.applyFilter = function(e) {
+                        var t = e.data,
+                            n = e.transform,
+                            i = e.options,
+                            d = e.nWorkers,
+                            s = a(
+                                '\n        var transform = ' +
+                                    n +
+                                    ';\n\n        export function execute(canvas, index, length, options) {\n            canvas.data = transform({ \n                data: canvas.data, \n                length: length, \n                options: options\n            });\n\n            return { result: canvas, index: index };\n        }\n    '
+                            ),
+                            f = o(t.width, t.height),
+                            u = f.getContext('2d');
+                        u.putImageData(t, 0, 0), (d = d || 1);
+                        var l = Math.floor(f.height / d);
+                        return new Promise(function(t) {
+                            for (var n = 0, e = void 0, a = 0; a < d; a++) {
+                                (e = l), a + 1 === d && (e = f.height - l * a);
+                                var o = u.getImageData(0, l * a, f.width, e),
+                                    r = e * f.width * 4;
+                                s.execute(o, a, r, i).then(function(e) {
+                                    u.putImageData(e.result, 0, l * e.index),
+                                        ++n === d &&
+                                            t(
+                                                u.getImageData(
+                                                    0,
+                                                    0,
+                                                    f.width,
+                                                    f.height
+                                                )
+                                            );
+                                });
+                            }
+                        });
+                    });
+            })(n);
+        })((t = { exports: {} }), t.exports),
+        t.exports),
+        o = (a.getCanvas, a.convertImageDataToCanvasURL, a.applyFilter),
+        r = function(e) {
+            for (
+                var t = e.data,
+                    n = e.length,
+                    a = e.options,
+                    o = 2.55 * Math.abs(a.level),
+                    r = function(e, t) {
+                        var n = e + t;
+                        return 255 < n ? 255 : n < 0 ? 0 : n;
+                    },
+                    i = 0;
+                i < n;
+                i += 4
+            ) {
+                var d = (Math.random() < 0.5 ? -1 : 1) * (Math.random() + o);
+                (t[i] = r(t[i], d)),
+                    (t[i + 1] = r(t[i + 1], d)),
+                    (t[i + 2] = r(t[i + 2], d));
+            }
+            return t;
+        };
+    (e.transform = r),
         (e.default = function() {
             var e =
                     0 < arguments.length && void 0 !== arguments[0]
@@ -35,15 +98,10 @@
                         : {},
                 t = e.data,
                 n = e.options,
-                r = e.nWorkers;
-            if (!t || !n || !n.adjustment)
+                a = e.nWorkers;
+            if (!t || !n || !n.level)
                 throw new Error('lens-filter-noise:: invalid options provided');
-            return o.applyFilter({
-                data: t,
-                transform: i,
-                options: n,
-                nWorkers: r
-            });
+            return o({ data: t, transform: r, options: n, nWorkers: a });
         }),
         Object.defineProperty(e, '__esModule', { value: !0 });
 });
