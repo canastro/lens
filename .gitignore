@@ -3,3 +3,5 @@ bundle.js.map
 node_modules
 coverage
 npm-debug.log
+lerna-debug.log
+.DS_Store
